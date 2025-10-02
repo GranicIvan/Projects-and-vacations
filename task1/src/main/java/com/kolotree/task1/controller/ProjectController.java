@@ -2,6 +2,7 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.repository.ProjectRepo;
+import jakarta.websocket.server.PathParam;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,7 @@ public class ProjectController {
 
     @PostMapping("/addProject")
     public Project addProject(@RequestBody Project project){
-        System.out.println("PROJECT IS: " + project);
+//        System.out.println("PROJECT IS: " + project);
         return projectRepo.save(project);
     }
 
@@ -32,6 +33,12 @@ public class ProjectController {
     public String testP(){
         return "works";
     }
+
+    @DeleteMapping("/deleteProject")
+    public void deleteProject(@RequestParam Integer id){
+        projectRepo.deleteById(id); // TODO da vraca da li je uspelo ili ne
+    }
+
 
 
 

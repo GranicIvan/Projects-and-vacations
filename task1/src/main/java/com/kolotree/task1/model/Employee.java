@@ -1,11 +1,13 @@
 package com.kolotree.task1.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "employee")
+@Data
 public class Employee {
 
     @Id
@@ -25,16 +27,4 @@ public class Employee {
     private Employee() {}
 
 
-    public Employee(Integer id, String firstName, String lastName, LocalDate dateOfBirth, String email, String password, String salt, String address, Integer vacationDaysLeft, UserType userType) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.password = password;
-        this.salt = salt;
-        this.address = address;
-        this.vacationDaysLeft = vacationDaysLeft;
-        this.userType = userType;
-    }
 }

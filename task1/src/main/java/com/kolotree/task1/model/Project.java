@@ -1,9 +1,11 @@
 package com.kolotree.task1.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "projects")
+@Data
 public class Project {
 
     @Id
@@ -16,15 +18,15 @@ public class Project {
 
     private Double monthlyIncome;
 
-    public Project() {}
-
-
-    public Project(Integer id, String projectName, String description, Double monthlyIncome) {
-        this.id = id;
-        this.projectName = projectName;
-        this.description = description;
-        this.monthlyIncome = monthlyIncome;
-    }
+//    public Project() {}
+//
+//
+//    public Project(Integer id, String projectName, String description, Double monthlyIncome) {
+//        this.id = id;
+//        this.projectName = projectName;
+//        this.description = description;
+//        this.monthlyIncome = monthlyIncome;
+//    }
 
     @Override
     public String toString() {
@@ -36,35 +38,35 @@ public class Project {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getProjectName() {
-        return projectName;
-    }
-
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getMonthlyIncome() {
-        return monthlyIncome;
-    }
-
-    public void setMonthlyIncome(Double monthlyIncome) {
-        this.monthlyIncome = monthlyIncome;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public String getProjectName() {
+//        return projectName;
+//    }
+//
+//    public void setProjectName(String projectName) {
+//        this.projectName = projectName;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
+//
+//    public Double getMonthlyIncome() {
+//        return monthlyIncome;
+//    }
+//
+//    public void setMonthlyIncome(Double monthlyIncome) {
+//        this.monthlyIncome = monthlyIncome;
+//    }
 }
