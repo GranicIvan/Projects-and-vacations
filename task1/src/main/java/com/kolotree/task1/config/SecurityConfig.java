@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @Profile("!development")
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -18,7 +18,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests( auth -> auth.anyRequest().authenticated())
                 .formLogin(formlogin -> formlogin.loginPage("/login").permitAll()).build();
-                //.logout( logout -> logout.)
+
     }
 
 }

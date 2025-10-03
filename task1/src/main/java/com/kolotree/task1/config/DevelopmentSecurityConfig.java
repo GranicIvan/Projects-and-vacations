@@ -10,10 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @Profile("development")
 public class DevelopmentSecurityConfig {
 
-//    protected void configure(HttpSecurity http) throws Exception{
-//        http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-//                .csrf(csrf -> csrf.disable()).build();
-//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
