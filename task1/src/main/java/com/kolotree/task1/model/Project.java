@@ -19,5 +19,4 @@ public class Project {
     private Double monthlyIncome;
 
 
-
 }

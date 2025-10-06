@@ -6,7 +6,8 @@ import com.kolotree.task1.model.Project;
 
 public class ProjectMapper {
 
-    private ProjectMapper() {}
+    private ProjectMapper() {
+    }
 
     public static void applyPatch(Project target, ProjectPatchDto dto) {
         if (dto.getProjectName() != null) {

@@ -16,12 +16,12 @@ public class AuthenticationService {
 
     private final UserRepo userRepo;
 
-    private  final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
 
 
-    public User signup(RegisterUserDto input){
+    public User signup(RegisterUserDto input) {
         User user = new User();
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
@@ -31,7 +31,7 @@ public class AuthenticationService {
         return userRepo.save(user);
     }
 
-    public User authenticate(LoginUserDto input){
+    public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),

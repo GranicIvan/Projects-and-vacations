@@ -17,7 +17,7 @@ public class UserService {
 
     private UserRepo userRepo;
 
-    public Iterable<User> getAll(){
+    public Iterable<User> getAll() {
         return userRepo.findAll();
     }
 
@@ -27,17 +27,17 @@ public class UserService {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public User addUser(@RequestBody User user){
+    public User addUser(@RequestBody User user) {
         return userRepo.save(user);
     }
 
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
-        if(!userRepo.existsById(id)) return ResponseEntity.notFound().build();
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        if (!userRepo.existsById(id)) return ResponseEntity.notFound().build();
         userRepo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto){
+    public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto) {
 
         //Body must same at least one field
         if (dto.getFirstName() == null && dto.getLastName() == null &&

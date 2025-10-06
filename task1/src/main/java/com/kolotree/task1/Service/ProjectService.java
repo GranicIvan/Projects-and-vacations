@@ -26,11 +26,11 @@ public class ProjectService {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public Project addProject(@RequestBody Project project){
+    public Project addProject(@RequestBody Project project) {
         return projectRepo.save(project);
     }
 
-    public ResponseEntity<Void> deleteProject(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
         if (!projectRepo.existsById(id)) return ResponseEntity.notFound().build();
         projectRepo.deleteById(id);
         return ResponseEntity.noContent().build();

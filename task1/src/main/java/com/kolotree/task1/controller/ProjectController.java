@@ -2,13 +2,9 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.Service.ProjectService;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
-import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
-import com.kolotree.task1.repository.ProjectRepo;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
