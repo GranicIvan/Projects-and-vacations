@@ -1,50 +1,49 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.dto.employee.EmployeePatchDto;
-import com.kolotree.task1.mapper.EmployeeMapper;
-import com.kolotree.task1.model.Employee;
-import com.kolotree.task1.repository.EmployeeRepo;
+import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.mapper.UserMapper;
+import com.kolotree.task1.model.User;
+import com.kolotree.task1.repository.UserRepo;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/employee")
-public class EmployeeController {
+@RequestMapping("/users")
+public class UserController {
 
-    private final EmployeeRepo employeeRepo;
+    private final UserRepo userRepo;
 
-    public EmployeeController(EmployeeRepo employeeRepo){
-        this.employeeRepo = employeeRepo;
+    public UserController(UserRepo userRepo){
+        this.userRepo = userRepo;
     }
 
     @GetMapping
-    public Iterable<Employee> getAll(){
-        return employeeRepo.findAll();
+    public Iterable<User> getAll(){
+        return userRepo.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Employee> getOne(@PathVariable Integer id) {
-        return employeeRepo.findById(id)
+    public ResponseEntity<User> getOne(@PathVariable Integer id) {
+        return userRepo.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Employee addEmployee(@RequestBody Employee employee){
-        return employeeRepo.save(employee);
+    public User addUser(@RequestBody User user){
+        return userRepo.save(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Integer id){
-        if(!employeeRepo.existsById(id)) return ResponseEntity.notFound().build();
-        employeeRepo.deleteById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id){
+        if(!userRepo.existsById(id)) return ResponseEntity.notFound().build();
+        userRepo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> patchEmployee(@PathVariable Integer id, @Valid @RequestBody EmployeePatchDto dto){
+    public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto){
 
         //Body must same at least one field
         if (dto.getFirstName() == null && dto.getLastName() == null &&
@@ -61,11 +60,11 @@ public class EmployeeController {
             return ResponseEntity.badRequest().body("lastName must not be blank when provided.");
 
 
-        return employeeRepo.findById(id)
+        return userRepo.findById(id)
                 .map(existing -> {
-                    EmployeeMapper.applyPatch(existing, dto);
-                    var saved = employeeRepo.save(existing);
-                    return ResponseEntity.ok(saved); // or map to an EmployeeResponse DTO if you have one
+                    UserMapper.applyPatch(existing, dto);
+                    var saved = userRepo.save(existing);
+                    return ResponseEntity.ok(saved);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }

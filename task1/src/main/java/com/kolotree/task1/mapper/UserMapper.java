@@ -1,14 +1,14 @@
 package com.kolotree.task1.mapper;
 
-import com.kolotree.task1.dto.employee.EmployeePatchDto;
-import com.kolotree.task1.dto.employee.EmployeeUpdateDto;
-import com.kolotree.task1.model.Employee;
+import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.dto.user.UserUpdateDto;
+import com.kolotree.task1.model.User;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class EmployeeMapper {
+public class UserMapper {
 
-    public static void applyUpdate(Employee target, EmployeeUpdateDto dto) {
+    public static void applyUpdate(User target, UserUpdateDto dto) {
         target.setFirstName(dto.getFirstName());
         target.setLastName(dto.getLastName());
         target.setDateOfBirth(dto.getDateOfBirth());
@@ -18,7 +18,7 @@ public class EmployeeMapper {
         target.setUserType(dto.getUserType());
     }
 
-    public static void applyPatch(Employee target, EmployeePatchDto dto) {
+    public static void applyPatch(User target, UserPatchDto dto) {
         if (dto.getFirstName() != null)        target.setFirstName(dto.getFirstName());
         if (dto.getLastName() != null)         target.setLastName(dto.getLastName());
         if (dto.getDateOfBirth() != null)      target.setDateOfBirth(dto.getDateOfBirth());

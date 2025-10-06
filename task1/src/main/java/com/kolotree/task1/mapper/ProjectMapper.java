@@ -1,7 +1,7 @@
 package com.kolotree.task1.mapper;
 
 import com.kolotree.task1.dto.project.ProjectPatchDto;
-import com.kolotree.task1.dto.project.ProjectResponse;
+import com.kolotree.task1.dto.project.ProjectResponseDto;
 import com.kolotree.task1.model.Project;
 
 public class ProjectMapper {
@@ -20,8 +20,8 @@ public class ProjectMapper {
         }
     }
 
-    public static ProjectResponse toResponse(Project p) {
-        return new ProjectResponse(
+    public static ProjectResponseDto toResponse(Project p) {
+        return new ProjectResponseDto(
                 p.getId(),
                 p.getProjectName(),
                 p.getDescription(),
