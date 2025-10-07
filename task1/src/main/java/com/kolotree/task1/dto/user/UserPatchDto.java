@@ -1,7 +1,6 @@
 package com.kolotree.task1.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.kolotree.task1.model.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Past;
@@ -23,5 +22,4 @@ public class UserPatchDto {
     private String address;
     @Min(0)
     private Integer vacationDaysLeft;
-    private UserType userType;
 }

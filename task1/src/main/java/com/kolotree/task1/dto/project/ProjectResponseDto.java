@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ProjectResponseDto {
-    Integer id;
+    Long id;
     String projectName;
     String description;
     Double monthlyIncome;

@@ -1,7 +1,7 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.Service.AuthenticationService;
-import com.kolotree.task1.Service.JwtService;
+import com.kolotree.task1.service.AuthenticationService;
+import com.kolotree.task1.service.JwtService;
 import com.kolotree.task1.dto.Auth.LoginUserDto;
 import com.kolotree.task1.dto.Auth.RegisterUserDto;
 import com.kolotree.task1.model.User;

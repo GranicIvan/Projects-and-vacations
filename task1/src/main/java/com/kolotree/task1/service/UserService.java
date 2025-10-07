@@ -1,4 +1,4 @@
-package com.kolotree.task1.Service;
+package com.kolotree.task1.service;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.mapper.UserMapper;
@@ -42,8 +42,7 @@ public class UserService {
         //Body must same at least one field
         if (dto.getFirstName() == null && dto.getLastName() == null &&
                 dto.getDateOfBirth() == null && dto.getEmail() == null &&
-                dto.getAddress() == null && dto.getVacationDaysLeft() == null &&
-                dto.getUserType() == null) {
+                dto.getAddress() == null && dto.getVacationDaysLeft() == null) {
             return ResponseEntity.badRequest().body("At least one field must be provided.");
         }
 

@@ -1,6 +1,6 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.Service.UserService;
+import com.kolotree.task1.service.UserService;
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.model.User;
 import jakarta.validation.Valid;

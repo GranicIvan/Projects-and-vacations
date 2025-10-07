@@ -1,4 +1,4 @@
-package com.kolotree.task1.Service;
+package com.kolotree.task1.service;
 
 
 import io.jsonwebtoken.Claims;

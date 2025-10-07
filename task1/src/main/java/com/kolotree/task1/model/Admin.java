@@ -4,19 +4,20 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "projects")
+@Table(name = "admin")
 @Data
-public class Project {
+public class Admin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String projectName;
+    private String email;
+    private String password;
 
-    private String description;
+    private String firstName;
+    private String lastName;
 
-    private Double monthlyIncome;
 
 
 }

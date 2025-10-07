@@ -1,6 +1,6 @@
 package com.kolotree.task1.config;
 
-import com.kolotree.task1.Service.JwtService;
+import com.kolotree.task1.service.JwtService;
 import com.kolotree.task1.repository.UserRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

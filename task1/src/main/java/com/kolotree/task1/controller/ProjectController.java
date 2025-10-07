@@ -1,6 +1,6 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.Service.ProjectService;
+import com.kolotree.task1.service.ProjectService;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.model.Project;
 import jakarta.validation.Valid;

@@ -1,6 +1,6 @@
 package com.kolotree.task1.config;
 
-import com.kolotree.task1.Service.JwtService;
+import com.kolotree.task1.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

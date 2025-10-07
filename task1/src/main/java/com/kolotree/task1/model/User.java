@@ -16,17 +16,15 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private String email;
     private String password;
-    private String salt;
     private String address;
     private Integer vacationDaysLeft;
-    private UserType userType;
 
 
     @Override

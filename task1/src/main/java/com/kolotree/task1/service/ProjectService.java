@@ -1,4 +1,4 @@
-package com.kolotree.task1.Service;
+package com.kolotree.task1.service;
 
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.mapper.ProjectMapper;
