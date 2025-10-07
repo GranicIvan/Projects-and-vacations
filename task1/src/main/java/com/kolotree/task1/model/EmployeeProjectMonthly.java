@@ -1,10 +1,10 @@
 package com.kolotree.task1.model;
 
 import com.kolotree.task1.model.id.EmployeeProjectMonthlyId;
-import jakarta.persistence.*;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Data;
-
-import java.time.YearMonth;
 
 @Entity
 @Table(name = "employee_project_monthly")
@@ -17,7 +17,7 @@ public class EmployeeProjectMonthly {
 
     private int hoursWorkedOnProject; //hoursWorkedOnProjectForMonth
 
-//    private double hourlyRate; //TODO Move this to new table
+    private double hourlyRate;
 
 
 }

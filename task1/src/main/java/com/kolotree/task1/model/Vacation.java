@@ -1,10 +1,12 @@
 package com.kolotree.task1.model;
 
 import com.kolotree.task1.model.id.VacationId;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.time.YearMonth;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -26,7 +28,33 @@ public class Vacation {
         this.vacationLength = calculateWorkDaysBetweenDates(startDate, endDate);
     }
 
-    private int calculateWorkDaysBetweenDates(Date start, Date end) {
-        return 0; // TODO Add method
+    private int calculateWorkDaysBetweenDates(Date startDate, Date endDate) {
+
+        if (startDate == null || endDate == null) {
+            throw new IllegalArgumentException("Start and end dates must not be null");
+        }
+
+        // Ensure start <= end
+        if (startDate.after(endDate)) {
+            Date temp = startDate;
+            startDate = endDate;
+            endDate = temp;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+
+        int workDays = 0;
+
+        while (calendar.getTime().before(endDate) || calendar.getTime().equals(endDate)) {
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            // Skip Saturday (7) and Sunday (1)
+            if (dayOfWeek != Calendar.SATURDAY && dayOfWeek != Calendar.SUNDAY) {
+                workDays++;
+            }
+            calendar.add(Calendar.DATE, 1);
+        }
+
+        return workDays;
     }
 }
