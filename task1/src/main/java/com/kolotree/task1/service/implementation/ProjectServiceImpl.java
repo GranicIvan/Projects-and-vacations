@@ -5,9 +5,12 @@ import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.repository.ProjectRepo;
 import com.kolotree.task1.service.interfaces.ProjectService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -21,9 +24,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Project> getOne( Integer id) {
-        return projectRepo.findById(id).map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Optional<Project> getOne(Integer id) {
+        return projectRepo.findById(id);
     }
 
     @Override
@@ -32,41 +34,37 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Void> deleteProject( Integer id) {
-        if (!projectRepo.existsById(id)) return ResponseEntity.notFound().build();
-        projectRepo.deleteById(id);
-        return ResponseEntity.noContent().build();
+    public void deleteProject( Integer id) {
+        if (!projectRepo.existsById(id)) {
+                throw new EntityNotFoundException("Project with ID " + id + " not found");
+            }
+            projectRepo.deleteById(id);
     }
 
     @Override
-    public ResponseEntity<Project> updateProject(Integer id,  Project updatedProject) {
-        if (!projectRepo.existsById(id)) return ResponseEntity.notFound().build();
+    public Project updateProject(Integer id,  Project updatedProject) {
+        var existing = projectRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found"));
 
-        Project existingProject = projectRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Project not found"));
-        updatedProject.setId(existingProject.getId());
-        Project savedProject = projectRepo.save(updatedProject);
-        return ResponseEntity.ok(savedProject);
-
+        updatedProject.setId(existing.getId());
+        return projectRepo.save(updatedProject);
     }
 
     @Override
-    public ResponseEntity<?> patchProject(Integer id, ProjectPatchDto dto) {
+    public Project patchProject(Integer id, ProjectPatchDto dto) {
+
+        var existing = projectRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Project not found"));
 
         if (dto.getProjectName() == null && dto.getDescription() == null && dto.getMonthlyIncome() == null) {
-            return ResponseEntity.badRequest().body("At least one field must be provided.");
+            throw new IllegalArgumentException("At least one field must be provided.");
         }
 
-        // If projectName is provided, ensure it's not blank
         if (dto.getProjectName() != null && dto.getProjectName().isBlank()) {
-            return ResponseEntity.badRequest().body("projectName must not be blank when provided.");
+            throw new IllegalArgumentException("projectName must not be blank when provided.");
         }
 
-        return projectRepo.findById(id)
-                .map(existing -> {
-                    ProjectMapper.applyPatch(existing, dto);
-                    Project saved = projectRepo.save(existing);
-                    return ResponseEntity.ok(ProjectMapper.toResponse(saved));
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        ProjectMapper.applyPatch(existing, dto);
+        return projectRepo.save(existing);
     }
 }

@@ -5,9 +5,12 @@ import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepo;
 import com.kolotree.task1.service.interfaces.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -21,10 +24,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<User> getOne(Integer id) {
-        return userRepo.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public Optional<User> getOne(Integer id) {
+        return userRepo.findById(id);
+
     }
 
     @Override
@@ -33,36 +35,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<Void> deleteUser(Integer id) {
-        if (!userRepo.existsById(id)) return ResponseEntity.notFound().build();
+    public void deleteUser(Integer id) {
+        if (!userRepo.existsById(id)) {
+            throw new EntityNotFoundException("User with ID " + id + " not found");
+        }
         userRepo.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<?> patchUser(Integer id, UserPatchDto dto) {
+    public User patchUser(Integer id, UserPatchDto dto) {
 
-        //Body must same at least one field
+        var user = userRepo.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        // Validate that at least one field is present
         if (dto.getFirstName() == null && dto.getLastName() == null &&
                 dto.getDateOfBirth() == null && dto.getEmail() == null &&
                 dto.getAddress() == null && dto.getVacationDaysLeft() == null) {
-            return ResponseEntity.badRequest().body("At least one field must be provided.");
+            throw new IllegalArgumentException("At least one field must be provided.");
         }
 
-        //Name can't be blank
-        if (dto.getFirstName() != null && dto.getFirstName().isBlank())
-            return ResponseEntity.badRequest().body("firstName must not be blank when provided.");
-        if (dto.getLastName() != null && dto.getLastName().isBlank())
-            return ResponseEntity.badRequest().body("lastName must not be blank when provided.");
+        // Validate non-blank names
+        if (dto.getFirstName() != null && dto.getFirstName().isBlank()) {
+            throw new IllegalArgumentException("firstName must not be blank when provided.");
+        }
+        if (dto.getLastName() != null && dto.getLastName().isBlank()) {
+            throw new IllegalArgumentException("lastName must not be blank when provided.");
+        }
 
+        UserMapper.applyPatch(user, dto);
+        return userRepo.save(user);
 
-        return userRepo.findById(id)
-                .map(existing -> {
-                    UserMapper.applyPatch(existing, dto);
-                    var saved = userRepo.save(existing);
-                    return ResponseEntity.ok(saved);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
 }
