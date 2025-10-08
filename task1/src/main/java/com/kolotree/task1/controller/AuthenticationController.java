@@ -1,11 +1,11 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.service.implementation.AuthenticationServiceImpl;
-import com.kolotree.task1.service.implementation.JwtServiceImpl;
+import com.kolotree.task1.dto.auth.LoginResponseDto;
 import com.kolotree.task1.dto.auth.LoginUserDto;
 import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.model.User;
-import com.kolotree.task1.dto.auth.LoginResponseDto;
+import com.kolotree.task1.service.implementation.JwtServiceImpl;
+import com.kolotree.task1.service.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ public class AuthenticationController {
 
     private final JwtServiceImpl jwtServiceImpl;
 
-    private final AuthenticationServiceImpl authenticationServiceImpl;
+    private final AuthenticationService authenticationServiceImpl;
 
 
     @PostMapping("/signup")

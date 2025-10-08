@@ -1,8 +1,8 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.service.implementation.ProjectServiceImpl;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.model.Project;
+import com.kolotree.task1.service.interfaces.ProjectService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private final ProjectServiceImpl projectServiceImpl;
+    private final ProjectService projectServiceImpl;
 
 
     @GetMapping

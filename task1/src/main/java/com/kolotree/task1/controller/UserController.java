@@ -1,21 +1,21 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.service.implementation.UserServiceImpl;
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.model.User;
+import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.core.Authentication;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserServiceImpl userServiceImpl;
+    private final UserService userServiceImpl;
 
 
     @GetMapping
