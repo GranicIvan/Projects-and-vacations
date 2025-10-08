@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class UserUpdateDto {
     @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
     @Past
     @NotNull

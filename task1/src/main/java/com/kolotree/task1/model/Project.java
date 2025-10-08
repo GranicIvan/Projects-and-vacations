@@ -1,6 +1,5 @@
 package com.kolotree.task1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,11 +22,8 @@ public class Project {
     private Double monthlyIncome;
 
 
-
     @OneToMany(mappedBy = "project")
     private List<UserOnProject> userOnProject = new ArrayList<>();
-
-
 
 
 }

@@ -11,6 +11,5 @@ public class  ProjectCreateDto {
     @NotBlank
     private String projectName;
     private String description;
-    @NotNull
     private Double monthlyIncome;
 }

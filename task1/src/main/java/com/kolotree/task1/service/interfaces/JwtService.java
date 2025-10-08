@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 public interface JwtService {
 
-    String extractUsername(String token) ;
+    String extractUsername(String token);
 
     <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
 
@@ -24,4 +24,4 @@ public interface JwtService {
     boolean isTokenValid(String token, UserDetails userDetails);
 
 
-    }
+}

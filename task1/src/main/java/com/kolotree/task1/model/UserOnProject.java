@@ -12,7 +12,6 @@ public class UserOnProject {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO da li je osigurano da jedan user ne moze biti dva puta na jednom projektu
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

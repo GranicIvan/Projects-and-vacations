@@ -2,8 +2,6 @@ package com.kolotree.task1.service.interfaces;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.model.User;
-import org.springframework.http.ResponseEntity;
-
 
 import java.util.Optional;
 

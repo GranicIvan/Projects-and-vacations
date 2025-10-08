@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity handleJbtWxp(ExpiredJwtException ex){
-        return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    public ResponseEntity handleJbtWxp(ExpiredJwtException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
 }

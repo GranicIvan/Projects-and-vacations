@@ -7,7 +7,6 @@ import com.kolotree.task1.repository.ProjectRepo;
 import com.kolotree.task1.service.interfaces.ProjectService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,20 +28,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project addProject( Project project) {
+    public Project addProject(Project project) {
         return projectRepo.save(project);
     }
 
     @Override
-    public void deleteProject( Integer id) {
+    public void deleteProject(Integer id) {
         if (!projectRepo.existsById(id)) {
-                throw new EntityNotFoundException("Project with ID " + id + " not found");
-            }
-            projectRepo.deleteById(id);
+            throw new EntityNotFoundException("Project with ID " + id + " not found");
+        }
+        projectRepo.deleteById(id);
     }
 
     @Override
-    public Project updateProject(Integer id,  Project updatedProject) {
+    public Project updateProject(Integer id, Project updatedProject) {
         var existing = projectRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
 

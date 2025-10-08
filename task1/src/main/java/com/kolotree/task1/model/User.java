@@ -1,6 +1,5 @@
 package com.kolotree.task1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +28,6 @@ public class User implements UserDetails {
     private Integer vacationDaysLeft;
 
     private UserType userType;
-
 
 
     @OneToMany(mappedBy = "user")

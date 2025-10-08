@@ -30,13 +30,11 @@ public class ProjectController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-
     @PostMapping
     public Project addProject(@RequestBody Project project) {
         Project saved = projectServiceImpl.addProject(project);
         return ResponseEntity.ok(saved).getBody();
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
@@ -71,6 +69,5 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
 }

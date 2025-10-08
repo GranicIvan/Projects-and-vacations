@@ -15,7 +15,6 @@ public class Vacation {
     private long id;
 
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -37,7 +36,7 @@ public class Vacation {
     }
 
     private int calculateWorkDaysBetweenDates(Date startDate, Date endDate) {
-     //
+
         // Ensure start <= end
         if (startDate.after(endDate)) {
             Date temp = startDate;
