@@ -1,6 +1,6 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.service.ProjectService;
+import com.kolotree.task1.service.implementation.ProjectServiceImpl;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.model.Project;
 import jakarta.validation.Valid;
@@ -13,40 +13,40 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private final ProjectService projectService;
+    private final ProjectServiceImpl projectServiceImpl;
 
 
     @GetMapping
     public Iterable<Project> getAll() {
-        return projectService.findAll();
+        return projectServiceImpl.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Project> getOne(@PathVariable Integer id) {
-        return projectService.getOne(id);
+        return projectServiceImpl.getOne(id);
     }
 
 
     @PostMapping
     public Project addProject(@RequestBody Project project) {
-        return projectService.addProject(project);
+        return projectServiceImpl.addProject(project);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
-        return projectService.deleteProject(id);
+        return projectServiceImpl.deleteProject(id);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Integer id, @RequestBody Project updatedProject) {
-        return projectService.updateProject(id, updatedProject);
+        return projectServiceImpl.updateProject(id, updatedProject);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchProject(@PathVariable Integer id,
                                           @Valid @RequestBody ProjectPatchDto dto) {
-        return projectService.patchProject(id, dto);
+        return projectServiceImpl.patchProject(id, dto);
     }
 
 

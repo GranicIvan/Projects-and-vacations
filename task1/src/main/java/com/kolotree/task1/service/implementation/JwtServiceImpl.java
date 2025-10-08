@@ -1,6 +1,7 @@
-package com.kolotree.task1.service;
+package com.kolotree.task1.service.implementation;
 
 
+import com.kolotree.task1.service.interfaces.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -18,7 +19,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements JwtService {
 
     @Value("${security.jwt.secret-key}")
     private String secretKey;
@@ -26,29 +27,32 @@ public class JwtService {
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
 
+    @Override
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    @Override
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-
+    @Override
     public String generateToken(UserDetails userDetails) {
         return generatetoken(new HashMap<>(), userDetails);
     }
 
+    @Override
     public String generatetoken(Map<String, Objects> extraClaims, UserDetails userDetails) {
         return buildToken(extraClaims, userDetails, jwtExpiration);
     }
-
+    @Override
     public long getJwtExpirationTime() {
         return jwtExpiration;
     }
 
-    private String buildToken(Map<String, Objects> extraClaims, UserDetails userDetails, long expiration) {
+    protected String buildToken(Map<String, Objects> extraClaims, UserDetails userDetails, long expiration) {
         return Jwts.
                 builder()
                 .setClaims(extraClaims)
@@ -60,6 +64,7 @@ public class JwtService {
 
     }
 
+    @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
@@ -87,7 +92,7 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-
+    @Override
     public long getExpirationTime() {
         return jwtExpiration;
     }

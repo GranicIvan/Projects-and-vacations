@@ -1,7 +1,7 @@
 package com.kolotree.task1.config;
 
 import com.kolotree.task1.repository.UserRepo;
-import com.kolotree.task1.service.JwtService;
+import com.kolotree.task1.service.implementation.JwtServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +33,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserRepo userRepository;
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtServiceImpl;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Bean
@@ -62,7 +62,7 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtService, userDetailsService());
+        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtServiceImpl, userDetailsService());
     }
 
     @Bean

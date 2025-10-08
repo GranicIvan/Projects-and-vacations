@@ -1,42 +1,45 @@
-package com.kolotree.task1.service;
+package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.repository.ProjectRepo;
-import jakarta.validation.Valid;
+import com.kolotree.task1.service.interfaces.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @AllArgsConstructor
 @Service
-public class ProjectService {
+public class ProjectServiceImpl implements ProjectService {
 
     private ProjectRepo projectRepo;
 
+    @Override
     public Iterable<Project> findAll() {
         return projectRepo.findAll();
     }
 
-    public ResponseEntity<Project> getOne(@PathVariable Integer id) {
+    @Override
+    public ResponseEntity<Project> getOne( Integer id) {
         return projectRepo.findById(id).map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    public Project addProject(@RequestBody Project project) {
+    @Override
+    public Project addProject( Project project) {
         return projectRepo.save(project);
     }
 
-    public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
+    @Override
+    public ResponseEntity<Void> deleteProject( Integer id) {
         if (!projectRepo.existsById(id)) return ResponseEntity.notFound().build();
         projectRepo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
 
-    public ResponseEntity<Project> updateProject(@PathVariable Integer id, @RequestBody Project updatedProject) {
+    @Override
+    public ResponseEntity<Project> updateProject(Integer id,  Project updatedProject) {
         if (!projectRepo.existsById(id)) return ResponseEntity.notFound().build();
 
         Project existingProject = projectRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("Project not found"));
@@ -46,8 +49,8 @@ public class ProjectService {
 
     }
 
-    public ResponseEntity<?> patchProject(@PathVariable Integer id,
-                                          @Valid @RequestBody ProjectPatchDto dto) {
+    @Override
+    public ResponseEntity<?> patchProject(Integer id, ProjectPatchDto dto) {
 
         if (dto.getProjectName() == null && dto.getDescription() == null && dto.getMonthlyIncome() == null) {
             return ResponseEntity.badRequest().body("At least one field must be provided.");

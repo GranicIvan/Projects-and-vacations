@@ -1,7 +1,7 @@
 package com.kolotree.task1.controller;
 
-import com.kolotree.task1.service.AuthenticationService;
-import com.kolotree.task1.service.JwtService;
+import com.kolotree.task1.service.implementation.AuthenticationServiceImpl;
+import com.kolotree.task1.service.implementation.JwtServiceImpl;
 import com.kolotree.task1.dto.auth.LoginUserDto;
 import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.model.User;
@@ -18,27 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-    private final JwtService jwtService;
+    private final JwtServiceImpl jwtServiceImpl;
 
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationServiceImpl;
 
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
-        User registerUser = authenticationService.signup(registerUserDto);
+        User registerUser = authenticationServiceImpl.signup(registerUserDto);
 
         return ResponseEntity.ok(registerUser);
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto) {
-        User authenticatedUser = authenticationService.authenticate(loginUserDto);
+        User authenticatedUser = authenticationServiceImpl.authenticate(loginUserDto);
 
-        String jwtToken = jwtService.generateToken(authenticatedUser);
+        String jwtToken = jwtServiceImpl.generateToken(authenticatedUser);
 
         LoginResponseDto loginResponseDto = new LoginResponseDto();
         loginResponseDto.setToken(jwtToken);
-        loginResponseDto.setExpiresIn(jwtService.getExpirationTime());
+        loginResponseDto.setExpiresIn(jwtServiceImpl.getExpirationTime());
 
         return ResponseEntity.ok(loginResponseDto);
     }
