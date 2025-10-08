@@ -1,5 +1,6 @@
 package com.kolotree.task1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,8 +31,13 @@ public class User implements UserDetails {
     private UserType userType;
 
 
+
     @OneToMany(mappedBy = "user")
     private List<UserOnProject> UserOnProject = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vacation> vacations = new ArrayList<>();
 
 
     @Override

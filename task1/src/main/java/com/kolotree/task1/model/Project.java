@@ -1,5 +1,6 @@
 package com.kolotree.task1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class Project {
     private String description;
 
     private Double monthlyIncome;
+
 
 
     @OneToMany(mappedBy = "project")

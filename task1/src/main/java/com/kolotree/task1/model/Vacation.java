@@ -1,9 +1,6 @@
 package com.kolotree.task1.model;
 
-import com.kolotree.task1.model.id.VacationId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Calendar;
@@ -15,7 +12,15 @@ import java.util.Date;
 public class Vacation {
 
     @Id
-    private VacationId vacationId;
+    private long id;
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Date startDate;
 
     private Date endDate;
 
@@ -23,9 +28,10 @@ public class Vacation {
 
     private VacationRequestStatus vacationRequestStatus;
 
+
     public Vacation(User user, Date startDate, Date endDate) {
-        this.vacationId.setUser(user);
-        this.vacationId.setStart(startDate);
+        this.setUser(user);
+        this.startDate = endDate;
         this.endDate = endDate;
         this.vacationLength = calculateWorkDaysBetweenDates(startDate, endDate);
     }
