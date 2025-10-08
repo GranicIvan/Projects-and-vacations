@@ -22,8 +22,8 @@ public class Project {
     private Double monthlyIncome;
 
 
-    @ManyToMany(mappedBy = "worksOn")
-    private List<User> users = new ArrayList<>();
+    @OneToMany(mappedBy = "project")
+    private List<UserOnProject> userOnProject = new ArrayList<>();
 
 
 

@@ -21,6 +21,8 @@ public class Vacation {
 
     private int vacationLength;
 
+    private VacationRequestStatus vacationRequestStatus;
+
     public Vacation(User user, Date startDate, Date endDate) {
         this.vacationId.setUser(user);
         this.vacationId.setStart(startDate);
@@ -29,11 +31,7 @@ public class Vacation {
     }
 
     private int calculateWorkDaysBetweenDates(Date startDate, Date endDate) {
-
-        if (startDate == null || endDate == null) {
-            throw new IllegalArgumentException("Start and end dates must not be null");
-        }
-
+     //
         // Ensure start <= end
         if (startDate.after(endDate)) {
             Date temp = startDate;

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProjectCreateDto {
+public class  ProjectCreateDto {
     @NotBlank
     private String projectName;
     private String description;

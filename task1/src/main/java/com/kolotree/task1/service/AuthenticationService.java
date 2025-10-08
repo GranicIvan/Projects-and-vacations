@@ -1,7 +1,7 @@
 package com.kolotree.task1.service;
 
-import com.kolotree.task1.dto.Auth.LoginUserDto;
-import com.kolotree.task1.dto.Auth.RegisterUserDto;
+import com.kolotree.task1.dto.auth.LoginUserDto;
+import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepo;
 import lombok.AllArgsConstructor;

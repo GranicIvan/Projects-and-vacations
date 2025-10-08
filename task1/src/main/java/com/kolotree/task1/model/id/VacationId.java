@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.YearMonth;
 import java.util.Date;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationId {
+public class VacationId implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")

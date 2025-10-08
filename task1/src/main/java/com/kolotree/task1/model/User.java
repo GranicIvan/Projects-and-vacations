@@ -27,14 +27,11 @@ public class User implements UserDetails {
     private String address;
     private Integer vacationDaysLeft;
 
+    private UserType userType;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_projects",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    private List<Project> worksOn = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserOnProject> UserOnProject = new ArrayList<>();
 
 
     @Override
