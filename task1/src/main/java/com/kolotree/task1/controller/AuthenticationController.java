@@ -6,7 +6,11 @@ import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.service.implementation.JwtServiceImpl;
 import com.kolotree.task1.service.interfaces.AuthenticationService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +26,9 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationServiceImpl;
 
+//    @Value("${cookie.duration}") private long cookieDuration;
+
+    private final long cookieDuration = 3600000;
 
     @PostMapping("/signup")
     public ResponseEntity<User> register(@RequestBody RegisterUserDto registerUserDto) {
@@ -31,7 +38,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto) {
+    public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto, HttpServletResponse response) {
         User authenticatedUser = authenticationServiceImpl.authenticate(loginUserDto);
 
         String jwtToken = jwtServiceImpl.generateToken(authenticatedUser);
@@ -40,6 +47,24 @@ public class AuthenticationController {
         loginResponseDto.setToken(jwtToken);
         loginResponseDto.setExpiresIn(jwtServiceImpl.getExpirationTime());
 
+        response.addHeader(HttpHeaders.SET_COOKIE, createJwtCookie(jwtToken, cookieDuration).toString());
+
         return ResponseEntity.ok(loginResponseDto);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        response.addHeader(HttpHeaders.SET_COOKIE, createJwtCookie("", 0).toString());
+        return ResponseEntity.ok().build();
+    }
+
+    private ResponseCookie createJwtCookie(String token, long maxAgeSeconds) {
+        return ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(maxAgeSeconds)
+                .sameSite("Strict")
+                .build();
     }
 }
