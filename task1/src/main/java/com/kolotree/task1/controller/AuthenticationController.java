@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AuthenticationController {
 
-    private final JwtServiceImpl jwtServiceImpl;
 
     private final AuthenticationService authenticationServiceImpl;
 
@@ -39,13 +38,10 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto, HttpServletResponse response) {
-        User authenticatedUser = authenticationServiceImpl.authenticate(loginUserDto);
+        String jwtToken = authenticationServiceImpl.authenticate(loginUserDto);
 
-        String jwtToken = jwtServiceImpl.generateToken(authenticatedUser);
 
         LoginResponseDto loginResponseDto = new LoginResponseDto();
-        loginResponseDto.setToken(jwtToken);
-        loginResponseDto.setExpiresIn(jwtServiceImpl.getExpirationTime());
 
         response.addHeader(HttpHeaders.SET_COOKIE, createJwtCookie(jwtToken, cookieDuration).toString());
 

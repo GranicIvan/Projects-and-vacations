@@ -8,5 +8,5 @@ public interface AuthenticationService {
 
     User signup(RegisterUserDto input);
 
-    User authenticate(LoginUserDto input);
+    String authenticate(LoginUserDto input);
 }

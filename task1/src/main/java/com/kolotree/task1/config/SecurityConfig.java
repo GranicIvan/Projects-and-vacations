@@ -32,15 +32,10 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserRepository userRepository;
+    private final UserDetailsService userDetailsService;
     private final JwtServiceImpl jwtServiceImpl;
     private final HandlerExceptionResolver handlerExceptionResolver;
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,15 +49,14 @@ public class SecurityConfig {
 
     @Bean
     AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authprovider = new DaoAuthenticationProvider();
-        authprovider.setUserDetailsService(userDetailsService());
-        authprovider.setPasswordEncoder(passwordEncoder());
-        return authprovider;
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
     }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtServiceImpl, userDetailsService());
+        return new JwtAuthenticationFilter(handlerExceptionResolver, jwtServiceImpl, userDetailsService);
     }
 
     @Bean

@@ -8,6 +8,8 @@ import com.kolotree.task1.service.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
+    private final JwtServiceImpl jwtService;
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -28,19 +31,22 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setUserType(input.getUserType());
 
         return userRepository.save(user);
     }
 
     @Override
-    public User authenticate(LoginUserDto input) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
-                        input.getPassword()
-                )
-        );
+    public String authenticate(LoginUserDto input) {
+        Authentication authenticationRequest =
+                UsernamePasswordAuthenticationToken.unauthenticated(input.getEmail(), input.getPassword());
+        Authentication authenticationResponse =
+                this.authenticationManager.authenticate(authenticationRequest);
 
-        return userRepository.findByEmail(input.getEmail()).orElseThrow();
+        // Get user details from the authenticated object
+        UserDetails userDetails = (UserDetails) authenticationResponse.getPrincipal();
+
+        // Generate the JWT token
+        return jwtService.generateToken(userDetails);
     }
 }

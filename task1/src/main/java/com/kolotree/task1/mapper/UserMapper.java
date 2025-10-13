@@ -15,6 +15,7 @@ public class UserMapper {
         target.setEmail(dto.getEmail());
         target.setAddress(dto.getAddress());
         target.setVacationDaysLeft(dto.getVacationDaysLeft());
+        target.setUserType(dto.getUserType());
 
     }
 
@@ -25,6 +26,7 @@ public class UserMapper {
         if (dto.getEmail() != null)            target.setEmail(dto.getEmail());
         if (dto.getAddress() != null)          target.setAddress(dto.getAddress());
         if (dto.getVacationDaysLeft() != null) target.setVacationDaysLeft(dto.getVacationDaysLeft());
+
     }
 
 }

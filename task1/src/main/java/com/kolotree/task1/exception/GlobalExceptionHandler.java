@@ -34,4 +34,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     } // TODO mora u securoty da se handle ovo
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity generalException(Exception ex){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+
+
 }
