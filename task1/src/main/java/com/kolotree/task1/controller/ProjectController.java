@@ -14,25 +14,25 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/projects")
 public class ProjectController {
 
-    private final ProjectService projectServiceImpl;
+    private final ProjectService projectService;
 
 
     @GetMapping
     public Iterable<Project> getAll() {
 
-        return ResponseEntity.ok( projectServiceImpl.findAll()).getBody();
+        return ResponseEntity.ok(projectService.findAll()).getBody();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Project> getOne(@PathVariable Integer id) {
-        return projectServiceImpl.getOne(id)
+        return projectService.getOne(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public Project addProject(@RequestBody Project project) {
-        Project saved = projectServiceImpl.addProject(project);
+        Project saved = projectService.addProject(project);
         return ResponseEntity.ok(saved).getBody();
     }
 
@@ -40,7 +40,7 @@ public class ProjectController {
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
 
         try {
-            projectServiceImpl.deleteProject(id);
+            projectService.deleteProject(id);
             return ResponseEntity.noContent().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -50,7 +50,7 @@ public class ProjectController {
     @PutMapping("/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Integer id, @RequestBody Project updatedProject) {
         try {
-            Project saved = projectServiceImpl.updateProject(id, updatedProject);
+            Project saved = projectService.updateProject(id, updatedProject);
             return ResponseEntity.ok(saved);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -61,7 +61,7 @@ public class ProjectController {
     public ResponseEntity<?> patchProject(@PathVariable Integer id,
                                           @Valid @RequestBody ProjectPatchDto dto) {
         try {
-            Project patched = projectServiceImpl.patchProject(id, dto);
+            Project patched = projectService.patchProject(id, dto);
             return ResponseEntity.ok(patched);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();

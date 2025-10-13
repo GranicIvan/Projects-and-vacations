@@ -12,8 +12,8 @@ import java.util.Date;
 public class Vacation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")

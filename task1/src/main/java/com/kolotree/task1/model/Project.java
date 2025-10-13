@@ -19,9 +19,6 @@ public class Project {
 
     private String description;
 
-    private Double monthlyIncome;
-
-
     @OneToMany(mappedBy = "project")
     private List<UserOnProject> userOnProject = new ArrayList<>();
 

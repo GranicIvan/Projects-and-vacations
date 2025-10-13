@@ -16,17 +16,14 @@ public class ProjectMapper {
         if (dto.getDescription() != null) {
             target.setDescription(dto.getDescription());
         }
-        if (dto.getMonthlyIncome() != null) {
-            target.setMonthlyIncome(dto.getMonthlyIncome());
-        }
+
     }
 
     public static ProjectResponseDto toResponse(Project p) {
         return new ProjectResponseDto(
                 p.getId(),
                 p.getProjectName(),
-                p.getDescription(),
-                p.getMonthlyIncome()
+                p.getDescription()
         );
     }
 
