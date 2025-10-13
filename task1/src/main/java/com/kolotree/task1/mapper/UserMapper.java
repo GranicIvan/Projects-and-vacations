@@ -1,9 +1,11 @@
 package com.kolotree.task1.mapper;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.dto.user.UserUpdateDto;
 import com.kolotree.task1.model.User;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @NoArgsConstructor
 public class UserMapper {
@@ -29,4 +31,26 @@ public class UserMapper {
 
     }
 
+    public static UserShowDTO toShowDto(User user) {
+        return new UserShowDTO(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getDateOfBirth(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getVacationDaysLeft(),
+                user.getUserType(),
+                user.getUserOnProject(),
+                user.getVacations()
+        );
+
+
+    }
+
+    public static List<UserShowDTO> toShowDtoList(List<User> users) {
+        return users.stream()
+            .map(UserMapper::toShowDto)
+            .toList();
+        }
 }

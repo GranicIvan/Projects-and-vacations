@@ -1,6 +1,7 @@
 package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepository;
@@ -9,8 +10,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -18,31 +17,38 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Iterable<User> getAll() {
-        return userRepository.findAll();
+    public Iterable<UserShowDTO> getAll() {
+
+        return UserMapper.toShowDtoList(userRepository.findAll());
     }
 
     @Override
-    public Optional<User> getOne(Integer id) {
-        return userRepository.findById(id);
+    public UserShowDTO getOne(Integer id) {
+        return UserMapper.toShowDto( userRepository.findById(id).get()) ;
 
     }
 
     @Override
-    public User addUser(User user) {
-        return userRepository.save(user);
+    public UserShowDTO addUser(User user) {
+        User savedUser = userRepository.save(user);
+        return UserMapper.toShowDto(savedUser);
     }
 
     @Override
-    public void deleteUser(Integer id) {
+    public boolean deleteUser(Integer id) {
         if (!userRepository.existsById(id)) {
             throw new EntityNotFoundException("User with ID " + id + " not found");
         }
         userRepository.deleteById(id);
+
+        if( userRepository.existsById(id)){
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public User patchUser(Integer id, UserPatchDto dto) {
+    public UserShowDTO patchUser(Integer id, UserPatchDto dto) {
 
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -63,7 +69,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserMapper.applyPatch(user, dto);
-        return userRepository.save(user);
+        return UserMapper.toShowDto( userRepository.save(user) );
 
     }
 }

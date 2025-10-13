@@ -1,14 +1,17 @@
 package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -16,34 +19,43 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userServiceImpl;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
 
     @GetMapping
-    public ResponseEntity<Iterable<User>> getAll() {
-        return ResponseEntity.ok(userServiceImpl.getAll());
+    public ResponseEntity<Iterable<UserShowDTO>> getAll() {
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getOne(@PathVariable Integer id) {
+    public ResponseEntity<UserShowDTO> getOne(@PathVariable Integer id) {
+        UserShowDTO foundUser = userService.getOne(id);
 
-        return userServiceImpl.getOne(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        if(foundUser == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(foundUser);
+
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) {
-        User savedUser = userServiceImpl.addUser(user);
+    public UserShowDTO addUser(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        UserShowDTO savedUser = userService.addUser(user);
         return ResponseEntity.ok(savedUser).getBody();
 
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         try {
-            userServiceImpl.deleteUser(id);
-            return ResponseEntity.noContent().build();
+            if(userService.deleteUser(id)){
+                return ResponseEntity.ok("User with id " + id + " was successfully deleted");
+            }
+            else{
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id:" +id+ ", not found");
+            }
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
@@ -52,7 +64,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto) {
         try {
-            User updated = userServiceImpl.patchUser(id, dto);
+            UserShowDTO updated = userService.patchUser(id, dto);
             return ResponseEntity.ok(updated);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();

@@ -26,7 +26,6 @@ public class AuthenticationController {
     private final AuthenticationService authenticationServiceImpl;
 
 //    @Value("${cookie.duration}") private long cookieDuration;
-
     private final long cookieDuration = 3600000;
 
     @PostMapping("/signup")
@@ -39,7 +38,6 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> authenticate(@RequestBody LoginUserDto loginUserDto, HttpServletResponse response) {
         String jwtToken = authenticationServiceImpl.authenticate(loginUserDto);
-
 
         LoginResponseDto loginResponseDto = new LoginResponseDto();
 

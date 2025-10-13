@@ -1,21 +1,20 @@
 package com.kolotree.task1.service.interfaces;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
+import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.model.User;
-
-import java.util.Optional;
 
 public interface UserService {
 
 
-    Iterable<User> getAll();
+    Iterable<UserShowDTO> getAll();
 
-    Optional<User> getOne(Integer id);
+    UserShowDTO getOne(Integer id);
 
-    User addUser(User user);
+    UserShowDTO addUser(User user);
 
-    void deleteUser(Integer id);
+    boolean deleteUser(Integer id);
 
-    User patchUser(Integer id, UserPatchDto dto);
+    UserShowDTO patchUser(Integer id, UserPatchDto dto);
 
 }
