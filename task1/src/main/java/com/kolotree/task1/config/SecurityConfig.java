@@ -1,6 +1,6 @@
 package com.kolotree.task1.config;
 
-import com.kolotree.task1.repository.UserRepo;
+import com.kolotree.task1.repository.UserRepository;
 import com.kolotree.task1.service.implementation.JwtServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final UserRepo userRepository;
+    private final UserRepository userRepository;
     private final JwtServiceImpl jwtServiceImpl;
     private final HandlerExceptionResolver handlerExceptionResolver;
 

@@ -3,7 +3,7 @@ package com.kolotree.task1.service.implementation;
 import com.kolotree.task1.dto.auth.LoginUserDto;
 import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.model.User;
-import com.kolotree.task1.repository.UserRepo;
+import com.kolotree.task1.repository.UserRepository;
 import com.kolotree.task1.service.interfaces.AuthenticationService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-    private final UserRepo userRepo;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -29,7 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
 
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -41,6 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
         );
 
-        return userRepo.findByEmail(input.getEmail()).orElseThrow();
+        return userRepository.findByEmail(input.getEmail()).orElseThrow();
     }
 }

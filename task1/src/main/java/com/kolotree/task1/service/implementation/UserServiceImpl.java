@@ -3,7 +3,7 @@ package com.kolotree.task1.service.implementation;
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
-import com.kolotree.task1.repository.UserRepo;
+import com.kolotree.task1.repository.UserRepository;
 import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -15,36 +15,36 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserRepo userRepo;
+    private UserRepository userRepository;
 
     @Override
     public Iterable<User> getAll() {
-        return userRepo.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public Optional<User> getOne(Integer id) {
-        return userRepo.findById(id);
+        return userRepository.findById(id);
 
     }
 
     @Override
     public User addUser(User user) {
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public void deleteUser(Integer id) {
-        if (!userRepo.existsById(id)) {
+        if (!userRepository.existsById(id)) {
             throw new EntityNotFoundException("User with ID " + id + " not found");
         }
-        userRepo.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Override
     public User patchUser(Integer id, UserPatchDto dto) {
 
-        var user = userRepo.findById(id)
+        var user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
 
         // Validate that at least one field is present
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserMapper.applyPatch(user, dto);
-        return userRepo.save(user);
+        return userRepository.save(user);
 
     }
 }
