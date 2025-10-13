@@ -18,6 +18,7 @@ public class UserMapper {
         target.setAddress(dto.getAddress());
         target.setVacationDaysLeft(dto.getVacationDaysLeft());
         target.setUserType(dto.getUserType());
+//        target.setActiveStatus(dto.isActiveStatus());
 
     }
 
@@ -28,6 +29,7 @@ public class UserMapper {
         if (dto.getEmail() != null)            target.setEmail(dto.getEmail());
         if (dto.getAddress() != null)          target.setAddress(dto.getAddress());
         if (dto.getVacationDaysLeft() != null) target.setVacationDaysLeft(dto.getVacationDaysLeft());
+
 
     }
 
@@ -41,7 +43,7 @@ public class UserMapper {
                 user.getAddress(),
                 user.getVacationDaysLeft(),
                 user.getUserType(),
-                user.getUserOnProject(),
+                user.getProjectAssignment(),
                 user.getVacations()
         );
 

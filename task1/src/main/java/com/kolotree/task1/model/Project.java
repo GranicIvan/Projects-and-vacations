@@ -20,7 +20,7 @@ public class Project {
     private String description;
 
     @OneToMany(mappedBy = "project")
-    private List<UserOnProject> userOnProject = new ArrayList<>();
+    private List<ProjectAssignment> projectAssignment = new ArrayList<>();
 
 
 }

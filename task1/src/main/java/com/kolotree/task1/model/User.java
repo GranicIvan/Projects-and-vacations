@@ -16,6 +16,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -24,11 +25,13 @@ public class User {
     private String address;
     private Integer vacationDaysLeft;
 
+//    private boolean activeStatus;
+
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
     @OneToMany(mappedBy = "user")
-    private List<UserOnProject> UserOnProject = new ArrayList<>();
+    private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vacation> vacations = new ArrayList<>();

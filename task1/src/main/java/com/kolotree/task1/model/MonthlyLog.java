@@ -7,14 +7,14 @@ import java.time.YearMonth;
 
 
 @Entity
-@Table(name = "user_on_project_monthly")
+@Table(name = "monthly_log")
 @Data
-public class UserOnProjectMonthly {
+public class MonthlyLog {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "user_on_project_id")
-    private UserOnProject userOnProject;
+    @JoinColumn(name = "project_assignment_id")
+    private ProjectAssignment projectAssignment;
 
     @Id
     private YearMonth yearMonth;
