@@ -18,7 +18,7 @@ public class UserMapper {
         target.setAddress(dto.getAddress());
         target.setVacationDaysLeft(dto.getVacationDaysLeft());
         target.setUserType(dto.getUserType());
-//        target.setActiveStatus(dto.isActiveStatus());
+        target.setActiveStatus(dto.isActiveStatus());
 
     }
 
@@ -45,6 +45,7 @@ public class UserMapper {
                 user.getUserType(),
                 user.getProjectAssignment(),
                 user.getVacations()
+
         );
 
 

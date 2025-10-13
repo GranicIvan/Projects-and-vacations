@@ -9,4 +9,5 @@ public class ProjectResponseDto {
     Long id;
     String projectName;
     String description;
+    private boolean activeStatus;
 }

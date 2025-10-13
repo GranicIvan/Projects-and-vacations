@@ -10,6 +10,6 @@ public class ProjectUpdateDto {
     @NotBlank
     private String projectName;
     private String description;
-    @NotNull
-    private Double monthlyIncome;
+
+    private boolean activeStatus;
 }

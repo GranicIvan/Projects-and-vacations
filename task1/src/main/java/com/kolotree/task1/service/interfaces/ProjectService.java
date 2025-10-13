@@ -1,5 +1,6 @@
 package com.kolotree.task1.service.interfaces;
 
+import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.model.Project;
 
@@ -12,7 +13,7 @@ public interface ProjectService {
     Optional<Project> getOne(Integer id);
 
 
-    Project addProject(Project project);
+    Project addProject(ProjectCreateDto project);
 
     void deleteProject(Integer id);
 

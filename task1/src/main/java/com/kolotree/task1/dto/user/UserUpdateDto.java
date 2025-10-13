@@ -24,6 +24,6 @@ public class UserUpdateDto {
     @NotBlank
     private UserType userType;
 
-//    private boolean activeStatus;
+    private boolean activeStatus;
 
 }

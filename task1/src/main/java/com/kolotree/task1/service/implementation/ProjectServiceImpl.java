@@ -1,5 +1,6 @@
 package com.kolotree.task1.service.implementation;
 
+import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
@@ -9,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -28,15 +30,28 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project addProject(Project project) {
+    public Project addProject(ProjectCreateDto projectCreateDto) {
+        Project project = ProjectMapper.createDtoToProject(projectCreateDto);
         return projectRepository.save(project);
     }
 
     @Override
     public void deleteProject(Integer id) {
-        if (!projectRepository.existsById(id)) {
+
+        Optional<Project> optionalProject = projectRepository.findById(id);
+
+        if(optionalProject.isEmpty()){
             throw new EntityNotFoundException("Project with ID " + id + " not found");
         }
+
+        Project project = optionalProject.get();
+
+        if(project.getProjectAssignment().isEmpty()){
+            projectRepository.deleteById(id);
+        }else{
+            projectRepository.updateActiveStatus(id, false);
+        }
+
         projectRepository.deleteById(id);
     }
 
@@ -55,7 +70,7 @@ public class ProjectServiceImpl implements ProjectService {
         var existing = projectRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Project not found"));
 
-        if (dto.getProjectName() == null && dto.getDescription() == null && dto.getMonthlyIncome() == null) {
+        if (dto.getProjectName() == null && dto.getDescription() == null) {
             throw new IllegalArgumentException("At least one field must be provided.");
         }
 

@@ -25,6 +25,7 @@ public class UserShowDTO {
 
     private UserType userType;
 
+
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
     private List<Vacation> vacations = new ArrayList<>();
 

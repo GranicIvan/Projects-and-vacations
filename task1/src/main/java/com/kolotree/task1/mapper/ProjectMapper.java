@@ -1,5 +1,6 @@
 package com.kolotree.task1.mapper;
 
+import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.dto.project.ProjectResponseDto;
 import com.kolotree.task1.model.Project;
@@ -16,6 +17,10 @@ public class ProjectMapper {
         if (dto.getDescription() != null) {
             target.setDescription(dto.getDescription());
         }
+        if(dto.getProjectAssignment() != null){
+            target.setProjectAssignment(dto.getProjectAssignment());
+        }
+
 
     }
 
@@ -23,8 +28,17 @@ public class ProjectMapper {
         return new ProjectResponseDto(
                 p.getId(),
                 p.getProjectName(),
-                p.getDescription()
+                p.getDescription(),
+                p.isActiveStatus()
         );
     }
 
+    public static Project createDtoToProject(ProjectCreateDto dto){
+
+        return new Project(
+                dto.getProjectName(),
+                dto.getDescription(),
+                true
+        );
+    }
 }

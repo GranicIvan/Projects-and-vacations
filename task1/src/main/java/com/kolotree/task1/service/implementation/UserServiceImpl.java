@@ -10,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -24,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserShowDTO getOne(Integer id) {
-        return UserMapper.toShowDto( userRepository.findById(id).get()) ;
+        return UserMapper.toShowDto(userRepository.findById(id).get());
 
     }
 
@@ -36,12 +38,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUser(Integer id) {
-        if (!userRepository.existsById(id)) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) {
             throw new EntityNotFoundException("User with ID " + id + " not found");
         }
-        userRepository.deleteById(id);
 
-        if( userRepository.existsById(id)){
+        User user = optionalUser.get();
+
+        if (user.getProjectAssignment().isEmpty()) {
+            userRepository.deleteById(id);
+        } else {
+            userRepository.updateActiveStatus(id, false);
+        }
+
+        if (userRepository.existsById(id)) {
             return false;
         }
         return true;
@@ -69,7 +79,7 @@ public class UserServiceImpl implements UserService {
         }
 
         UserMapper.applyPatch(user, dto);
-        return UserMapper.toShowDto( userRepository.save(user) );
+        return UserMapper.toShowDto(userRepository.save(user));
 
     }
 }

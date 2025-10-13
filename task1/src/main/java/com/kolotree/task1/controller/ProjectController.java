@@ -1,5 +1,6 @@
 package com.kolotree.task1.controller;
 
+import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.service.interfaces.ProjectService;
@@ -31,7 +32,7 @@ public class ProjectController {
     }
 
     @PostMapping
-    public Project addProject(@RequestBody Project project) {
+    public Project addProject(@RequestBody ProjectCreateDto project) {
         Project saved = projectService.addProject(project);
         return ResponseEntity.ok(saved).getBody();
     }

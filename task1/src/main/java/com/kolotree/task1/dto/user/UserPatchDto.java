@@ -22,4 +22,5 @@ public class UserPatchDto {
     private String address;
     @Min(0)
     private Integer vacationDaysLeft;
+    private boolean activeStatus;
 }
