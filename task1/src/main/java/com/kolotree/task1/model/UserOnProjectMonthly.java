@@ -13,7 +13,7 @@ public class UserOnProjectMonthly {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "userOnProject_id")
+    @JoinColumn(name = "user_on_project_id")
     private UserOnProject userOnProject;
 
     @Id
