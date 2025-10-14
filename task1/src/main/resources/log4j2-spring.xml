@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <CustomLevels>
+        <CustomLevel name="DIAG" intLevel="350"/>
+        <CustomLevel name="NOTICE" intLevel="450"/>
+        <CustomLevel name="VERBOSE" intLevel="550"/>
+        <CustomLevel name="CALL" intLevel="250"/>
+    </CustomLevels>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%style{%date{DEFAULT}}{blue} %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green, CALL=cyan} %message\n"/>
+        </Console>
+
+
+        <!-- File Appender -->
+        <RollingFile name="RollingFile"
+                     fileName="logs/application.log"
+                     filePattern="logs/application-%d{yyyy-MM-dd}-%i.log.gz"
+                     createOnDemand="true">
+
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+
+        <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+        <Logger name="org.hibernate.orm.jdbc.bind" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Logger>
+
+
+    </Loggers>
+</Configuration>

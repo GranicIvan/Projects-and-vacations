@@ -2,6 +2,9 @@ package com.kolotree.task1.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,6 +17,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
@@ -21,21 +26,33 @@ public class GlobalExceptionHandler {
         for (var error : ex.getBindingResult().getFieldErrors()) {
             errors.put(error.getField(), error.getDefaultMessage());
         }
+        logger.warn("Argument not valid", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity handleExpiredJtw(ExpiredJwtException ex) {
+        logger.warn("JWE EXPIRED", ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
     @ExceptionHandler(JwtException.class)
     public ResponseEntity incorrectJwt(JwtException ex) {
+        logger.warn("JWT was incorrect", ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    } // TODO mora u securoty da se handle ovo
+    } // TODO mora u security da se handle ovo
+
+
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    public ResponseEntity notFoundException(ChangeSetPersister.NotFoundException ex) {
+        logger.warn("Resource not found", ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource was not found");
+    }
+
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity generalException(Exception ex){
+    public ResponseEntity generalException(Exception ex) {
+        logger.error("Unexpected error", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
