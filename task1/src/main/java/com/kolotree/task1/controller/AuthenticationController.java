@@ -6,7 +6,8 @@ import com.kolotree.task1.dto.auth.RegisterUserDto;
 import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.service.interfaces.AuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +16,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @RequestMapping("/auth")
 @RestController
+@RequiredArgsConstructor
 public class AuthenticationController {
 
 
     private final AuthenticationService authenticationService;
 
-    //    @Value("${cookie.duration}") private long cookieDuration;
-    private final long cookieDuration = 3600000;
+    @Value("${cookie.duration}")
+    private Integer cookieDuration;
 
     @PostMapping("/signup")
     public ResponseEntity<UserShowDTO> register(@RequestBody RegisterUserDto registerUserDto) {

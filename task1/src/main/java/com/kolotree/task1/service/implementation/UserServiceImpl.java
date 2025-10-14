@@ -51,9 +51,6 @@ public class UserServiceImpl implements UserService {
             userRepository.updateActiveStatus(id, false);
         }
 
-        if (userRepository.existsById(id)) {
-            return false;
-        }
         return true;
     }
 

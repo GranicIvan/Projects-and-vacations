@@ -36,6 +36,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
 
+        if (!isProtectedEndpoint(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String jwt = getJwtFromCookie(request);
 
         if (jwt == null || jwt.trim().isEmpty()) {
@@ -44,7 +49,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             return;
         }
-
 
         try {
             final String userEmail = jwtServiceImpl.extractUsername(jwt);
@@ -56,13 +60,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 return;
             }
 
-
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
             if (userEmail != null && authentication == null) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-                //TODO Ovde pravis user detail od usera, druga klasa koja impl user details i nju prosledis
                 if (jwtServiceImpl.isTokenValid(jwt, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
@@ -95,7 +97,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean isProtectedEndpoint(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return !path.startsWith("/auth/login") && !path.startsWith("/auth/signup");
+        return !path.startsWith("/auth");
     }
 
     private void sendErrorResponse(HttpServletResponse response, String message) throws IOException {
