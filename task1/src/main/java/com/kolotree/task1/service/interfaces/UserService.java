@@ -17,4 +17,6 @@ public interface UserService {
 
     UserShowDTO patchUser(Integer id, UserPatchDto dto);
 
+    UserShowDTO getUserByEmail(String email);
+
 }

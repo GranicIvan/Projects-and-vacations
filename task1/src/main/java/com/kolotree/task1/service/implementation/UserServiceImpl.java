@@ -31,11 +31,22 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("Entity user with ID " + id + " not found");
         }
         return UserMapper.toShowDto(optionalUser.get());
-
     }
+
+
+    @Override
+    public UserShowDTO getUserByEmail(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Entity user with email " + email + " not found");
+        }
+        return UserMapper.toShowDto(optionalUser.get());
+    }
+
 
     @Override
     public UserShowDTO addUser(User user) {
+        user.setActiveStatus(true);
         User savedUser = userRepository.save(user);
         return UserMapper.toShowDto(savedUser);
     }

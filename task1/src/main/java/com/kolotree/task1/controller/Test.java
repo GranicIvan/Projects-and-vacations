@@ -3,6 +3,7 @@ package com.kolotree.task1.controller;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,10 +28,18 @@ public class Test {
     }
 
 
+    @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/testUser")
     public String testUser() {
         Date date = new Date();
         return "TestUser Works correctly at: " + date;
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/testAdmin")
+    public String testAdmin() {
+        Date date = new Date();
+        return "TestAdmin Works correctly at: " + date;
     }
 
 }

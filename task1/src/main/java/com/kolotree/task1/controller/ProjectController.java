@@ -8,6 +8,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -24,6 +25,7 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.findAll()).getBody();
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<Project> getOne(@PathVariable Integer id) {
         return projectService.getOne(id)
@@ -31,12 +33,14 @@ public class ProjectController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Project addProject(@RequestBody ProjectCreateDto project) {
         Project saved = projectService.addProject(project);
         return ResponseEntity.ok(saved).getBody();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id) {
 
@@ -48,6 +52,7 @@ public class ProjectController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<Project> updateProject(@PathVariable Integer id, @RequestBody Project updatedProject) {
         try {
@@ -58,6 +63,7 @@ public class ProjectController {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchProject(@PathVariable Integer id,
                                           @Valid @RequestBody ProjectPatchDto dto) {

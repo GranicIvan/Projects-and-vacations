@@ -2,6 +2,7 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,8 +10,10 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +26,13 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
 
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<Iterable<UserShowDTO>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UserShowDTO> getOne(@PathVariable Integer id) {
         UserShowDTO foundUser = userService.getOne(id);
@@ -36,9 +41,9 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundUser);
-
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public UserShowDTO addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -47,6 +52,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
 
@@ -58,6 +64,7 @@ public class UserController {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto) {
         try {
@@ -70,14 +77,19 @@ public class UserController {
         }
     }
 
+
     @GetMapping("/me")
-    public ResponseEntity<User> authenticatedUser() {
+    public ResponseEntity<UserShowDTO> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        UserDetails currentUser = (UserDetails) authentication.getPrincipal();
 
-        User currentUser = (User) authentication.getPrincipal();
+        User user = UserMapper.userDetailsToUser(currentUser);
 
-        return ResponseEntity.ok(currentUser);
+        UserShowDTO userShow = userService.getUserByEmail(user.getEmail());
+
+        return ResponseEntity.ok(userShow);
     }
+
 
 }

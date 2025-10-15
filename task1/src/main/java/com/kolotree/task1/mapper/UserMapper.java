@@ -5,6 +5,8 @@ import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.dto.user.UserUpdateDto;
 import com.kolotree.task1.model.User;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class UserMapper {
         target.setEmail(dto.getEmail());
         target.setAddress(dto.getAddress());
         target.setVacationDaysLeft(dto.getVacationDaysLeft());
-        target.setUserType(dto.getUserType());
+        target.setUserRole(dto.getUserRole());
         target.setActiveStatus(dto.isActiveStatus());
 
     }
@@ -42,7 +44,7 @@ public class UserMapper {
                 user.getEmail(),
                 user.getAddress(),
                 user.getVacationDaysLeft(),
-                user.getUserType(),
+                user.getUserRole(),
                 user.getProjectAssignment(),
                 user.getVacations()
 
@@ -56,4 +58,10 @@ public class UserMapper {
             .map(UserMapper::toShowDto)
             .toList();
         }
+
+    public static User userDetailsToUser(UserDetails userDetails){
+        User user = new User();
+        user.setEmail(userDetails.getUsername());
+        return user;
+    }
 }

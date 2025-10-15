@@ -1,6 +1,6 @@
 package com.kolotree.task1.dto.user;
 
-import com.kolotree.task1.model.UserType;
+import com.kolotree.task1.model.UserRole;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -22,7 +22,7 @@ public class UserUpdateDto {
     private Integer vacationDaysLeft;
 
     @NotBlank
-    private UserType userType;
+    private UserRole userRole;
 
     private boolean activeStatus;
 

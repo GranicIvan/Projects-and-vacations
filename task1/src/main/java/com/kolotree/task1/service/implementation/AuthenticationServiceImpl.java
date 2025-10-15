@@ -33,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
-        user.setUserType(input.getUserType());
+        user.setUserRole(input.getUserRole());
 
         return UserMapper.toShowDto(userRepository.save(user));
     }

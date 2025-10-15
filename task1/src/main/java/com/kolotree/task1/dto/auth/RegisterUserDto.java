@@ -1,6 +1,6 @@
 package com.kolotree.task1.dto.auth;
 
-import com.kolotree.task1.model.UserType;
+import com.kolotree.task1.model.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -17,5 +17,5 @@ public class RegisterUserDto {
     private String lastName;
 
     @NotBlank
-    private UserType userType;
+    private UserRole userRole;
 }

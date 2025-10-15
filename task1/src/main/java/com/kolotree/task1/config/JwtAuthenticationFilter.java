@@ -40,6 +40,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         final Logger logger = LogManager.getLogger(JwtAuthenticationFilter.class);
 
+        if (!isProtectedEndpoint(request)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String jwt = getJwtFromCookie(request);
 

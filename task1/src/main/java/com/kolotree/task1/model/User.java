@@ -32,7 +32,7 @@ public class User {
     private boolean activeStatus;
 
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private UserRole userRole;
 
     @OneToMany(mappedBy = "user")
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();

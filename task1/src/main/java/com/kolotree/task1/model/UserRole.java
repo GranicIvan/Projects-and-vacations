@@ -1,6 +1,6 @@
 package com.kolotree.task1.model;
 
-public enum UserType {
+public enum UserRole {
     ADMIN,
     EMPLOYEE
 }

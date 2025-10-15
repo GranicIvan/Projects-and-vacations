@@ -1,7 +1,7 @@
 package com.kolotree.task1.dto.user;
 
 import com.kolotree.task1.model.ProjectAssignment;
-import com.kolotree.task1.model.UserType;
+import com.kolotree.task1.model.UserRole;
 import com.kolotree.task1.model.Vacation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class UserShowDTO {
     private String address;
     private Integer vacationDaysLeft;
 
-    private UserType userType;
+    private UserRole userRole;
 
 
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
