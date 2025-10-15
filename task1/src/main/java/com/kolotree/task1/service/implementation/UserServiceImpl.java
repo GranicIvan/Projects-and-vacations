@@ -26,7 +26,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserShowDTO getOne(Integer id) {
-        return UserMapper.toShowDto(userRepository.findById(id).get());
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Entity user with ID " + id + " not found");
+        }
+        return UserMapper.toShowDto(optionalUser.get());
 
     }
 
@@ -58,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public UserShowDTO patchUser(Integer id, UserPatchDto dto) {
 
         var user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
 
         // Validate that at least one field is present
         if (dto.getFirstName() == null && dto.getLastName() == null &&

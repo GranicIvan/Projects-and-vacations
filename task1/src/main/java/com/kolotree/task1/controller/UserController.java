@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<UserShowDTO> getOne(@PathVariable Integer id) {
         UserShowDTO foundUser = userService.getOne(id);
 
-        if(foundUser == null){
+        if (foundUser == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(foundUser);
@@ -49,16 +49,13 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
-        try {
-            if(userService.deleteUser(id)){
-                return ResponseEntity.ok("User with id " + id + " was successfully deleted");
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id:" +id+ ", not found");
-            }
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
+
+        if (userService.deleteUser(id)) {
+            return ResponseEntity.ok("User with id " + id + " was successfully deleted");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id:" + id + ", not found");
         }
+
     }
 
     @PatchMapping("/{id}")
@@ -76,6 +73,7 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<User> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 
         User currentUser = (User) authentication.getPrincipal();
 

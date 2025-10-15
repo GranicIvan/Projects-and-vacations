@@ -9,6 +9,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,16 +38,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
 
 
-        if (!isProtectedEndpoint(request)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+        final Logger logger = LogManager.getLogger(JwtAuthenticationFilter.class);
+
 
         final String jwt = getJwtFromCookie(request);
 
         if (jwt == null || jwt.trim().isEmpty()) {
-            if (isProtectedEndpoint(request)) sendErrorResponse(response, "Missing authentication token.");
-            else filterChain.doFilter(request, response);
+            if (isProtectedEndpoint(request)) {
+                logger.warn("Incoming {} request to {}, with not valid or no JWT token", request.getMethod(), request.getRequestURI());
+                sendErrorResponse(response, "Missing authentication token.");
+            } else filterChain.doFilter(request, response);
 
             return;
         }

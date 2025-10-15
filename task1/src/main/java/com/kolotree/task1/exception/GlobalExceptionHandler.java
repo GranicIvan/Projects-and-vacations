@@ -2,6 +2,8 @@ package com.kolotree.task1.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -43,16 +45,29 @@ public class GlobalExceptionHandler {
     } // TODO mora u security da se handle ovo
 
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity entityNotFound(EntityNotFoundException ex) {
+        logger.warn(ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
     @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
     public ResponseEntity notFoundException(ChangeSetPersister.NotFoundException ex) {
         logger.warn("Resource not found", ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource was not found");
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException(Exception ex) {
+        logger.warn("IllegalArgumentException", ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity generalException(Exception ex) {
-        logger.error("Unexpected error", ex);
+    public ResponseEntity generalException(Exception ex, HttpServletRequest request) {
+        logger.error("Unexpected error for {} request on {}", request.getMethod(), request.getRequestURI(), ex);
+        //request.getMethod(), request.getRequestURI()
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 

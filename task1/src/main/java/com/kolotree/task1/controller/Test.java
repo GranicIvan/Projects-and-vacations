@@ -26,4 +26,11 @@ public class Test {
         return "Works correctly at:" + date;
     }
 
+
+    @GetMapping("/testUser")
+    public String testUser() {
+        Date date = new Date();
+        return "TestUser Works correctly at: " + date;
+    }
+
 }
