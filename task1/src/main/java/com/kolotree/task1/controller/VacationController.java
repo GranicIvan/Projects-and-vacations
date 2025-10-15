@@ -8,10 +8,9 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -26,4 +25,13 @@ public class VacationController {
         VacationRequest vacationRequest =  vacationService.requestVacation(vacationRequestDto);
         return ResponseEntity.ok(vacationRequest);
     }
+
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @GetMapping("/myVacations")
+    public ResponseEntity<List<VacationRequest>> myVacations(){
+        List<VacationRequest> vacationRequestList = vacationService.myVacations();
+        return ResponseEntity.ok(vacationRequestList);
+    }
+
+
 }

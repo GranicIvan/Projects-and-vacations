@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -23,6 +24,11 @@ public class VacationServiceImpl implements VacationService {
     private static final Logger logger = LogManager.getLogger(VacationServiceImpl.class);
     private final VacationRequestRepository vacationRepository;
     private final UserService userService;
+
+    @Override
+    public List<VacationRequest> myVacations() {
+            return vacationRepository.findByUser(userService.getCurrentUser());
+    }
 
     @Override
     public VacationRequest requestVacation(VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
