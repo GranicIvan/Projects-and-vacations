@@ -1,6 +1,7 @@
 package com.kolotree.task1.repository;
 
 import com.kolotree.task1.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +21,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findById(Long id);
 
     @Modifying
-    @Query("Update User u SET u.vacationDaysLeft = u.vacationDaysLeft - :useAmount WHERE u.id= :id")
+    @Transactional
+    @Query("Update User u SET u.vacationDaysLeft = (u.vacationDaysLeft - :useAmount) WHERE u.id= :id")
     void useVacation(@Param("id") Long id, @Param("useAmount") int useAmount);
 }
