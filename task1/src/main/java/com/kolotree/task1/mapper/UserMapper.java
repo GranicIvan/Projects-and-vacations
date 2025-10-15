@@ -46,7 +46,7 @@ public class UserMapper {
                 user.getVacationDaysLeft(),
                 user.getUserRole(),
                 user.getProjectAssignment(),
-                user.getVacations()
+                user.getVacationRequests()
 
         );
 

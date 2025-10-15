@@ -71,6 +71,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
+
+    @ExceptionHandler(NotEnoughVacationDays.class)
+    public ResponseEntity notEnoughtVacationDays(Exception ex, HttpServletRequest request){
+        logger.warn("User tried to take more vacation than they have left, Username: " + request.getRemoteUser());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity generalException(Exception ex, HttpServletRequest request) {
         logger.error("Unexpected error for {} request on {}", request.getMethod(), request.getRequestURI(), ex);

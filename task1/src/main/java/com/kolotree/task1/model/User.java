@@ -1,5 +1,8 @@
 package com.kolotree.task1.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,10 +37,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+//    @JsonManagedReference
     @OneToMany(mappedBy = "user")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Vacation> vacations = new ArrayList<>();
+    private List<VacationRequest> vacationRequests = new ArrayList<>();
 
 }

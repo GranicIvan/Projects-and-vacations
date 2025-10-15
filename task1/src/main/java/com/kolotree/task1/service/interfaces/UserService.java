@@ -19,4 +19,7 @@ public interface UserService {
 
     UserShowDTO getUserByEmail(String email);
 
+    User getCurrentUser();
+
+    void useVacation(Long id, int useAmount);
 }

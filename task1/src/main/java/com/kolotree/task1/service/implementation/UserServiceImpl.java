@@ -4,10 +4,13 @@ import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
+import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.repository.UserRepository;
 import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -41,6 +44,22 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("Entity user with email " + email + " not found");
         }
         return UserMapper.toShowDto(optionalUser.get());
+    }
+
+    @Override
+    public User getCurrentUser() {
+        UserDetails currentUserDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        User user = userRepository.findByEmail(currentUserDetails.getUsername()).get();
+
+        return user;
+    }
+
+    @Override
+    public void useVacation(Long id, int useAmount) {
+        userRepository.useVacation(id, useAmount);
     }
 
 

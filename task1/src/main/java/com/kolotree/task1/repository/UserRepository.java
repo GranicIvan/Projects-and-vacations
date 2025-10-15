@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     void updateActiveStatus(@Param("id") Integer id, @Param("active") boolean active);
 
     Optional<User> findById(Long id);
+
+    @Modifying
+    @Query("Update User u SET u.vacationDaysLeft = u.vacationDaysLeft - :useAmount WHERE u.id= :id")
+    void useVacation(@Param("id") Long id, @Param("useAmount") int useAmount);
 }

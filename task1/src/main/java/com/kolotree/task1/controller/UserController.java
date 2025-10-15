@@ -4,6 +4,7 @@ import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDTO;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
+import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.service.interfaces.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -90,6 +91,8 @@ public class UserController {
 
         return ResponseEntity.ok(userShow);
     }
+
+
 
 
 }

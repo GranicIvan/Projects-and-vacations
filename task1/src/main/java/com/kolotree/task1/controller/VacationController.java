@@ -1,0 +1,29 @@
+package com.kolotree.task1.controller;
+
+import com.kolotree.task1.dto.Vacation.VacationRequestDto;
+import com.kolotree.task1.exception.NotEnoughVacationDays;
+import com.kolotree.task1.model.VacationRequest;
+import com.kolotree.task1.service.interfaces.VacationService;
+import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping("/vacations")
+public class VacationController {
+
+    private final VacationService vacationService;
+
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PostMapping("/requestVacation")
+    public ResponseEntity<VacationRequest> requestVacation(@Valid @RequestBody VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
+        VacationRequest vacationRequest =  vacationService.requestVacation(vacationRequestDto);
+        return ResponseEntity.ok(vacationRequest);
+    }
+}

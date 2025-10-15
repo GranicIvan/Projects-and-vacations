@@ -1,5 +1,7 @@
 package com.kolotree.task1.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +27,7 @@ public class Project {
     @NonNull
     private boolean activeStatus;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "project")
     private List<ProjectAssignment> projectAssignment = new ArrayList<>();
 
