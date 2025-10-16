@@ -51,9 +51,6 @@ public class VacationServiceImpl implements VacationService {
         if (user.getVacationDaysLeft() < vacationLength) {
             throw new NotEnoughVacationDays();
         }
-        userService.useVacation(user.getId(), vacationLength);
-        user.setVacationDaysLeft(user.getVacationDaysLeft() - vacationLength);
-        request.setUser(user);
 
         return VacationMapper.toShowDto(vacationRepository.save(request));
     }

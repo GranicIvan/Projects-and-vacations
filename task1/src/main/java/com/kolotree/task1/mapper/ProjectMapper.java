@@ -17,7 +17,7 @@ public class ProjectMapper {
         if (dto.getDescription() != null) {
             target.setDescription(dto.getDescription());
         }
-        if(dto.getProjectAssignment() != null){
+        if (dto.getProjectAssignment() != null) {
             target.setProjectAssignment(dto.getProjectAssignment());
         }
 
@@ -33,12 +33,13 @@ public class ProjectMapper {
         );
     }
 
-    public static Project createDtoToProject(ProjectCreateDto dto){
+    public static Project createDtoToProject(ProjectCreateDto dto) {
 
-        return new Project(
-                dto.getProjectName(),
-                dto.getDescription(),
-                true
-        );
+        return Project
+                .builder()
+                .projectName(dto.getProjectName())
+                .description(dto.getDescription())
+                .activeStatus(true)
+                .build();
     }
 }

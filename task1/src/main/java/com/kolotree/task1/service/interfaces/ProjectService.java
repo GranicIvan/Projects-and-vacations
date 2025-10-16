@@ -20,4 +20,5 @@ public interface ProjectService {
     Project updateProject(Integer id, Project updatedProject);
 
     Project patchProject(Integer id, ProjectPatchDto dto);
+
 }

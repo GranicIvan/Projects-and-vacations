@@ -10,7 +10,6 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -40,15 +39,15 @@ public class ProjectServiceImpl implements ProjectService {
 
         Optional<Project> optionalProject = projectRepository.findById(id);
 
-        if(optionalProject.isEmpty()){
+        if (optionalProject.isEmpty()) {
             throw new EntityNotFoundException("Project with ID " + id + " not found");
         }
 
         Project project = optionalProject.get();
 
-        if(project.getProjectAssignment().isEmpty()){
+        if (project.getProjectAssignment().isEmpty()) {
             projectRepository.deleteById(id);
-        }else{
+        } else {
             projectRepository.updateActiveStatus(id, false);
         }
 
@@ -81,4 +80,6 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectMapper.applyPatch(existing, dto);
         return projectRepository.save(existing);
     }
+
+
 }
