@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MonthlyLogService {
 
-    MonthlyLog addHoursToProjectForMonth(AddMonthlyLogDto requestBody);
+    MonthlyLogShowDto addHoursToProjectForMonth(AddMonthlyLogDto requestBody);
 
     List<MonthlyLogShowDto> myMonthlyLogs();
 }

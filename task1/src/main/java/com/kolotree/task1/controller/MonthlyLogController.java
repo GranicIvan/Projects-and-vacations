@@ -2,7 +2,6 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
-import com.kolotree.task1.model.MonthlyLog;
 import com.kolotree.task1.service.interfaces.MonthlyLogService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,11 @@ public class MonthlyLogController {
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/addHoursToProjectForMonth")
-    public ResponseEntity<MonthlyLog> addHoursToProjectForMonth(@RequestBody AddMonthlyLogDto requestBody) {
+    public ResponseEntity<MonthlyLogShowDto> addHoursToProjectForMonth(@RequestBody AddMonthlyLogDto requestBody) {
 
-        MonthlyLog monthlyLog = monthlyLogService.addHoursToProjectForMonth(requestBody);
+        MonthlyLogShowDto monthlyLogShowDto = monthlyLogService.addHoursToProjectForMonth(requestBody);
 
-        return ResponseEntity.ok(monthlyLog);
+        return ResponseEntity.ok(monthlyLogShowDto);
 
     }
 

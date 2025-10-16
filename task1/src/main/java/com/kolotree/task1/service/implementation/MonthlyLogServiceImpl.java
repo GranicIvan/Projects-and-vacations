@@ -28,7 +28,7 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
 
     @Override
     @Transactional
-    public MonthlyLog addHoursToProjectForMonth(AddMonthlyLogDto requestBody) {
+    public MonthlyLogShowDto addHoursToProjectForMonth(AddMonthlyLogDto requestBody) {
         User user = userService.getCurrentUser();
         Long projectId = requestBody.getProjectId();
         int hoursWorked = requestBody.getHoursWorked();
@@ -39,7 +39,9 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         YearMonth yearMonth = requestBody.getYearMonth();
         MonthlyLog monthlyLog = new MonthlyLog(projectAssignment, yearMonth, hoursWorked);
 
-        return monthlyLogRepository.save(monthlyLog); //TODO make DTO for this
+        monthlyLog = monthlyLogRepository.save(monthlyLog);
+
+        return  MonthlyLogMapper.toShowDto(monthlyLog);
 
     }
 
