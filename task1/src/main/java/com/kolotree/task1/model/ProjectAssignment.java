@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "project_assignment")
 @Data
+@NoArgsConstructor
 public class ProjectAssignment {
 
     @Id

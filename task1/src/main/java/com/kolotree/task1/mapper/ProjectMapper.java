@@ -3,6 +3,7 @@ package com.kolotree.task1.mapper;
 import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.dto.project.ProjectResponseDto;
+import com.kolotree.task1.dto.project.ProjectShowDto;
 import com.kolotree.task1.model.Project;
 
 public class ProjectMapper {
@@ -20,8 +21,6 @@ public class ProjectMapper {
         if (dto.getProjectAssignment() != null) {
             target.setProjectAssignment(dto.getProjectAssignment());
         }
-
-
     }
 
     public static ProjectResponseDto toResponse(Project p) {
@@ -41,5 +40,14 @@ public class ProjectMapper {
                 .description(dto.getDescription())
                 .activeStatus(true)
                 .build();
+    }
+
+    public static ProjectShowDto toShowDto(Project project) {
+        return new ProjectShowDto(
+                project.getId(),
+                project.getProjectName(),
+                project.getDescription(),
+                project.isActiveStatus()
+        );
     }
 }

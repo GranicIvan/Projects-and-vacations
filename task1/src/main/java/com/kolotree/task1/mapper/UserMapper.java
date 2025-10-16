@@ -2,6 +2,7 @@ package com.kolotree.task1.mapper;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowSlimDto;
 import com.kolotree.task1.dto.user.UserUpdateDto;
 import com.kolotree.task1.model.User;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,11 @@ public class UserMapper {
     }
 
     public static void applyPatch(User target, UserPatchDto dto) {
-        if (dto.getFirstName() != null)        target.setFirstName(dto.getFirstName());
-        if (dto.getLastName() != null)         target.setLastName(dto.getLastName());
-        if (dto.getDateOfBirth() != null)      target.setDateOfBirth(dto.getDateOfBirth());
-        if (dto.getEmail() != null)            target.setEmail(dto.getEmail());
-        if (dto.getAddress() != null)          target.setAddress(dto.getAddress());
+        if (dto.getFirstName() != null) target.setFirstName(dto.getFirstName());
+        if (dto.getLastName() != null) target.setLastName(dto.getLastName());
+        if (dto.getDateOfBirth() != null) target.setDateOfBirth(dto.getDateOfBirth());
+        if (dto.getEmail() != null) target.setEmail(dto.getEmail());
+        if (dto.getAddress() != null) target.setAddress(dto.getAddress());
         if (dto.getVacationDaysLeft() != null) target.setVacationDaysLeft(dto.getVacationDaysLeft());
 
 
@@ -47,19 +48,29 @@ public class UserMapper {
                 user.getUserRole(),
                 user.getProjectAssignment(),
                 user.getVacationRequests()
-
         );
+    }
 
-
+    public static UserShowSlimDto toShowSlimDto(User user) {
+        return new UserShowSlimDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getDateOfBirth(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getVacationDaysLeft(),
+                user.getUserRole()
+        );
     }
 
     public static List<UserShowDTO> toShowDtoList(List<User> users) {
         return users.stream()
-            .map(UserMapper::toShowDto)
-            .toList();
-        }
+                .map(UserMapper::toShowDto)
+                .toList();
+    }
 
-    public static User userDetailsToUser(UserDetails userDetails){
+    public static User userDetailsToUser(UserDetails userDetails) {
         User user = new User();
         user.setEmail(userDetails.getUsername());
         return user;

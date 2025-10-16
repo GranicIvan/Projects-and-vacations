@@ -5,6 +5,7 @@ import com.kolotree.task1.model.id.MonthlyLogId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.YearMonth;
 
@@ -16,6 +17,7 @@ import java.time.YearMonth;
 })
 @IdClass(MonthlyLogId.class)
 @Data
+@NoArgsConstructor
 public class MonthlyLog {
 
     @Id
