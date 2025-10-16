@@ -1,8 +1,8 @@
 package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.Vacation.VacationRequestDto;
+import com.kolotree.task1.dto.Vacation.VacationShowDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
-import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.service.interfaces.VacationService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -21,15 +21,15 @@ public class VacationController {
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/requestVacation")
-    public ResponseEntity<VacationRequest> requestVacation(@Valid @RequestBody VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
-        VacationRequest vacationRequest =  vacationService.requestVacation(vacationRequestDto);
+    public ResponseEntity<VacationShowDto> requestVacation(@Valid @RequestBody VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
+        VacationShowDto vacationRequest = vacationService.requestVacation(vacationRequestDto);
         return ResponseEntity.ok(vacationRequest);
     }
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/myVacations")
-    public ResponseEntity<List<VacationRequest>> myVacations(){
-        List<VacationRequest> vacationRequestList = vacationService.myVacations();
+    public ResponseEntity<List<VacationShowDto>> myVacations() {
+        List<VacationShowDto> vacationRequestList = vacationService.myVacations();
         return ResponseEntity.ok(vacationRequestList);
     }
 

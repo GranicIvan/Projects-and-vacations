@@ -10,6 +10,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -73,15 +74,20 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler(NotEnoughVacationDays.class)
-    public ResponseEntity notEnoughtVacationDays(Exception ex, HttpServletRequest request){
+    public ResponseEntity notEnoughtVacationDays(Exception ex, HttpServletRequest request) {
         logger.warn("User tried to take more vacation than they have left, Username: " + request.getRemoteUser());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity usernameNotFoundException(UsernameNotFoundException ex, HttpServletRequest request) {
+        logger.warn("Username Not Found. ", ex);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity generalException(Exception ex, HttpServletRequest request) {
         logger.error("Unexpected error for {} request on {}", request.getMethod(), request.getRequestURI(), ex);
-        //request.getMethod(), request.getRequestURI()
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 

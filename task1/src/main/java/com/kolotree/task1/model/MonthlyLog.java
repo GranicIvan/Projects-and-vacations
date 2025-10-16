@@ -1,7 +1,5 @@
 package com.kolotree.task1.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.kolotree.task1.model.id.MonthlyLogId;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,12 +8,22 @@ import java.time.YearMonth;
 
 
 @Entity
-@Table(name = "monthly_log")
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"project_assignment_id", "year_month"})
+})
+@IdClass(MonthlyLogId.class)
 @Data
 public class MonthlyLog {
 
     @Id
-    private MonthlyLogId id;
+    @ManyToOne
+    @JoinColumn(name = "project_assignment_id")
+    private ProjectAssignment projectAssignment;
 
-    private int horusWorked;
+
+    @Id
+    private YearMonth yearMonth;
+
+    private int hoursWorked;
+
 }

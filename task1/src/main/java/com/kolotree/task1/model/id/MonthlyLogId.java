@@ -1,22 +1,16 @@
 package com.kolotree.task1.model.id;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.kolotree.task1.model.ProjectAssignment;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.YearMonth;
 
-public class MonthlyLogId {
+@AllArgsConstructor
+@NoArgsConstructor
+public class MonthlyLogId implements Serializable {
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "project_assignment_id")
-    private ProjectAssignment projectAssignment;
+    private Long projectAssignment;
 
-    @Id
     private YearMonth yearMonth;
 }

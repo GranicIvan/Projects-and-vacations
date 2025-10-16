@@ -1,7 +1,9 @@
 package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.Vacation.VacationRequestDto;
+import com.kolotree.task1.dto.Vacation.VacationShowDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
+import com.kolotree.task1.mapper.VacationMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.model.VacationRequestStatus;
@@ -26,12 +28,14 @@ public class VacationServiceImpl implements VacationService {
     private final UserService userService;
 
     @Override
-    public List<VacationRequest> myVacations() {
-            return vacationRepository.findByUser(userService.getCurrentUser());
+    public List<VacationShowDto> myVacations() {
+        List<VacationRequest> vacationRequestList = vacationRepository.findByUser(userService.getCurrentUser());
+        return VacationMapper.toShowDtoList(vacationRequestList);
+
     }
 
     @Override
-    public VacationRequest requestVacation(VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
+    public VacationShowDto requestVacation(VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
         User user = userService.getCurrentUser();
         int vacationLength = calculateWorkDaysBetweenDates(vacationRequestDto.getStartDate(), vacationRequestDto.getEndDate());
         VacationRequest request = VacationRequest
@@ -44,14 +48,14 @@ public class VacationServiceImpl implements VacationService {
                 .build();
 
 
-        if(user.getVacationDaysLeft() < vacationLength){
+        if (user.getVacationDaysLeft() < vacationLength) {
             throw new NotEnoughVacationDays();
         }
         userService.useVacation(user.getId(), vacationLength);
-        user.setVacationDaysLeft( user.getVacationDaysLeft() - vacationLength );
+        user.setVacationDaysLeft(user.getVacationDaysLeft() - vacationLength);
         request.setUser(user);
 
-        return vacationRepository.save(request);
+        return VacationMapper.toShowDto(vacationRepository.save(request));
     }
 
     private int calculateWorkDaysBetweenDates(Date startDate, Date endDate) {
