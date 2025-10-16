@@ -35,6 +35,11 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
+    public void approveVacation(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
+        vacationRepository.updateRequestStatus(vacationRequestStatus, vacationRequestId);
+    }
+
+    @Override
     public VacationShowDto requestVacation(VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
         User user = userService.getCurrentUser();
         int vacationLength = calculateWorkDaysBetweenDates(vacationRequestDto.getStartDate(), vacationRequestDto.getEndDate());
