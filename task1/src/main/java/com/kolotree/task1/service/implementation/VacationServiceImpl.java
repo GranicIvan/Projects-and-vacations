@@ -34,9 +34,18 @@ public class VacationServiceImpl implements VacationService {
 
     }
 
+
     @Override
     public void approveVacation(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
+
         vacationRepository.updateRequestStatus(vacationRequestStatus, vacationRequestId);
+
+        if(vacationRequestStatus.equals( VacationRequestStatus.APPROVED)){
+
+            VacationRequest vacationRequest = vacationRepository.findById(vacationRequestId);
+             userService.useVacation( vacationRequest.getUser().getId(),  vacationRequest.getVacationLength()); // TREBA ID OD USERA KOJI JE NAPR
+
+        }
     }
 
     @Override
@@ -53,6 +62,7 @@ public class VacationServiceImpl implements VacationService {
                 .build();
 
 
+        //Checking if Employee has enough vacation days to take these days
         if (user.getVacationDaysLeft() < vacationLength) {
             throw new NotEnoughVacationDays();
         }

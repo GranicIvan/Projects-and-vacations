@@ -16,6 +16,7 @@ import java.util.List;
 public interface VacationRequestRepository extends JpaRepository<VacationRequest, Integer> {
 
     List<VacationRequest> findByUser(User user);
+    VacationRequest findById(Long id);
 
     @Transactional
     @Modifying(clearAutomatically = true)
