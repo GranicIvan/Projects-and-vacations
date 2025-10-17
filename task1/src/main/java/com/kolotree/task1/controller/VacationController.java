@@ -3,8 +3,6 @@ package com.kolotree.task1.controller;
 import com.kolotree.task1.dto.Vacation.VacationRequestDto;
 import com.kolotree.task1.dto.Vacation.VacationShowDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
-import com.kolotree.task1.mapper.VacationMapper;
-import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.model.VacationRequestStatus;
 import com.kolotree.task1.service.interfaces.VacationService;
 import jakarta.validation.Valid;
@@ -38,10 +36,9 @@ public class VacationController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/approveVacation/{vacationRequestId}")
-    public ResponseEntity approveVacationRequest(@RequestBody VacationRequestStatus vacationRequestStatus, @PathVariable Long vacationRequestId){
-        vacationService.approveVacation(vacationRequestStatus, vacationRequestId);
-
+    @PostMapping("/setVacationRequestStatus/{vacationRequestId}")
+    public ResponseEntity setVacationRequestStatus(@RequestBody VacationRequestStatus vacationRequestStatus, @PathVariable Long vacationRequestId) {
+        vacationService.setVacationRequestStatus(vacationRequestStatus, vacationRequestId);
 
         return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatus);
     }

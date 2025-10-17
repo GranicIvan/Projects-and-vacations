@@ -13,5 +13,5 @@ public interface VacationService {
 
     List<VacationShowDto> myVacations();
 
-    void approveVacation(VacationRequestStatus vacationRequestStatus, Long vacationRequestId);
+    void setVacationRequestStatus(VacationRequestStatus vacationRequestStatus, Long vacationRequestId);
 }

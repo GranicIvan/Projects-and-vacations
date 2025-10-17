@@ -36,15 +36,14 @@ public class VacationServiceImpl implements VacationService {
 
 
     @Override
-    public void approveVacation(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
+    public void setVacationRequestStatus(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
 
         vacationRepository.updateRequestStatus(vacationRequestStatus, vacationRequestId);
 
-        if(vacationRequestStatus.equals( VacationRequestStatus.APPROVED)){
+        if (vacationRequestStatus.equals(VacationRequestStatus.APPROVED)) {
 
             VacationRequest vacationRequest = vacationRepository.findById(vacationRequestId);
-             userService.useVacation( vacationRequest.getUser().getId(),  vacationRequest.getVacationLength()); // TREBA ID OD USERA KOJI JE NAPR
-
+            userService.useVacation(vacationRequest.getUser().getId(), vacationRequest.getVacationLength());
         }
     }
 
