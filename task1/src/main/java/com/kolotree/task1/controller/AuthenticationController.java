@@ -65,4 +65,12 @@ public class AuthenticationController {
         Date date = new Date();
         return "Test No JWT Works correctly at: " + date;
     }
+
+    @GetMapping("/testNoJwtJson")
+    public ResponseEntity testNoJwtJson() {
+        Date date = new Date();
+        return ResponseEntity.ok("{Test No JWT Works correctly at: " + date + "}");
+    }
+
+
 }
