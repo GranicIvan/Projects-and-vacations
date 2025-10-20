@@ -51,9 +51,8 @@ public class UserServiceImpl implements UserService {
                 .getAuthentication()
                 .getPrincipal();
 
-        User user = userRepository.findByEmail(currentUserDetails.getUsername()).get();
+        return userRepository.findByEmail(currentUserDetails.getUsername()).get();
 
-        return user;
     }
 
     @Override

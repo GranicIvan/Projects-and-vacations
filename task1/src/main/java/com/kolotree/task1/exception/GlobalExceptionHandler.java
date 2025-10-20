@@ -24,54 +24,29 @@ public class GlobalExceptionHandler {
     private static final Logger logger = LogManager.getLogger(GlobalExceptionHandler.class);
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        for (var error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-        logger.warn("Argument not valid", ex);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-    }
-
-    @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity handleExpiredJtw(ExpiredJwtException ex) {
-        logger.warn("JWE EXPIRED", ex);
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    }
-
-    @ExceptionHandler(JwtException.class)
+    @ExceptionHandler({ExpiredJwtException.class, JwtException.class})
     public ResponseEntity incorrectJwt(JwtException ex) {
         logger.warn("JWT was incorrect", ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity entityNotFound(EntityNotFoundException ex) {
-        logger.warn(ex.getMessage(), ex);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    }
-
-    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    @ExceptionHandler({ChangeSetPersister.NotFoundException.class, EntityNotFoundException.class})
     public ResponseEntity notFoundException(ChangeSetPersister.NotFoundException ex) {
         logger.warn("Resource not found", ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource was not found");
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler({IllegalArgumentException.class, MethodArgumentNotValidException.class})
     public ResponseEntity illegalArgumentException(Exception ex) {
-        logger.warn("IllegalArgumentException", ex);
+        logger.warn(ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
-
 
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity authorizationDeniedException(AuthorizationDeniedException ex, HttpServletRequest request) {
         logger.warn("User tried to access forbidden method for its role. User principal:" + request.getUserPrincipal(), ex);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
-
 
     @ExceptionHandler(NotEnoughVacationDays.class)
     public ResponseEntity notEnoughtVacationDays(Exception ex, HttpServletRequest request) {
