@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity incorrectJwt(JwtException ex) {
         logger.warn("JWT was incorrect", ex);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    } // TODO mora u security da se handle ovo
+    }
 
 
     @ExceptionHandler(EntityNotFoundException.class)
