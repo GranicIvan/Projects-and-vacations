@@ -38,7 +38,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
-    //    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();

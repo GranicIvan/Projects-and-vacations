@@ -25,7 +25,6 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.findAll()).getBody();
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<Project> getOne(@PathVariable Integer id) {
         return projectService.getOne(id)
@@ -76,6 +75,4 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
 }

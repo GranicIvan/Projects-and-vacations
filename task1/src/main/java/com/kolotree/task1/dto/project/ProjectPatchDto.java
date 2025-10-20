@@ -2,7 +2,6 @@ package com.kolotree.task1.dto.project;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.kolotree.task1.model.ProjectAssignment;
-import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.util.ArrayList;

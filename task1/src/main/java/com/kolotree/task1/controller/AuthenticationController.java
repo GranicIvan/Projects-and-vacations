@@ -61,7 +61,7 @@ public class AuthenticationController {
     }
 
     @GetMapping("/testNoJwt")
-    public String testNoJwt(){
+    public String testNoJwt() {
         Date date = new Date();
         return "Test No JWT Works correctly at: " + date;
     }

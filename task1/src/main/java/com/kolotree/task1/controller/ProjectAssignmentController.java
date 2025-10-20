@@ -24,7 +24,6 @@ public class ProjectAssignmentController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addEmployeeToProject")
-//    public ResponseEntity addEmployeeToProject(@RequestBody Long userId, @RequestBody Long projectId, @RequestBody double hourlyRate){
     public ResponseEntity addEmployeeToProject(@RequestBody ProjectAssignmentRequestBodyDto requestBody) {
         long userId = requestBody.getUserId();
         long projectId = requestBody.getProjectId();
@@ -34,6 +33,4 @@ public class ProjectAssignmentController {
         projectAssignmentService.addEmployeeToProject(userId, projectId, hourlyRate);
         return ResponseEntity.ok("Successfully added Employee with id: " + userId + " to project with id: " + projectId);
     }
-
-
 }

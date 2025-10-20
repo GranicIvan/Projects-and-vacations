@@ -43,5 +43,4 @@ public class VacationController {
         return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatus);
     }
 
-
 }

@@ -45,10 +45,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Authentication authenticationResponse =
                 this.authenticationManager.authenticate(authenticationRequest);
 
-        // Get user details from the authenticated object
         UserDetails userDetails = (UserDetails) authenticationResponse.getPrincipal();
 
-        // Generate the JWT token
         return jwtService.generateToken(userDetails);
     }
 }

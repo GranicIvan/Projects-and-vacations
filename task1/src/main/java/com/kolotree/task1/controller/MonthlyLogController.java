@@ -17,7 +17,6 @@ public class MonthlyLogController {
 
     private final MonthlyLogService monthlyLogService;
 
-
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/addHoursToProjectForMonth")
     public ResponseEntity<MonthlyLogShowDto> addHoursToProjectForMonth(@RequestBody AddMonthlyLogDto requestBody) {
@@ -28,7 +27,6 @@ public class MonthlyLogController {
 
     }
 
-
     @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/myMonthlyLogs")
     public ResponseEntity<List<MonthlyLogShowDto>> myMonthlyLogs() {
@@ -36,6 +34,4 @@ public class MonthlyLogController {
 
         return ResponseEntity.ok(monthlyLogList);
     }
-
-
 }

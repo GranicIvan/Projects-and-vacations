@@ -29,5 +29,4 @@ public class UserShowDTO {
     private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
     private List<VacationRequest> vacationRequests = new ArrayList<>();
 
-
 }

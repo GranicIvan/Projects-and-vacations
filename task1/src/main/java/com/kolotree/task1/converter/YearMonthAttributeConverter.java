@@ -10,7 +10,7 @@ public class YearMonthAttributeConverter implements AttributeConverter<YearMonth
 
     @Override
     public String convertToDatabaseColumn(YearMonth attribute) {
-        return attribute != null ? attribute.toString() : null; // e.g. "2025-10"
+        return attribute != null ? attribute.toString() : null;
     }
 
     @Override

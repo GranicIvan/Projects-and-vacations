@@ -41,7 +41,7 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
 
         monthlyLog = monthlyLogRepository.save(monthlyLog);
 
-        return  MonthlyLogMapper.toShowDto(monthlyLog);
+        return MonthlyLogMapper.toShowDto(monthlyLog);
 
     }
 
