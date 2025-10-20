@@ -1,0 +1,17 @@
+<p>test-wo-jwt works!</p>
+<div class="row">
+    <div class="col-3">
+        <button (click)="testWOjwt()" class="btn btn-success">test-wo-jwt</button>
+    </div>
+</div>
+
+@if (testResponse) {
+    <pre>{{ testResponse }}</pre>
+}
+
+<div *ngIf="testResponse">
+    <h2>Response:</h2>
+
+  <pre>{{ testResponse}}</pre>
+</div>
+

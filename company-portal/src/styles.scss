@@ -6,6 +6,10 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+/* You can add global styles to this file, and also import other style files */
+@use "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
 html {
   @include mat.theme((
     color: (
@@ -34,9 +38,7 @@ body {
   margin: 0;
 }
 
-/* You can add global styles to this file, and also import other style files */
-@use "bootstrap/scss/bootstrap";
-@import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
