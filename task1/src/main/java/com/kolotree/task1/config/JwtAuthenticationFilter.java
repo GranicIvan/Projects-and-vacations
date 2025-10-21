@@ -56,7 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (jwt == null || jwt.trim().isEmpty()) {
             if (isProtectedEndpoint(request)) {
-                logger.warn("Incoming {} request to {}, with not valid or no JWT token", request.getMethod(), request.getRequestURI());
+                logger.warn("Incoming {} request to {}, with not valid or no JWT token. User principal: {}", request.getMethod(), request.getRequestURI(), request.getUserPrincipal());
                 sendErrorResponse(response, "Missing authentication token.");
             } else filterChain.doFilter(request, response);
 

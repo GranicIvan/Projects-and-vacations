@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { VacationShowDto } from '../../vacation-dto/vacation-show-dto';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { VacationService } from '../../service/vacation-service';
 
 @Component({
   selector: 'app-awaiting-response',
@@ -14,10 +15,10 @@ export class AwaitingResponse {
   vacationShowDtoList: VacationShowDto[] = [];
 
   constructor(private http: HttpClient) {}
+  protected vacationService = inject(VacationService);
 
   getAwaitingRequest() {
-    this.http.get<VacationShowDto[]>('http://localhost:8081/vacations/awaiting-response'
-    ).subscribe(response => {
+    this.vacationService.getAwaitingResponse().subscribe(response => {
       this.vacationShowDtoList = response;
       console.log(this.vacationShowDtoList);
     });

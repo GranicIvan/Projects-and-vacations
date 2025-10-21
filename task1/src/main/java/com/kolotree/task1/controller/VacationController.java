@@ -45,6 +45,7 @@ public class VacationController {
         return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatus);
     }
 
+    //TODO Add role here
     @GetMapping("/getAwaitingVacationRequests")
     public ResponseEntity<List<VacationShowWithUserDto>> getAwaitingVacationRequests(){
         List<VacationShowWithUserDto> vacationRequestList =  vacationService.getAwaitingVacationRequests();
