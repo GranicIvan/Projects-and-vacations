@@ -20,6 +20,13 @@ export class AwaitingResponse {
   getAwaitingRequest() {
     this.vacationService.getAwaitingResponse().subscribe(response => {
       this.vacationShowDtoList = response;
+      
+      for (let v of this.vacationShowDtoList) {
+        v.startDate = new Date(v.startDate);
+        v.endDate = new Date(v.endDate);
+        console.log(v);
+      }
+
       console.log(this.vacationShowDtoList);
     });
   }
