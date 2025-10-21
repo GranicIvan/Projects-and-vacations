@@ -8,10 +8,7 @@
 @if (testResponse) {
     <pre>{{ testResponse }}</pre>
 }
-
-<div *ngIf="testResponse">
+@if(testResponse){
     <h2>Response:</h2>
-
-  <pre>{{ testResponse}}</pre>
-</div>
-
+      <pre>{{ testResponse}}</pre>
+}

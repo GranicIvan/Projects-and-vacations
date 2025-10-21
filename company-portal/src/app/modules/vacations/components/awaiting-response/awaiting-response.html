@@ -1,29 +1,46 @@
-<p>awaiting-response works!</p>
-<h2>Vacations Awaiting Response</h2>
-
-<div>
-    <button type="button" (click)="getAwaitingRequest()">Load vacations</button>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
+    <h2 style="color: white; margin: 0 0 1rem 0;">Vacation requests awaiting response</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <button type="button" (click)="getAwaitingRequest()" 
+                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--french-violet); border: none; cursor: pointer;">
+            Load Vacations
+        </button>
+    </div>
 
     @if (vacationShowDtoList.length) {
-        <table>
-            <thead>
-                <tr>
-                    @for (col of (vacationShowDtoList[0] | keyvalue); track col.key) {
-                        <th>{{ col.key }}</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @for (v of vacationShowDtoList; track v) {
-                    <tr>
-                        @for (cell of (v | keyvalue); track cell.key) {
-                            <td>{{ cell.value }}</td>
+        <div style="background: white; border-radius: 8px; padding: 1rem; overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; background: white;">
+                <thead>
+                    <tr style="background: var(--gray-900);">
+                        @for (col of (vacationShowDtoList[0] | keyvalue); track col.key) {
+                            <th style="color: white; padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--french-violet);">
+                                {{ col.key }}
+                            </th>
                         }
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (v of vacationShowDtoList; track v; let i = $index) {
+                        <tr [ngStyle]="{ 
+                            'background': i % 2 === 0 ? '#f8f9fa' : 'white', 
+                            'border-bottom': '1px solid #e9ecef' 
+                        }">
+                            @for (cell of (v | keyvalue); track cell.key) {
+                                <td style="padding: 0.75rem; color: #333;">
+                                    {{ cell.value }}
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     } @else {
-        <p>No vacations to show. Click "Load vacations" to fetch data.</p>
+        <div style="background: white; border-radius: 8px; padding: 2rem; text-align: center;">
+            <p style="color: #666; margin: 0; font-size: 1.1rem;">
+                No vacations to show. Click "Load Vacations" to fetch data.
+            </p>
+        </div>
     }
 </div>
