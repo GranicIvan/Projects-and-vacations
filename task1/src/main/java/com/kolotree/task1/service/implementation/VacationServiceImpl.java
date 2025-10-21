@@ -1,7 +1,7 @@
 package com.kolotree.task1.service.implementation;
 
-import com.kolotree.task1.dto.Vacation.VacationRequestDto;
-import com.kolotree.task1.dto.Vacation.VacationShowDto;
+import com.kolotree.task1.dto.vacation.VacationRequestDto;
+import com.kolotree.task1.dto.vacation.VacationShowDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
 import com.kolotree.task1.mapper.VacationMapper;
 import com.kolotree.task1.model.User;

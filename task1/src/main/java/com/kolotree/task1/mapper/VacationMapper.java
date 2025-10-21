@@ -1,6 +1,6 @@
 package com.kolotree.task1.mapper;
 
-import com.kolotree.task1.dto.Vacation.VacationShowDto;
+import com.kolotree.task1.dto.vacation.VacationShowDto;
 import com.kolotree.task1.model.VacationRequest;
 
 import java.util.List;

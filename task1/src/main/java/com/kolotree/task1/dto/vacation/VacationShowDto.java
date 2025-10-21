@@ -1,4 +1,4 @@
-package com.kolotree.task1.dto.Vacation;
+package com.kolotree.task1.dto.vacation;
 
 import com.kolotree.task1.model.VacationRequestStatus;
 import lombok.AllArgsConstructor;
