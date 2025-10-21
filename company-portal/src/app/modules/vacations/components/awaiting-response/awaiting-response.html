@@ -1,2 +1,29 @@
 <p>awaiting-response works!</p>
 <h2>Vacations Awaiting Response</h2>
+
+<div>
+    <button type="button" (click)="getAwaitingRequest()">Load vacations</button>
+
+    @if (vacationShowDtoList?.length) {
+        <table>
+            <thead>
+                <tr>
+                    @for (col of (vacationShowDtoList[0] | keyvalue); track col.key) {
+                        <th>{{ col.key }}</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @for (v of vacationShowDtoList; track v) {
+                    <tr>
+                        @for (cell of (v | keyvalue); track cell.key) {
+                            <td>{{ cell.value }}</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } @else {
+        <p>No vacations to show. Click "Load vacations" to fetch data.</p>
+    }
+</div>

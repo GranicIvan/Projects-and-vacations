@@ -10,8 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class TestWoJwt {
 
-  // testResponse: String | undefined;
-
   testResponse: any;
   
 
