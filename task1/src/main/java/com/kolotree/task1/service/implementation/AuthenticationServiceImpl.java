@@ -2,7 +2,7 @@ package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.auth.LoginUserDto;
 import com.kolotree.task1.dto.auth.RegisterUserDto;
-import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepository;
@@ -27,7 +27,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public UserShowDTO signup(RegisterUserDto input) {
+    public UserShowDto signup(RegisterUserDto input) {
         User user = new User();
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());

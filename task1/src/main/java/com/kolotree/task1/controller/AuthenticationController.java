@@ -3,7 +3,7 @@ package com.kolotree.task1.controller;
 import com.kolotree.task1.dto.auth.LoginResponseDto;
 import com.kolotree.task1.dto.auth.LoginUserDto;
 import com.kolotree.task1.dto.auth.RegisterUserDto;
-import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.service.interfaces.AuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class AuthenticationController {
     private Integer cookieDuration;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserShowDTO> register(@RequestBody RegisterUserDto registerUserDto) {
-        UserShowDTO registerUser = authenticationService.signup(registerUserDto);
+    public ResponseEntity<UserShowDto> register(@RequestBody RegisterUserDto registerUserDto) {
+        UserShowDto registerUser = authenticationService.signup(registerUserDto);
 
         return ResponseEntity.ok(registerUser);
     }

@@ -12,7 +12,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Data
-public class UserShowDTO {
+public class UserShowDto {
 
     private Long id;
 

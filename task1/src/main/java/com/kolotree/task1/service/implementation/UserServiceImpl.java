@@ -1,7 +1,7 @@
 package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
-import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepository;
@@ -21,13 +21,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Iterable<UserShowDTO> getAll() {
+    public Iterable<UserShowDto> getAll() {
 
         return UserMapper.toShowDtoList(userRepository.findAll());
     }
 
     @Override
-    public UserShowDTO getOne(Integer id) {
+    public UserShowDto getOne(Integer id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isEmpty()) {
             throw new EntityNotFoundException("Entity user with ID " + id + " not found");
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserShowDTO getUserByEmail(String email) {
+    public UserShowDto getUserByEmail(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
             throw new EntityNotFoundException("Entity user with email " + email + " not found");
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public UserShowDTO addUser(User user) {
+    public UserShowDto addUser(User user) {
         user.setActiveStatus(true);
         User savedUser = userRepository.save(user);
         return UserMapper.toShowDto(savedUser);
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserShowDTO patchUser(Integer id, UserPatchDto dto) {
+    public UserShowDto patchUser(Integer id, UserPatchDto dto) {
 
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));

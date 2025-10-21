@@ -1,7 +1,7 @@
 package com.kolotree.task1.mapper;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
-import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.dto.user.UserShowSlimDto;
 import com.kolotree.task1.dto.user.UserUpdateDto;
 import com.kolotree.task1.model.User;
@@ -36,8 +36,8 @@ public class UserMapper {
 
     }
 
-    public static UserShowDTO toShowDto(User user) {
-        return new UserShowDTO(
+    public static UserShowDto toShowDto(User user) {
+        return new UserShowDto(
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
@@ -64,7 +64,7 @@ public class UserMapper {
         );
     }
 
-    public static List<UserShowDTO> toShowDtoList(List<User> users) {
+    public static List<UserShowDto> toShowDtoList(List<User> users) {
         return users.stream()
                 .map(UserMapper::toShowDto)
                 .toList();

@@ -1,7 +1,7 @@
 package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
-import com.kolotree.task1.dto.user.UserShowDTO;
+import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.service.interfaces.UserService;
@@ -28,14 +28,14 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<Iterable<UserShowDTO>> getAll() {
+    public ResponseEntity<Iterable<UserShowDto>> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<UserShowDTO> getOne(@PathVariable Integer id) {
-        UserShowDTO foundUser = userService.getOne(id);
+    public ResponseEntity<UserShowDto> getOne(@PathVariable Integer id) {
+        UserShowDto foundUser = userService.getOne(id);
 
         if (foundUser == null) {
             return ResponseEntity.notFound().build();
@@ -45,9 +45,9 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public UserShowDTO addUser(@RequestBody User user) {
+    public UserShowDto addUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserShowDTO savedUser = userService.addUser(user);
+        UserShowDto savedUser = userService.addUser(user);
         return ResponseEntity.ok(savedUser).getBody();
 
     }
@@ -68,7 +68,7 @@ public class UserController {
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchUser(@PathVariable Integer id, @Valid @RequestBody UserPatchDto dto) {
         try {
-            UserShowDTO updated = userService.patchUser(id, dto);
+            UserShowDto updated = userService.patchUser(id, dto);
             return ResponseEntity.ok(updated);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.notFound().build();
@@ -79,14 +79,14 @@ public class UserController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<UserShowDTO> authenticatedUser() {
+    public ResponseEntity<UserShowDto> authenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         UserDetails currentUser = (UserDetails) authentication.getPrincipal();
 
         User user = UserMapper.userDetailsToUser(currentUser);
 
-        UserShowDTO userShow = userService.getUserByEmail(user.getEmail());
+        UserShowDto userShow = userService.getUserByEmail(user.getEmail());
 
         return ResponseEntity.ok(userShow);
     }
