@@ -1,10 +1,16 @@
 import { Routes } from '@angular/router';
+import { Welcome } from './modules/shared/components/welcome/welcome';
 
 export const routes: Routes = [
+  { path: '', component: Welcome },
   {
     path: '',
     redirectTo: '/dashboard',
     pathMatch: 'full'
+  },
+  {
+    path: 'vacations',
+    loadChildren: () => import('./modules/vacations/vacations-module').then(m => m.VacationsModule)
   },
   {
     path: 'dashboard',
@@ -26,10 +32,10 @@ export const routes: Routes = [
     path: 'test-wo-jwt',
     loadComponent: () => import('./modules/testing/components/test-wo-jwt/test-wo-jwt').then(m => m.TestWoJwt)
   },
-    {
-    path: 'awaiting-response',
-    loadComponent: () => import('./modules/vacations/components/awaiting-response/awaiting-response').then(m => m.AwaitingResponse)
-  },
+  //   {
+  //   path: 'awaiting-response',
+  //   loadComponent: () => import('./modules/vacations/components/awaiting-response/awaiting-response').then(m => m.AwaitingResponse)
+  // },
   {
     path: '**',
     redirectTo: '/dashboard'

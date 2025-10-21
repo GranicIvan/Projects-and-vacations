@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone: true,
   selector: 'app-test-wo-jwt',
   imports: [CommonModule],
   templateUrl: './test-wo-jwt.html',
