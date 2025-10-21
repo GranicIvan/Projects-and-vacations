@@ -2,7 +2,9 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.vacation.VacationRequestDto;
 import com.kolotree.task1.dto.vacation.VacationShowDto;
+import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
+import com.kolotree.task1.model.VacationRequest;
 import com.kolotree.task1.model.VacationRequestStatus;
 import com.kolotree.task1.service.interfaces.VacationService;
 import jakarta.validation.Valid;
@@ -41,6 +43,12 @@ public class VacationController {
         vacationService.setVacationRequestStatus(vacationRequestStatus, vacationRequestId);
 
         return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatus);
+    }
+
+    @GetMapping("/getAwaitingVacationRequests")
+    public ResponseEntity<List<VacationShowWithUserDto>> getAwaitingVacationRequests(){
+        List<VacationShowWithUserDto> vacationRequestList =  vacationService.getAwaitingVacationRequests();
+        return  ResponseEntity.ok(vacationRequestList);
     }
 
 }

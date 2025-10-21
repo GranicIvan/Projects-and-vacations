@@ -25,4 +25,5 @@ public interface VacationRequestRepository extends JpaRepository<VacationRequest
     int updateRequestStatus(@Param("status") VacationRequestStatus status, @Param("id") Long vacationRequestId);
 
 
+    List<VacationRequest> findByVacationRequestStatus(VacationRequestStatus vacationRequestStatus);
 }

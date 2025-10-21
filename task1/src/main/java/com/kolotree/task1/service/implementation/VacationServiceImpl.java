@@ -2,6 +2,7 @@ package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.vacation.VacationRequestDto;
 import com.kolotree.task1.dto.vacation.VacationShowDto;
+import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
 import com.kolotree.task1.mapper.VacationMapper;
 import com.kolotree.task1.model.User;
@@ -31,9 +32,7 @@ public class VacationServiceImpl implements VacationService {
     public List<VacationShowDto> myVacations() {
         List<VacationRequest> vacationRequestList = vacationRepository.findByUser(userService.getCurrentUser());
         return VacationMapper.toShowDtoList(vacationRequestList);
-
     }
-
 
     @Override
     public void setVacationRequestStatus(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
@@ -45,6 +44,15 @@ public class VacationServiceImpl implements VacationService {
             VacationRequest vacationRequest = vacationRepository.findById(vacationRequestId);
             userService.useVacation(vacationRequest.getUser().getId(), vacationRequest.getVacationLength());
         }
+    }
+
+    @Override
+    public List<VacationShowWithUserDto> getAwaitingVacationRequests() {
+
+        return VacationMapper.toShowWithUserList(
+                vacationRepository.findByVacationRequestStatus(VacationRequestStatus.WAITING)
+        );
+
     }
 
     @Override
