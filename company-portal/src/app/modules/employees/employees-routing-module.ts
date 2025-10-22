@@ -3,19 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { Employees } from './components/employees/employees';
 import { EditEmployee } from './components/edit-employee/edit-employee';
 import { NewEmployee } from './components/new-employee/new-employee';
+import { adminGuard } from '../shared/guards/admin-guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: Employees
+    component: Employees,
+    canActivate: [adminGuard]
   },
   {
     path: 'new',
-    component: NewEmployee
+    component: NewEmployee,
+    canActivate: [adminGuard]
   },
   {
     path: 'edit/:id',
-    component: EditEmployee
+    component: EditEmployee,
+    canActivate: [adminGuard]
   }
 ];
 
