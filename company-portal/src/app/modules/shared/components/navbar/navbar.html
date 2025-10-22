@@ -1,9 +1,9 @@
 <nav style="background: var(--gray-900); padding: 1rem; margin-bottom: 2rem">
   <div style="display: flex; gap: 1rem; align-items: center">
-    <h2 style="color: white; margin: 0">Company Portal</h2>
+    <h2 routerLink="/dashboard" style="color: white; margin: 0">Company Portal</h2>
     <div style="display: flex; gap: 1rem; margin-left: auto">
-			
       @if (accountService.isLoggedIn()) {
+        <!-- Vacations dropdown -->
         <div class="row">
           <div class="col">
             <div ngbDropdown class="d-inline-block">
@@ -23,6 +23,26 @@
           </div>
         </div>
 
+        <!-- Employees dropdown -->
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+              >
+                Employees
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a ngbDropdownItem routerLink="/employees">Employees</a>
+                <a ngbDropdownItem routerLink="/employees/new">Add Employee</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="flex items-center gap-3" style="display: flex; gap: 1rem">
           <span style="color: white"
             >Welcome, {{ accountService.currentUser()?.firstName }}
@@ -35,13 +55,25 @@
               text-decoration: none;
               padding: 0.5rem 1rem;
               border-radius: 4px;
-              background: var(--bright-blue);
-            "
+              background: #E74C3C;
+            " 
           >
             Logout
           </button>
         </div>
       } @else {
+        <a
+          routerLink="/test-wo-jwt"
+          style="
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background: var(--bright-blue);
+          "
+          >Test-wo-jwt</a
+        >
+
         <form
           [formGroup]="loginForm"
           (ngSubmit)="login()"
@@ -78,51 +110,6 @@
           </button>
         </form>
       }
-
-      <a
-        routerLink="/test-wo-jwt"
-        style="
-          color: white;
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          background: var(--bright-blue);
-        "
-        >Test-wo-jwt</a
-      >
-      <a
-        routerLink="/dashboard"
-        style="
-          color: white;
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          background: var(--bright-blue);
-        "
-        >Dashboard</a
-      >
-      <a
-        routerLink="/employees"
-        style="
-          color: white;
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          background: var(--electric-violet);
-        "
-        >Employees</a
-      >
-      <a
-        routerLink="/employees/new"
-        style="
-          color: white;
-          text-decoration: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
-          background: var(--french-violet);
-        "
-        >Add Employee</a
-      >
     </div>
   </div>
 </nav>
