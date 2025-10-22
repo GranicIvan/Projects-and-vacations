@@ -6,28 +6,27 @@ import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
-
   private baseAuthUrl = environment.apiUrl + 'auth/';
   private baseUserUrl = environment.apiUrl + 'users/';
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) {}
 
   currentUser = signal<UserDto | null>(null);
 
   login(loginCreds: LoginDto) {
-    let response = this.http.post<UserDto>(this.baseAuthUrl + 'login', loginCreds, { withCredentials: true }).pipe(
-      tap(() => {
-        
-        this.getCurrentUser().subscribe(user => {
-          this.currentUser.set(user);
-        });
-      })
-    );
-    
+    let response = this.http
+      .post<UserDto>(this.baseAuthUrl + 'login', loginCreds, { withCredentials: true })
+      .pipe(
+        tap(() => {
+          this.getCurrentUser().subscribe((user) => {
+            this.currentUser.set(user);
+          });
+        }),
+      );
+
     return response;
   }
 
@@ -37,24 +36,19 @@ export class AccountService {
 
   getCurrentUser() {
     const response = this.http.get<UserDto>(this.baseUserUrl + 'meSlim', { withCredentials: true });
-    
     return response;
   }
 
-  fetchUserByEmail(email: string) {
-
-  }
-
+  fetchUserByEmail(email: string) {}
 
   logout() {
-    this.http.post(this.baseAuthUrl + 'logout', {}, { withCredentials: true }).pipe(
-      tap(() => this.clearCurrentUser())
-    ).subscribe();
+    this.http
+      .post(this.baseAuthUrl + 'logout', {}, { withCredentials: true })
+      .pipe(tap(() => this.clearCurrentUser()))
+      .subscribe();
   }
 
   clearCurrentUser() {
     this.currentUser.set(null);
   }
-
-
 }

@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { Welcome } from './modules/shared/components/welcome/welcome';
+import { adminGuard } from './modules/shared/guards/admin-guard';
+import { authGuard } from './modules/shared/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Welcome },
@@ -10,7 +12,8 @@ export const routes: Routes = [
   },
   {
     path: 'vacations',
-    loadChildren: () => import('./modules/vacations/vacations-module').then(m => m.VacationsModule)
+    loadChildren: () => import('./modules/vacations/vacations-module').then(m => m.VacationsModule),
+    canActivate: [authGuard]
   },
   {
     path: 'dashboard',

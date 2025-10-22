@@ -1,1 +1,8 @@
 <p>user-dashboard works!</p>
+
+@if (accountService.isLoggedIn()) {
+    <H1>Welcome, {{ accountService.currentUser()?.firstName }}
+            {{ accountService.currentUser()?.lastName }}</H1>
+} @else {
+    <H1>Log in to your account</H1>
+}
