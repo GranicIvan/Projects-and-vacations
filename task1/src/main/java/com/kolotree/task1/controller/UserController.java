@@ -2,6 +2,7 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDto;
+import com.kolotree.task1.dto.user.UserShowSlimDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.service.interfaces.UserService;
@@ -90,4 +91,18 @@ public class UserController {
 
         return ResponseEntity.ok(userShow);
     }
+
+    @GetMapping("/meSlim")
+    public ResponseEntity<UserShowSlimDto> authenticatedUserSlim() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserDetails currentUser = (UserDetails) authentication.getPrincipal();
+
+        User user = UserMapper.userDetailsToUser(currentUser);
+
+        UserShowSlimDto userShow = userService.getUserByEmailSlim(user.getEmail());
+
+        return ResponseEntity.ok(userShow);
+    }
+
 }
