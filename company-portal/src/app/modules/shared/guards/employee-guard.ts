@@ -1,10 +1,9 @@
-import { CanActivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { AccountService } from '../service/account-service';
-import { Router } from 'express';
 import { inject } from '@angular/core';
 
 export const employeeGuard: CanActivateFn = (route, state) => {
-   const accountService = inject(AccountService);
-    const router = inject(Router);
+  const accountService = inject(AccountService);
+  const router = inject(Router);
   return accountService.isEmployee() ? true : router.parseUrl('/dashboard');
 };

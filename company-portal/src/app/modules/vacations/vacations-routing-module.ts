@@ -9,15 +9,18 @@ import { employeeGuard } from '../shared/guards/employee-guard';
 const routes: Routes = [
   {
     path: '',
-    component: Vacations
+    component: Vacations,
+    canActivate: [adminGuard]
   },
   {
     path: 'awaiting-response',
-    component: AwaitingResponse
+    component: AwaitingResponse,
+    canActivate: [adminGuard]
   },
   {
     path: 'my-vacations',
-    component: MyVacations
+    component: MyVacations,
+    canActivate: [employeeGuard]
   }
 ];
 
