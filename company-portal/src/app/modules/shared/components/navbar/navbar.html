@@ -1,37 +1,128 @@
-<nav style="background: var(--gray-900); padding: 1rem; margin-bottom: 2rem;">
-    <div style="display: flex; gap: 1rem; align-items: center;">
-        <h2 style="color: white; margin: 0;">Company Portal</h2>
-        <div style="display: flex; gap: 1rem; margin-left: auto;">
-
-            <form [formGroup]="loginForm" (ngSubmit)="login()" class="flex items-center gap-3"
-                style="display: flex; gap: 1rem;">
-
-                <input type="email" class="input" placeholder="Email" formControlName="email"
-                    style="border-radius: 4px;" />
-                <input type="password" class="input" placeholder="Password" formControlName="password"
-                    style="border-radius: 4px;" />
-                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid"
-                    style="color: white; text-decoration: none; border-radius: 4px; background: var(--french-violet); border-width: 0;">
-                    Login
-                </button>
-
-            </form>
-
-            <a routerLink="/test-wo-jwt"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--bright-blue);">Test-wo-jwt</a>
-            <a routerLink="/dashboard"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--bright-blue);">Dashboard</a>
-            <a routerLink="/employees"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--electric-violet);">Employees</a>
-            <a routerLink="/employees/new"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--french-violet);">Add
-                Employee</a>
-            <a routerLink="/vacations"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--french-violet);">Vacations</a>
-            <a routerLink="/vacations/awaiting-response"
-                style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; background: var(--french-violet);">Awaiting
-                Vacations</a>
-
+<nav style="background: var(--gray-900); padding: 1rem; margin-bottom: 2rem">
+  <div style="display: flex; gap: 1rem; align-items: center">
+    <h2 style="color: white; margin: 0">Company Portal</h2>
+    <div style="display: flex; gap: 1rem; margin-left: auto">
+			
+      @if (accountService.isLoggedIn()) {
+        <div class="row">
+          <div class="col">
+            <div ngbDropdown class="d-inline-block">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                id="dropdownBasic1"
+                ngbDropdownToggle
+              >
+                Vacaions
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a ngbDropdownItem routerLink="/vacations">Vacations</a>
+                <a ngbDropdownItem routerLink="/vacations/awaiting-response">Awaiting Vacations</a>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <div class="flex items-center gap-3" style="display: flex; gap: 1rem">
+          <span style="color: white"
+            >Welcome, {{ accountService.currentUser()?.firstName }}
+            {{ accountService.currentUser()?.lastName }}</span
+          >
+          <button
+            (click)="accountService.logout()"
+            style="
+              color: white;
+              text-decoration: none;
+              padding: 0.5rem 1rem;
+              border-radius: 4px;
+              background: var(--bright-blue);
+            "
+          >
+            Logout
+          </button>
+        </div>
+      } @else {
+        <form
+          [formGroup]="loginForm"
+          (ngSubmit)="login()"
+          class="flex items-center gap-3"
+          style="display: flex; gap: 1rem"
+        >
+          <input
+            type="email"
+            class="input"
+            placeholder="Email"
+            formControlName="email"
+            style="border-radius: 4px"
+          />
+          <input
+            type="password"
+            class="input"
+            placeholder="Password"
+            formControlName="password"
+            style="border-radius: 4px"
+          />
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="loginForm.invalid"
+            style="
+              color: white;
+              text-decoration: none;
+              border-radius: 4px;
+              background: var(--french-violet);
+              border-width: 0;
+            "
+          >
+            Login
+          </button>
+        </form>
+      }
+
+      <a
+        routerLink="/test-wo-jwt"
+        style="
+          color: white;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          background: var(--bright-blue);
+        "
+        >Test-wo-jwt</a
+      >
+      <a
+        routerLink="/dashboard"
+        style="
+          color: white;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          background: var(--bright-blue);
+        "
+        >Dashboard</a
+      >
+      <a
+        routerLink="/employees"
+        style="
+          color: white;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          background: var(--electric-violet);
+        "
+        >Employees</a
+      >
+      <a
+        routerLink="/employees/new"
+        style="
+          color: white;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          background: var(--french-violet);
+        "
+        >Add Employee</a
+      >
     </div>
+  </div>
 </nav>

@@ -6,6 +6,8 @@ import { UserDto } from '../../../employees/employee-dto/UserDto';
 import { ErrorResponse } from '../../shared-dto/errorResponse';
 import { AccountService } from '../../service/account-service';
 
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
 type LoginForm = FormGroup<{
   email: FormControl<string>;
   password: FormControl<string>;
@@ -13,7 +15,7 @@ type LoginForm = FormGroup<{
 
 @Component({
   selector: 'app-navbar',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, NgbDropdownModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
