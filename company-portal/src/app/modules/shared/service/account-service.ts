@@ -9,6 +9,9 @@ import { tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AccountService {
+
+
+
   private baseAuthUrl = environment.apiUrl + 'auth/';
   private baseUserUrl = environment.apiUrl + 'users/';
 
@@ -51,4 +54,15 @@ export class AccountService {
   clearCurrentUser() {
     this.currentUser.set(null);
   }
+
+    isAdmin() {
+    const user = this.currentUser();
+    return user ? user.userRole == 'ADMIN' : false;
+  }
+
+    isEmployee() {
+    const user = this.currentUser();
+    return user ? user.userRole == 'EMPLOYEE' : false;
+  }
+  
 }

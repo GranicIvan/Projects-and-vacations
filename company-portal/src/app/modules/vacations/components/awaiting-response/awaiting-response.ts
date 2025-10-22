@@ -6,6 +6,7 @@ import { VacationService } from '../../service/vacation-service';
 
 @Component({
   selector: 'app-awaiting-response',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './awaiting-response.html',
   styleUrl: './awaiting-response.scss'

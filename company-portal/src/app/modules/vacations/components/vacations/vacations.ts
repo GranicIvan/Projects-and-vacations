@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-vacations',
   imports: [],
   templateUrl: './vacations.html',

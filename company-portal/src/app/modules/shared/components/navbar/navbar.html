@@ -3,45 +3,92 @@
     <h2 routerLink="/dashboard" style="color: white; margin: 0">Company Portal</h2>
     <div style="display: flex; gap: 1rem; margin-left: auto">
       @if (accountService.isLoggedIn()) {
-        <!-- Vacations dropdown -->
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                id="dropdownBasic1"
-                ngbDropdownToggle
-              >
-                Vacaions
-              </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <a ngbDropdownItem routerLink="/vacations">Vacations</a>
-                <a ngbDropdownItem routerLink="/vacations/awaiting-response">Awaiting Vacations</a>
+        @if (accountService.isAdmin()) {
+					<!-- Admin menu -->
+          <!-- Vacations dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Vacaions
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <a ngbDropdownItem routerLink="/vacations">Vacations</a>
+                  <a ngbDropdownItem routerLink="/vacations/awaiting-response"
+                    >Awaiting Vacations</a
+                  >
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Employees dropdown -->
-        <div class="row">
-          <div class="col">
-            <div ngbDropdown class="d-inline-block">
-              <button
-                type="button"
-                class="btn btn-outline-primary"
-                id="dropdownBasic1"
-                ngbDropdownToggle
-              >
-                Employees
-              </button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <a ngbDropdownItem routerLink="/employees">Employees</a>
-                <a ngbDropdownItem routerLink="/employees/new">Add Employee</a>
+          <!-- Employees dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Employees
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <a ngbDropdownItem routerLink="/employees">Employees</a>
+                  <a ngbDropdownItem routerLink="/employees/new">Add Employee</a>
+                  <a ngbDropdownItem routerLink="/employees/edit">Edit Employee</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        } @else {
+					<!-- Employee menu -->
+          <!-- Vacations dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Vacaions
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <a ngbDropdownItem routerLink="/vacations/my-vacations">My Vacations</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Employees dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Employees
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <a ngbDropdownItem routerLink="/employees">Employees</a>
+                  <a ngbDropdownItem routerLink="/employees/new">Add Employee</a>
+                  <a ngbDropdownItem routerLink="/employees/edit">Edit Employee</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
 
         <div class="flex items-center gap-3" style="display: flex; gap: 1rem">
           <span style="color: white"
@@ -55,8 +102,8 @@
               text-decoration: none;
               padding: 0.5rem 1rem;
               border-radius: 4px;
-              background: #E74C3C;
-            " 
+              background: #e74c3c;
+            "
           >
             Logout
           </button>
