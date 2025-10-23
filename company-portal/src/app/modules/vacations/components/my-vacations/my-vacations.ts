@@ -5,10 +5,6 @@ import { Component } from '@angular/core';
   selector: 'app-my-vacations',
   imports: [],
   templateUrl: './my-vacations.html',
-  styleUrl: './my-vacations.scss'
+  styleUrl: './my-vacations.scss',
 })
-export class MyVacations {
-
-  
-
-}
+export class MyVacations {}

@@ -5,6 +5,7 @@ import { Vacations } from './components/vacations/vacations';
 import { adminGuard } from '../shared/guards/admin-guard';
 import { MyVacations } from './components/my-vacations/my-vacations';
 import { employeeGuard } from '../shared/guards/employee-guard';
+import { RequestVacation } from './components/request-vacation/request-vacation';
 
 const routes: Routes = [
   {
@@ -20,6 +21,11 @@ const routes: Routes = [
   {
     path: 'my-vacations',
     component: MyVacations,
+    canActivate: [employeeGuard]
+  },
+  {
+    path: 'request-a-vacation',
+    component: RequestVacation,
     canActivate: [employeeGuard]
   }
 ];
