@@ -4,7 +4,7 @@ import { VacationShowDto } from '../vacation-dto/vacation-show-dto';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class VacationService {
 
@@ -12,9 +12,13 @@ export class VacationService {
 
   constructor(private http: HttpClient) {}
 
-
   getAwaitingResponse() {
-    return this.http.get<VacationShowDto[]>(this.baseUrl + 'getAwaitingVacationRequests', { withCredentials: true });
+    return this.http.get<VacationShowDto[]>(this.baseUrl + 'getAwaitingVacationRequests', {
+      withCredentials: true,
+    });
   }
 
+  requestVacation(arg0: { startDate: string; endDate: string }) {
+    return this.http.post(this.baseUrl + 'requestVacation', arg0, { withCredentials: true });
+  }
 }

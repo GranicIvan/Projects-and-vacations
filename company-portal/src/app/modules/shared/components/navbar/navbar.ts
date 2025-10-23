@@ -42,11 +42,10 @@ export class Navbar {
     this.accountService.login(loginCreds).subscribe({
       next: () => {
         this.loginForm.reset();
-        //.success(`Welcome back, ${user.firstName}.`);
+        // TODO add success message
       },
       error: () => {
         this.loginForm.patchValue({ password: '' });
-        // .error(errorResponse.message);
       }
     });
   }

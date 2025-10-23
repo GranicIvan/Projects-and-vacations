@@ -1,31 +1,47 @@
-<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
-    <h2 style="color: white; margin: 0 0 1rem 0;">Request a Vacation</h2>
-    
-    <div style="background: white; border-radius: 8px; padding: 2rem;">
-        <form style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px;">
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <label style="color: #333; font-weight: 500;">Start Date</label>
-                <input 
-                    type="date" 
-                    style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem;"
-                    required
-                />
-            </div>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
+  <h2 style="color: white; margin: 0 0 1rem 0">Request a Vacation</h2>
 
-            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <label style="color: #333; font-weight: 500;">End Date</label>
-                <input 
-                    type="date" 
-                    style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem;"
-                    required
-                />
-            </div>
+  <div style="background: white; border-radius: 8px; padding: 2rem">
+    <form [formGroup]="requestVacationForm" (ngSubmit)="requestVacation()" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px">
+      
 
-            <button 
-                type="submit" 
-                style="color: white; padding: 0.75rem 1.5rem; border-radius: 4px; background: var(--french-violet); border: none; cursor: pointer; font-size: 1rem; font-weight: 500; margin-top: 1rem;">
-                Request Vacation
-            </button>
-        </form>
-    </div>
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+
+        <label style="color: #333; font-weight: 500">Start Date</label>
+        <input
+          type="date"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+          formControlName="startDate"
+          required
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">End Date</label>
+        <input
+          type="date"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+          formControlName="endDate"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        style="
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          background: var(--french-violet);
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-top: 1rem;
+        "
+      >
+        Request Vacation
+      </button>
+    </form>
+  </div>
 </div>
