@@ -1,25 +1,27 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { AccountService } from '../service/account-service';
 import { inject } from '@angular/core';
+import { map, catchError, of } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-    const accountService = inject(AccountService);
-    const router = inject(Router);
+  const accountService = inject(AccountService);
+  const router = inject(Router);
 
-  if (accountService.currentUser()) return true;
+  // If user is already loaded, allow immediately
+  if (accountService.currentUser()) {
+    return true;
+  }
 
-  accountService.loadCurrentUser().subscribe({
-    next: (user) => {
+  // Otherwise, try to load the user from the server
+  return accountService.loadCurrentUser().pipe(
+    map((user) => {
       accountService.currentUser.set(user);
-      router.navigate([state.url]);
       return true;
-    },
-    error: () => {
+    }),
+    catchError(() => {
+      console.log('User not authenticated, redirecting to dashboard');
       router.navigate(['/dashboard']);
-    },
-  });
-
-  console.log('User not authenticated, redirecting to dashboard');
-  router.navigate(['/dashboard']);
-  return false;
+      return of(false);
+    })
+  );
 };

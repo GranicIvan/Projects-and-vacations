@@ -3,14 +3,12 @@ import { inject, Injectable, signal } from '@angular/core';
 import { LoginDto } from '../../employees/employee-dto/LoginDto';
 import { UserDto } from '../../employees/employee-dto/UserDto';
 import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
-
-
 
   private baseAuthUrl = environment.apiUrl + 'auth/';
   private baseUserUrl = environment.apiUrl + 'users/';
@@ -64,6 +62,16 @@ export class AccountService {
     isEmployee() {
     const user = this.currentUser();
     return user ? user.userRole == 'EMPLOYEE' : false;
+  }
+
+    init(): Observable<UserDto> {
+    return this.loadCurrentUser().pipe(
+      tap((user) => {
+        if (user) {
+          this.currentUser.set(user);
+        }
+      }),
+    );
   }
   
 }

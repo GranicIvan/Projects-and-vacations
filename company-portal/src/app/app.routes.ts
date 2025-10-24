@@ -12,31 +12,25 @@ export const routes: Routes = [
   // },
   {
     path: 'vacations',
+    runGuardsAndResolvers: 'always',
     loadChildren: () =>
       import('./modules/vacations/vacations-module').then((m) => m.VacationsModule),
     canActivate: [authGuard],
   },
   {
     path: 'employees',
+    runGuardsAndResolvers: 'always',
     loadChildren: () =>
       import('./modules/employees/employees-module').then((m) => m.EmployeesModule),
     canActivate: [authGuard],
   },
   {
     path: 'dashboard',
+    runGuardsAndResolvers: 'always',
     loadComponent: () =>
       import('./modules/shared/components/user-dashboard/user-dashboard').then(
         (m) => m.UserDashboard,
       ),
-  },
-
-  {
-    path: 'employees/edit/:id',
-    loadComponent: () =>
-      import('./modules/employees/components/edit-employee/edit-employee').then(
-        (m) => m.EditEmployee,
-      ),
-    canActivate: [authGuard],
   },
   {
     path: 'test-wo-jwt',
