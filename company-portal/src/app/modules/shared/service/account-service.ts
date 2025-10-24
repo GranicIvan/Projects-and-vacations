@@ -15,7 +15,8 @@ export class AccountService {
   private baseAuthUrl = environment.apiUrl + 'auth/';
   private baseUserUrl = environment.apiUrl + 'users/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   currentUser = signal<UserDto | null>(null);
 
@@ -24,7 +25,7 @@ export class AccountService {
       .post<UserDto>(this.baseAuthUrl + 'login', loginCreds, { withCredentials: true })
       .pipe(
         tap(() => {
-          this.getCurrentUser().subscribe((user) => {
+          this.loadCurrentUser().subscribe((user) => {
             this.currentUser.set(user);
           });
         }),
@@ -37,7 +38,7 @@ export class AccountService {
     return this.currentUser() !== null;
   }
 
-  getCurrentUser() {
+  loadCurrentUser() {
     const response = this.http.get<UserDto>(this.baseUserUrl + 'meSlim', { withCredentials: true });
     return response;
   }
