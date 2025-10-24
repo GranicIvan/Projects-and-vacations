@@ -1,11 +1,10 @@
 import { Routes } from '@angular/router';
-import { Welcome } from './modules/shared/components/welcome/welcome';
-import { adminGuard } from './modules/shared/guards/admin-guard';
 import { authGuard } from './modules/shared/guards/auth-guard';
+import { Welcome } from './modules/shared/components/welcome/welcome';
 
 export const routes: Routes = [
   { path: '', component: Welcome },
-  // {
+    // {
   //   path: '',
   //   redirectTo: '/dashboard',
   //   pathMatch: 'full',
