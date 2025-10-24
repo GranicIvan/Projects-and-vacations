@@ -11,27 +11,27 @@ const routes: Routes = [
   {
     path: '',
     component: Vacations,
-    canActivate: [adminGuard],
+    canActivate: [adminGuard]
   },
   {
     path: 'awaiting-response',
     component: AwaitingResponse,
-    canActivate: [adminGuard],
+    canActivate: [adminGuard]
   },
   {
     path: 'my-vacations',
     component: MyVacations,
-    canActivate: [employeeGuard],
+    canActivate: [employeeGuard]
   },
   {
     path: 'request-a-vacation',
     component: RequestVacation,
-    canActivate: [employeeGuard],
-  },
+    canActivate: [employeeGuard]
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class VacationsRoutingModule {}
+export class VacationsRoutingModule { }
