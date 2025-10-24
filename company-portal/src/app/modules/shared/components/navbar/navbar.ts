@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '../../../employees/employee-dto/LoginDto';
@@ -7,6 +7,7 @@ import { ErrorResponse } from '../../shared-dto/errorResponse';
 import { AccountService } from '../../service/account-service';
 
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type LoginForm = FormGroup<{
   email: FormControl<string>;
@@ -19,11 +20,13 @@ type LoginForm = FormGroup<{
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
-export class Navbar {
+export class Navbar implements OnInit {
 
   private fb = inject(NonNullableFormBuilder);
 
   protected accountService = inject(AccountService);
+
+  private snackBar = inject(MatSnackBar);
 
   readonly loginForm: LoginForm = this.fb.group({
     email: this.fb.control('', {
@@ -34,6 +37,18 @@ export class Navbar {
     }),
   });
 
+  ngOnInit() {
+    if (!this.accountService.currentUser()) {
+      this.accountService.getCurrentUser().subscribe({
+        next: (user) => {
+          this.accountService.currentUser.set(user);
+        },
+        error: () => {
+        }
+      });
+    }
+  }
+
   login() {
     if (this.loginForm.invalid) return;
 
@@ -42,10 +57,11 @@ export class Navbar {
     this.accountService.login(loginCreds).subscribe({
       next: () => {
         this.loginForm.reset();
-        // TODO add success message
+        this.snackBar.open('Login successful', 'Close', { duration: 5000 });
       },
       error: () => {
         this.loginForm.patchValue({ password: '' });
+        this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 5000 });
       }
     });
   }

@@ -5,46 +5,46 @@ import { authGuard } from './modules/shared/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Welcome },
-  {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
-  },
+  // {
+  //   path: '',
+  //   redirectTo: '/dashboard',
+  //   pathMatch: 'full',
+  // },
   {
     path: 'vacations',
-    loadChildren: () => import('./modules/vacations/vacations-module').then(m => m.VacationsModule),
-    canActivate: [authGuard]
+    loadChildren: () =>
+      import('./modules/vacations/vacations-module').then((m) => m.VacationsModule),
+    canActivate: [authGuard],
   },
-    {
+  {
     path: 'employees',
-    loadChildren: () => import('./modules/employees/employees-module').then(m => m.EmployeesModule),
-    canActivate: [authGuard]
+    loadChildren: () =>
+      import('./modules/employees/employees-module').then((m) => m.EmployeesModule),
+    canActivate: [authGuard],
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./modules/shared/components/user-dashboard/user-dashboard').then(m => m.UserDashboard)
+    loadComponent: () =>
+      import('./modules/shared/components/user-dashboard/user-dashboard').then(
+        (m) => m.UserDashboard,
+      ),
   },
 
-  // {
-  //   path: 'employees/new',
-  //   loadComponent: () => import('./modules/employees/components/new-employee/new-employee').then(m => m.NewEmployee),
-  //   canActivate: [authGuard]
-  // },
   {
     path: 'employees/edit/:id',
-    loadComponent: () => import('./modules/employees/components/edit-employee/edit-employee').then(m => m.EditEmployee),
-    canActivate: [authGuard]
+    loadComponent: () =>
+      import('./modules/employees/components/edit-employee/edit-employee').then(
+        (m) => m.EditEmployee,
+      ),
+    canActivate: [authGuard],
   },
   {
     path: 'test-wo-jwt',
-    loadComponent: () => import('./modules/testing/components/test-wo-jwt/test-wo-jwt').then(m => m.TestWoJwt)
+    loadComponent: () =>
+      import('./modules/testing/components/test-wo-jwt/test-wo-jwt').then((m) => m.TestWoJwt),
   },
-  //   {
-  //   path: 'awaiting-response',
-  //   loadComponent: () => import('./modules/vacations/components/awaiting-response/awaiting-response').then(m => m.AwaitingResponse)
-  // },
   {
     path: '**',
-    redirectTo: '/dashboard'
-  }
+    redirectTo: '/dashboard',
+  },
 ];
