@@ -2,8 +2,8 @@
   <div style="display: flex; gap: 1rem; align-items: center">
     <h2 routerLink="/dashboard" style="color: white; margin: 0">Company Portal</h2>
     <div style="display: flex; gap: 1rem; margin-left: auto">
-      @if (accountService.isLoggedIn()) {
-        @if (accountService.isAdmin()) {
+      @if (isLoggedIn()) {
+        @if (isAdmin()) {
 					<!-- Admin menu -->
           <!-- Vacations dropdown -->
           <div class="row">
@@ -97,7 +97,7 @@
             {{ accountService.currentUser()?.lastName }}</span
           >
           <button
-            (click)="accountService.logout()"
+            (click)="logout()"
             style="
               color: white;
               text-decoration: none;

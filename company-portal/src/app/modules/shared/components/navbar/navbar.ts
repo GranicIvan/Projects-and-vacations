@@ -1,9 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LoginDto } from '../../../employees/employee-dto/LoginDto';
-import { UserDto } from '../../../employees/employee-dto/UserDto';
-import { ErrorResponse } from '../../shared-dto/errorResponse';
 import { AccountService } from '../../service/account-service';
 
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,12 +18,9 @@ type LoginForm = FormGroup<{
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss'
 })
-export class Navbar implements OnInit {
-
+export class Navbar {
   private fb = inject(NonNullableFormBuilder);
-
   protected accountService = inject(AccountService);
-
   private snackBar = inject(MatSnackBar);
 
   readonly loginForm: LoginForm = this.fb.group({
@@ -36,18 +31,6 @@ export class Navbar implements OnInit {
       validators: [Validators.required, Validators.minLength(4)],
     }),
   });
-
-  ngOnInit() {
-    if (!this.accountService.currentUser()) {
-      this.accountService.getCurrentUser().subscribe({
-        next: (user) => {
-          this.accountService.currentUser.set(user);
-        },
-        error: () => {
-        }
-      });
-    }
-  }
 
   login() {
     if (this.loginForm.invalid) return;
@@ -66,4 +49,15 @@ export class Navbar implements OnInit {
     });
   }
 
+  isLoggedIn() {
+    return this.accountService.isLoggedIn();
+  }
+
+  logout() {
+    this.accountService.logout();
+  }
+
+  isAdmin() {
+    return this.accountService.isAdmin();
+  }
 }
