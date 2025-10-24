@@ -28,18 +28,18 @@ export class RequestVacation {
 
   protected vacationService = inject(VacationService);
 
-  requestVacation() {
+  async requestVacation() {
     if (this.requestVacationForm.invalid) return;
 
-    this.vacationService.requestVacation(this.requestVacationForm.getRawValue()).subscribe({
-      next: () => {
-        this.requestVacationForm.reset();      
-        // TODO handle success appropriately  
-      },
-      error: () => {
-        // TODO handle error appropriately
-      }
-    });
+    try {
+      const response = await this.vacationService.requestVacation(this.requestVacationForm.getRawValue());
+      console.log(response);
+      this.requestVacationForm.reset();
+      // TODO handle success appropriately
+    } catch (error) {
+      // TODO handle error appropriately
+      console.error(error);
+    }
   }
 
 }
