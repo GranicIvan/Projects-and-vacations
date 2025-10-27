@@ -23,6 +23,16 @@ public class VacationController {
 
     private final VacationService vacationService;
 
+    @GetMapping("/{id}")
+    public ResponseEntity<List<VacationShowDto>> getById(@PathVariable Integer id) {
+        VacationShowDto vacationShowDto = vacationService.getOne(id);
+
+        if (vacationShowDto == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(vacationShowDto);
+    }
+
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/requestVacation")
     public ResponseEntity<VacationShowDto> requestVacation(@Valid @RequestBody VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {

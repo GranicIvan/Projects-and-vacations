@@ -20,4 +20,6 @@ public interface VacationService {
     List<VacationShowWithUserDto> getAwaitingVacationRequests();
 
     List<VacationShowDto> getAll();
+
+    VacationShowDto getOne(Integer id);
 }

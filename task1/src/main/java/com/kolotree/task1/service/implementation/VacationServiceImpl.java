@@ -4,6 +4,7 @@ import com.kolotree.task1.dto.vacation.VacationRequestDto;
 import com.kolotree.task1.dto.vacation.VacationShowDto;
 import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
+import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.mapper.VacationMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.model.VacationRequest;
@@ -11,6 +12,7 @@ import com.kolotree.task1.model.VacationRequestStatus;
 import com.kolotree.task1.repository.VacationRequestRepository;
 import com.kolotree.task1.service.interfaces.UserService;
 import com.kolotree.task1.service.interfaces.VacationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -58,6 +61,16 @@ public class VacationServiceImpl implements VacationService {
     @Override
     public List<VacationShowDto> getAll() {
         return VacationMapper.toShowDtoList(vacationRepository.findAll());
+    }
+
+    @Override
+    public VacationShowDto getOne(Integer id) {
+        Optional<VacationRequest> vacationRequest = vacationRepository.findById(id);
+
+        if (vacationRequest.isEmpty()) {
+            throw new EntityNotFoundException("Entity user with ID " + id + " not found");
+        }
+        return VacationMapper.toShowDto(vacationRequest.get());
     }
 
     @Override
