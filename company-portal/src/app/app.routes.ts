@@ -25,6 +25,13 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'projects',
+    runGuardsAndResolvers: 'always',
+    loadChildren: () =>
+      import('./modules/projects/projects-module').then((m) => m.ProjectsModule),
+    canActivate: [authGuard],
+  },
+  {
     path: 'dashboard',
     runGuardsAndResolvers: 'always',
     loadComponent: () =>
