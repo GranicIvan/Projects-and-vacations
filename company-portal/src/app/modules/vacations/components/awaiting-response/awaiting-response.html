@@ -82,6 +82,16 @@
           >
             Actions
           </th>
+           <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Actions
+          </th>
 
         </tr>
       </thead>
@@ -106,8 +116,15 @@
                 <td style="padding: 0.75rem; color: #333">
                     <button type="button" 
                             (click)="approveVacationRequest(v.id)"
-                            style="color: white; padding: 0.5rem 1rem; border-radius: 4px; background: var(--french-violet); border: none; cursor: pointer;">
+                            style="color: white; padding: 0.5rem 1rem; border-radius: 4px; background: #2E7D32; border: none; cursor: pointer;">
                         Approve
+                    </button>
+                </td>
+                <td style="padding: 0.75rem; color: #333">
+                    <button type="button" 
+                            (click)="denyVacationRequest(v.id)"
+                            style="color: white; padding: 0.5rem 1rem; border-radius: 4px; background: #C62828; border: none; cursor: pointer;">
+                        Deny
                     </button>
                 </td>
             </tr>

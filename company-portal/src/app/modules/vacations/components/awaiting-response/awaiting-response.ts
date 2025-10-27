@@ -3,6 +3,7 @@ import { VacationShowDto } from '../../vacation-dto/vacation-show-dto';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { VacationService } from '../../service/vacation-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-awaiting-response',
@@ -14,6 +15,7 @@ import { VacationService } from '../../service/vacation-service';
 export class AwaitingResponse {
 
   vacationShowDtoList: VacationShowDto[] = [];
+  private snackBar = inject(MatSnackBar);
 
   constructor(private http: HttpClient) {}
   protected vacationService = inject(VacationService);
@@ -31,6 +33,13 @@ export class AwaitingResponse {
 
   approveVacationRequest(vacationId: number) {
     this.vacationService.approveVacationRequest(vacationId);
+      this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
+      this.getAwaitingRequest();      
   }
 
+    denyVacationRequest(vacationId: number) {
+    this.vacationService.denyVacationRequest(vacationId);
+      this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
+      this.getAwaitingRequest();      
+  }
 }

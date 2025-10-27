@@ -44,7 +44,6 @@ export class VacationService {
           id: vacationId,
           vacationRequestStatus: 'APPROVED',
         },
-
         {
           withCredentials: true,
           headers: { 'Content-Type': 'application/json' },
@@ -56,9 +55,10 @@ export class VacationService {
   async denyVacationRequest(vacationId: number): Promise<void> {
     await lastValueFrom(
       this.http.post<void>(
-        this.baseUrl + 'setVacationRequestStatus/' + vacationId,
+        this.baseUrl + 'setVacationRequestStatus',
         {
-          status: 'DENIED',
+          id: vacationId,
+          vacationRequestStatus: 'DENIED',
         },
         {
           withCredentials: true,
