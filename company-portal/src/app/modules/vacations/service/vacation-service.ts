@@ -8,7 +8,6 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class VacationService {
-
   private baseUrl = environment.apiUrl + 'vacations/';
 
   constructor(private http: HttpClient) {}
@@ -21,9 +20,20 @@ export class VacationService {
 
   async requestVacation(arg0: { startDate: string; endDate: string }): Promise<VacationShowDto> {
     const response = await lastValueFrom(
-      this.http.post<VacationShowDto>(this.baseUrl + 'requestVacation', arg0, { withCredentials: true })
+      this.http.post<VacationShowDto>(this.baseUrl + 'requestVacation', arg0, {
+        withCredentials: true,
+      }),
     );
-    console.log("VS:", response);
     return response;
   }
+
+  async getMyVacations(): Promise<VacationShowDto[]> {
+    const response = await lastValueFrom(
+      this.http.get<VacationShowDto[]>(this.baseUrl + 'myVacations', {
+        withCredentials: true,
+      })
+    );
+    return response;
+  }
+
 }

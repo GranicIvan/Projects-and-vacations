@@ -1,4 +1,10 @@
-import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+import {
+  ApplicationConfig,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -12,25 +18,23 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes), 
+    provideRouter(routes),
     provideHttpClient(
       // withFetch(),
-      withInterceptors([credentialsInterceptor])
+      withInterceptors([credentialsInterceptor]),
     ),
     provideAppInitializer(async () => {
       const accountService = inject(AccountService);
 
-      return new Promise<void>((resolve) => {
-        setTimeout(async () => {
-          try {
-            await lastValueFrom(accountService.init());
-          } catch (error) {
-            console.error('Error during app initialization:', error);
-          } finally {
-            resolve();
-          }
-        }, 250);
+      return new Promise<void>(async (resolve) => {
+        try {
+          await lastValueFrom(accountService.init());
+        } catch (error) {
+          console.error('Error during app initialization:', error);
+        } finally {
+          resolve();
+        }
       });
     }),
-  ]
+  ],
 };
