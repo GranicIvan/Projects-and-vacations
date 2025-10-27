@@ -31,9 +31,39 @@ export class VacationService {
     const response = await lastValueFrom(
       this.http.get<VacationShowDto[]>(this.baseUrl + 'myVacations', {
         withCredentials: true,
-      })
+      }),
     );
     return response;
   }
 
+  async approveVacationRequest(vacationId: number): Promise<void> {
+    await lastValueFrom(
+      this.http.post<void>(
+        this.baseUrl + 'setVacationRequestStatus',
+        {
+          id: vacationId,
+          vacationRequestStatus: 'APPROVED',
+        },
+
+        {
+          withCredentials: true,
+          headers: { 'Content-Type': 'application/json' },
+        },
+      ),
+    );
+  }
+
+  async denyVacationRequest(vacationId: number): Promise<void> {
+    await lastValueFrom(
+      this.http.post<void>(
+        this.baseUrl + 'setVacationRequestStatus/' + vacationId,
+        {
+          status: 'DENIED',
+        },
+        {
+          withCredentials: true,
+        },
+      ),
+    );
+  }
 }

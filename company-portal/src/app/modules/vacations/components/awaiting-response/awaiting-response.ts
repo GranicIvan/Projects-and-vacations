@@ -29,4 +29,8 @@ export class AwaitingResponse {
     });
   }
 
+  approveVacationRequest(vacationId: number) {
+    this.vacationService.approveVacationRequest(vacationId);
+  }
+
 }
