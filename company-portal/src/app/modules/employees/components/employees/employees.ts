@@ -32,14 +32,14 @@ export class Employees {
     this.router.navigate(['/employees/add-employee']);
   }
 
+  editUser(userId: number) {
+    this.router.navigate([`/employees/edit/${userId}`]);
+  }
+
   deleteUser(userId: number) {
     this.userService.deleteUser(userId).subscribe(() => {
       this.getUsers();
     });
     this.snackBar.open('Employee deleted', 'Close', { duration: 5000 });
-  }
-
-  editUser(userId: number) {
-    this.router.navigate([`/employees/edit/${userId}`]);
   }
 }

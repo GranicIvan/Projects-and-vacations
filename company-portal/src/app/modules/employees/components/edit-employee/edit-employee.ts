@@ -55,11 +55,16 @@ export class EditEmployee {
         Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
       );
       const id = this.router.url.split('/').pop();
+      console.log('ID je:', id);
       employeeData['id'] = id ? parseInt(id, 10) : undefined;
+
+     
+
       const response = await this.employeeService.updateEmployee(employeeData);
       this.newEmployeeForm.reset();
       this.router.navigate(['/employees']);
       this.snackBar.open('User updated successfully', 'Close', { duration: 5000 });
+
     } catch (error) {
       this.snackBar.open('Failed to update user', 'Close', { duration: 5000 });
       console.error(error);

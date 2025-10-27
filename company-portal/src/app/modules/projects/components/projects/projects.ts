@@ -1,11 +1,48 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ProjectService } from '../../service/project-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProjectShowDto } from '../../project-dto/ProjectShowDto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './projects.html',
-  styleUrl: './projects.scss'
+  styleUrls: ['./projects.scss'],
 })
 export class Projects {
+  projectShowDtoList: ProjectShowDto[] = [];
 
+  protected projectService = inject(ProjectService);
+
+  router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+
+
+  ngOnInit() {
+    this.loadProjects();
+  }
+
+  loadProjects() {
+    this.projectService.getAllProjects().subscribe((response) => {
+      this.projectShowDtoList = response;
+    });
+  }
+
+  addProject() {
+    this.router.navigate(['/projects/new']);
+    this.snackBar.open('Add Project clicked', 'Close', { duration: 5000 });
+  }
+
+  editProject(projectId: number) {
+    this.router.navigate([`/projects/edit/${projectId}`]);
+    //TODO implement edit functionality
+    this.snackBar.open(`Edit Project ${projectId} clicked`, 'Close', { duration: 5000 });
+  }
+
+  deleteProject(projectId: number) {
+    //TODO implement delete functionality
+    this.snackBar.open(`Delete Project ${projectId} clicked`, 'Close', { duration: 5000 });
+  }
 }
