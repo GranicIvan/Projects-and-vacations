@@ -1,5 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { Form, FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Form,
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -45,8 +51,6 @@ export class NewEmployee {
   async createEmployee() {
     if (this.newEmployeeForm.invalid) return;
 
-    // console.log(this.newEmployeeForm.getRawValue());
-
     try {
       const formValue = this.newEmployeeForm.getRawValue();
       const employeeData = Object.fromEntries(
@@ -56,7 +60,6 @@ export class NewEmployee {
       this.newEmployeeForm.reset();
       this.router.navigate(['/employees']);
       this.snackBar.open('User created successfully', 'Close', { duration: 5000 });
-
     } catch (error) {
       this.snackBar.open('Failed to create user', 'Close', { duration: 5000 });
       console.error(error);

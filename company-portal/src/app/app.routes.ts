@@ -5,11 +5,7 @@ import { authGuard } from './modules/shared/guards/auth-guard';
 
 export const routes: Routes = [
   { path: '', component: Welcome },
-  // {
-  //   path: '',
-  //   redirectTo: '/dashboard',
-  //   pathMatch: 'full',
-  // },
+
   {
     path: 'vacations',
     runGuardsAndResolvers: 'always',

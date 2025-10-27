@@ -15,14 +15,12 @@ export class TestWoJwt {
 
   constructor(private http: HttpClient) {}
 
-//localhost:8081/auth/testNoJwt
-
   testWOjwt() {
     this.http.get('http://localhost:8081/auth/testNoJwtJson', { responseType: 'text' }
     ).subscribe(response => {
-      // this.testResponse = response.toString();
+
       this.testResponse = response;
-      // console.log(this.testResponse);
+
       
     });
   }

@@ -58,13 +58,19 @@ export class EditEmployee {
       console.log('ID je:', id);
       employeeData['id'] = id ? parseInt(id, 10) : undefined;
 
-     
+      for (const [key, value] of Object.entries(employeeData)) {
+        if (value !== undefined && value.toString().trim() === '') {
+          delete employeeData[key];
+        }
+        if (value === undefined) {
+          delete employeeData[key];
+        }
+      }
 
       const response = await this.employeeService.updateEmployee(employeeData);
       this.newEmployeeForm.reset();
       this.router.navigate(['/employees']);
       this.snackBar.open('User updated successfully', 'Close', { duration: 5000 });
-
     } catch (error) {
       this.snackBar.open('Failed to update user', 'Close', { duration: 5000 });
       console.error(error);
