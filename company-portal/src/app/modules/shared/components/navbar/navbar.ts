@@ -1,6 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { LoginDto } from '../../../employees/employee-dto/LoginDto';
 import { AccountService } from '../../service/account-service';
 
@@ -16,12 +22,13 @@ type LoginForm = FormGroup<{
   selector: 'app-navbar',
   imports: [ReactiveFormsModule, RouterLink, NgbDropdownModule],
   templateUrl: './navbar.html',
-  styleUrl: './navbar.scss'
+  styleUrl: './navbar.scss',
 })
 export class Navbar {
   private fb = inject(NonNullableFormBuilder);
   protected accountService = inject(AccountService);
   private snackBar = inject(MatSnackBar);
+  router = inject(Router);
 
   readonly loginForm: LoginForm = this.fb.group({
     email: this.fb.control('', {
@@ -36,7 +43,7 @@ export class Navbar {
     if (this.loginForm.invalid) return;
 
     const loginCreds = this.loginForm.getRawValue() as LoginDto;
-    
+
     this.accountService.login(loginCreds).subscribe({
       next: () => {
         this.loginForm.reset();
@@ -44,9 +51,12 @@ export class Navbar {
       },
       error: () => {
         this.loginForm.patchValue({ password: '' });
-        this.snackBar.open('Login failed. Please check your credentials.', 'Close', { duration: 5000 });
-      }
+        this.snackBar.open('Login failed. Please check your credentials.', 'Close', {
+          duration: 5000,
+        });
+      },
     });
+    this.router.navigate(['/dashboard']);
   }
 
   isLoggedIn() {
@@ -55,6 +65,7 @@ export class Navbar {
 
   logout() {
     this.accountService.logout();
+    this.router.navigate(['/dashboard']);
   }
 
   isAdmin() {

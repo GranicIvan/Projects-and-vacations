@@ -4,6 +4,7 @@ import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 type NewEmployeeForm = FormGroup<{
   id: FormControl<number | null>;
@@ -27,6 +28,7 @@ export class NewEmployee {
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
+    router = inject(Router);
 
   readonly newEmployeeForm: NewEmployeeForm = this.fb.group({
     id: this.fb.control(null),
@@ -52,7 +54,9 @@ export class NewEmployee {
       );
       const response = await this.employeeService.createEmployee(employeeData);
       this.newEmployeeForm.reset();
+      this.router.navigate(['/employees']);
       this.snackBar.open('User created successfully', 'Close', { duration: 5000 });
+
     } catch (error) {
       this.snackBar.open('Failed to create user', 'Close', { duration: 5000 });
       console.error(error);

@@ -21,4 +21,8 @@ export class EmployeeService {
   createEmployee(employee: Partial<CreateUserDto>) {
     return this.http.post<CreateUserDto>(`${this.baseUrl}`, employee, { withCredentials: true }).toPromise();
   }
+
+  deleteUser(userId: number) {
+    return this.http.delete<void>(`${this.baseUrl}/${userId}`, { withCredentials: true });
+  }
 }

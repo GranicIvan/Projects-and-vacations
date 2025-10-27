@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { EmployeeService } from '../../service/employee-service';
 import { UserDto } from '../../employee-dto/UserDto';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-employees',
@@ -13,10 +14,11 @@ import { Router } from '@angular/router';
 export class Employees {
   protected userService = inject(EmployeeService);
   router = inject(Router);
+  private snackBar = inject(MatSnackBar);
 
   userShowDtoList: UserDto[] = [];
 
-  ngOnInit() { 
+  ngOnInit() {
     this.getUsers();
   }
 
@@ -28,6 +30,16 @@ export class Employees {
 
   addUser() {
     this.router.navigate(['/employees/add-employee']);
-    // this.router.parseUrl('/dashboard')
+  }
+
+  deleteUser(userId: number) {
+    this.userService.deleteUser(userId).subscribe(() => {
+      this.getUsers();
+    });
+    this.snackBar.open('Employee deleted', 'Close', { duration: 5000 });
+  }
+
+  editUser(userId: number) {
+    this.router.navigate([`/employees/edit/${userId}`]);
   }
 }

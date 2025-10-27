@@ -10,24 +10,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './awaiting-response.html',
-  styleUrl: './awaiting-response.scss'
+  styleUrl: './awaiting-response.scss',
 })
 export class AwaitingResponse {
-
   vacationShowDtoList: VacationShowDto[] = [];
   private snackBar = inject(MatSnackBar);
 
   protected vacationService = inject(VacationService);
-
 
   ngOnInit() {
     this.getAwaitingRequest();
   }
 
   getAwaitingRequest() {
-    this.vacationService.getAwaitingResponse().subscribe(response => {
+    this.vacationService.getAwaitingResponse().subscribe((response) => {
       this.vacationShowDtoList = response;
-      
+
       for (let v of this.vacationShowDtoList) {
         v.startDate = new Date(v.startDate);
         v.endDate = new Date(v.endDate);
@@ -37,13 +35,13 @@ export class AwaitingResponse {
 
   approveVacationRequest(vacationId: number) {
     this.vacationService.approveVacationRequest(vacationId);
-      this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
-      this.getAwaitingRequest();      
+    this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
+    this.getAwaitingRequest();
   }
 
-    denyVacationRequest(vacationId: number) {
+  denyVacationRequest(vacationId: number) {
     this.vacationService.denyVacationRequest(vacationId);
-      this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
-      this.getAwaitingRequest();      
+    this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
+    this.getAwaitingRequest();
   }
 }
