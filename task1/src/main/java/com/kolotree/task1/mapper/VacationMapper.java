@@ -36,7 +36,7 @@ public class VacationMapper {
         );
     }
 
-    public static List<VacationShowWithUserDto> toShowWithUserList(List<VacationRequest> vacations){
+    public static List<VacationShowWithUserDto> toShowWithUserList(List<VacationRequest> vacations) {
         return vacations.stream()
                 .map(VacationMapper::toShowDtoWithUser)
                 .toList();

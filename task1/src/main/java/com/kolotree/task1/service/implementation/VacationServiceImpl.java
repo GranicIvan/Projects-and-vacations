@@ -4,7 +4,6 @@ import com.kolotree.task1.dto.vacation.VacationRequestDto;
 import com.kolotree.task1.dto.vacation.VacationShowDto;
 import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
 import com.kolotree.task1.exception.NotEnoughVacationDays;
-import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.mapper.VacationMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.model.VacationRequest;
