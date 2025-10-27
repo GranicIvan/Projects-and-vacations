@@ -37,6 +37,13 @@ public class VacationController {
         return ResponseEntity.ok(vacationRequestList);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping
+    public ResponseEntity<List<VacationShowDto>> getAll() {
+        List<VacationShowDto> vacationRequestList = vacationService.getAll();
+        return ResponseEntity.ok(vacationRequestList);
+    }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/setVacationRequestStatus")

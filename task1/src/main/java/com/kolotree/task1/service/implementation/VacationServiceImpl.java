@@ -56,6 +56,11 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
+    public List<VacationShowDto> getAll() {
+        return VacationMapper.toShowDtoList(vacationRepository.findAll());
+    }
+
+    @Override
     public VacationShowDto requestVacation(VacationRequestDto vacationRequestDto) throws NotEnoughVacationDays {
         User user = userService.getCurrentUser();
         int vacationLength = calculateWorkDaysBetweenDates(vacationRequestDto.getStartDate(), vacationRequestDto.getEndDate());

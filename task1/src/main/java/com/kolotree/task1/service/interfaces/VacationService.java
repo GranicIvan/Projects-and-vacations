@@ -18,4 +18,6 @@ public interface VacationService {
     void setVacationRequestStatus(VacationRequestStatus vacationRequestStatus, Long vacationRequestId);
 
     List<VacationShowWithUserDto> getAwaitingVacationRequests();
+
+    List<VacationShowDto> getAll();
 }
