@@ -20,7 +20,13 @@ const routes: Routes = [
     path: 'edit/:id',
     component: EditEmployee,
     canActivate: [adminGuard]
+  },
+  {
+    path: 'add-employee',
+    component: NewEmployee,
+    canActivate: [adminGuard]
   }
+
 ];
 
 @NgModule({

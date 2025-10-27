@@ -16,7 +16,6 @@ export class MyVacations implements OnInit {
   private vacationService = inject(VacationService);
 
   async ngOnInit() {
-    console.log('My vacations component initialized');
     try {
       const list = await this.vacationService.getMyVacations();
       this.vacationShowDtoList = (list ?? []).map(v => ({
