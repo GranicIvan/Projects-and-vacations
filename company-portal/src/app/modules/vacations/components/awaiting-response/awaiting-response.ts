@@ -20,6 +20,11 @@ export class AwaitingResponse {
   constructor(private http: HttpClient) {}
   protected vacationService = inject(VacationService);
 
+
+  ngOnInit() {
+    this.getAwaitingRequest();
+  }
+
   getAwaitingRequest() {
     this.vacationService.getAwaitingResponse().subscribe(response => {
       this.vacationShowDtoList = response;

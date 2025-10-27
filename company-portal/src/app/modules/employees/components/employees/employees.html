@@ -1,1 +1,138 @@
-<p>employees works!</p>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
+    <h2 style="color: white; margin: 0 0 1rem 0;">Complany employees</h2>
+    
+
+
+       <table style="width: 100%; border-collapse: collapse; background: white">
+      <thead>
+        <tr style="background: var(--gray-900)">
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Id
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            First name
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Last name
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Email
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Date of birth
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Address
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Vacation days left
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Edit
+          </th>
+           <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Delete
+          </th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        @if (userShowDtoList.length) {
+        @for (u of userShowDtoList; track u.id; let i = $index) {
+            <tr
+                [ngStyle]="{
+                    background: i % 2 === 0 ? '#f8f9fa' : 'white',
+                    'border-bottom': '1px solid #e9ecef',
+                }"
+            >
+                <td style="padding: 0.75rem; color: #333">{{ u.id }}</td>
+                <td style="padding: 0.75rem; color: #333">
+                    {{ u.firstName }}
+                </td>
+                <td style="padding: 0.75rem; color: #333">
+                     {{ u.lastName }}
+                </td>
+                <td style="padding: 0.75rem; color: #333">{{ u.email }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ u.dateOfBirth | date: 'yyyy-MM-dd' }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ u.address }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ u.vacationDaysLeft }}</td>
+                
+            </tr>
+        }
+        } @else {
+          <tr>
+            <td colspan="6" style="padding: 1rem; text-align: center; color: #666">
+              No users to show.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    
+
+    
+</div>
