@@ -1,5 +1,6 @@
 package com.kolotree.task1.controller;
 
+import com.kolotree.task1.dto.vacation.SetVacationStatusDto;
 import com.kolotree.task1.dto.vacation.VacationRequestDto;
 import com.kolotree.task1.dto.vacation.VacationShowDto;
 import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
@@ -38,11 +39,13 @@ public class VacationController {
 
 
     @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/setVacationRequestStatus/{vacationRequestId}")
-    public ResponseEntity setVacationRequestStatus(@RequestBody VacationRequestStatus vacationRequestStatus, @PathVariable Long vacationRequestId) {
-        vacationService.setVacationRequestStatus(vacationRequestStatus, vacationRequestId);
+    @PostMapping("/setVacationRequestStatus")
+    public ResponseEntity setVacationRequestStatus(@RequestBody SetVacationStatusDto vacationRequestStatusDto) {
 
-        return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatus);
+        //VacationRequestStatus vacationRequestStatus, @PathVariable Long vacationRequestId
+        vacationService.setVacationRequestStatus(vacationRequestStatusDto.getVacationRequestStatus(), vacationRequestStatusDto.getId());
+
+        return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatusDto.getVacationRequestStatus());
     }
 
 
