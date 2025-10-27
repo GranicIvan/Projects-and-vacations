@@ -8,12 +8,18 @@ import { lastValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class VacationService {
-  private baseUrl = environment.apiUrl + 'vacations/';
+  private baseUrl = environment.apiUrl + 'vacations';
 
   constructor(private http: HttpClient) {}
 
   getAwaitingResponse() {
     return this.http.get<VacationShowDto[]>(this.baseUrl + 'getAwaitingVacationRequests', {
+      withCredentials: true,
+    });
+  }
+
+  getAllVacations() {
+    return this.http.get<VacationShowDto[]>(this.baseUrl, {
       withCredentials: true,
     });
   }

@@ -17,7 +17,6 @@ export class AwaitingResponse {
   vacationShowDtoList: VacationShowDto[] = [];
   private snackBar = inject(MatSnackBar);
 
-  constructor(private http: HttpClient) {}
   protected vacationService = inject(VacationService);
 
 

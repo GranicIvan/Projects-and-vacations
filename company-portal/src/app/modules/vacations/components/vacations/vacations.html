@@ -1,1 +1,141 @@
-<p>vacations works!</p>
+
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
+    <h2 style="color: white; margin: 0 0 1rem 0;">Vacation requests</h2>
+    
+
+       <table style="width: 100%; border-collapse: collapse; background: white">
+      <thead>
+        <tr style="background: var(--gray-900)">
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Id
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            User
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Start date
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            End date
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Vacation length
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Status
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Actions
+          </th>
+           <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Actions
+          </th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        @if (vacationShowDtoList.length) {
+        @for (v of vacationShowDtoList; track v.id; let i = $index) {
+            <tr
+                [ngStyle]="{
+                    background: i % 2 === 0 ? '#f8f9fa' : 'white',
+                    'border-bottom': '1px solid #e9ecef',
+                }"
+            >
+                <td style="padding: 0.75rem; color: #333">{{ v.id }}</td>
+                <td style="padding: 0.75rem; color: #333">
+                    {{ v.user?.firstName }} {{ v.user?.lastName }} ({{ v.user?.email }})
+                </td>
+                <td style="padding: 0.75rem; color: #333">{{ v.startDate | date: 'yyyy-MM-dd' }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ v.endDate | date: 'yyyy-MM-dd' }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ v.vacationLength }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ v.vacationRequestStatus }}</td>
+                @if(v.vacationRequestStatus === 'WAITING') {<td style="padding: 0.75rem; color: #333">
+
+                    <button type="button" 
+                            (click)="approveVacationRequest(v.id)"
+                            style="color: white; padding: 0.5rem 1rem; border-radius: 4px; background: #2E7D32; border: none; cursor: pointer;">
+                        Approve
+                    </button>
+                </td>
+                <td style="padding: 0.75rem; color: #333">
+                    <button type="button" 
+                            (click)="denyVacationRequest(v.id)"
+                            style="color: white; padding: 0.5rem 1rem; border-radius: 4px; background: #C62828; border: none; cursor: pointer;">
+                        Deny
+                    </button>
+                </td>}
+
+                
+            </tr>
+        }
+        } @else {
+          <tr>
+            <td colspan="6" style="padding: 1rem; text-align: center; color: #666">
+              No vacations to show.
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+    
+
+    
+</div>
