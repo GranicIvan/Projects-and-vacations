@@ -25,4 +25,12 @@ export class EmployeeService {
   deleteUser(userId: number) {
     return this.http.delete<void>(`${this.baseUrl}/${userId}`, { withCredentials: true });
   }
+
+  updateEmployee(employee: Partial<UserDto>) {
+    return this.http.patch<UserDto>(`${this.baseUrl}/${employee.id}`, employee, { withCredentials: true }).toPromise();
+  }
+
+  getById(userId: number) {
+    return this.http.get<UserDto>(`${this.baseUrl}/${userId}`, { withCredentials: true }).toPromise();
+  }
 }

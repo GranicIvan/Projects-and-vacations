@@ -1,1 +1,112 @@
-<p>edit-employee works!</p>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
+  <h2 style="color: white; margin: 0 0 1rem 0">Edit Employee</h2>
+
+  <div style="background: white; border-radius: 8px; padding: 2rem">
+    <form [formGroup]="newEmployeeForm" (ngSubmit)="updateEmployee()" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px">
+      
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">First Name</label>
+        <input 
+          type="text" 
+          formControlName="firstName"
+           
+          placeholder="Enter first name"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Last Name</label>
+        <input 
+          type="text" 
+          formControlName="lastName" 
+          placeholder="Enter last name"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Date of Birth</label>
+        <input 
+          type="date" 
+          formControlName="dateOfBirth"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Email</label>
+        <input 
+          type="email" 
+          formControlName="email"
+           
+          placeholder="employee@company.com"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Password</label>
+        <input 
+          type="password" 
+          formControlName="password"
+           
+          placeholder="Enter password"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Address</label>
+        <textarea 
+          formControlName="address"
+          rows="3"
+          placeholder="Enter address"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem; font-family: inherit"
+        ></textarea>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Vacation Days Left</label>
+        <input 
+          type="number" 
+          formControlName="vacationDaysLeft"
+          min="0" 
+           
+          placeholder="0"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">User Role</label>
+        <select 
+          formControlName="userRole"
+          
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        >
+          <option disabled selected>Select role...</option>
+          <option value="ADMIN">Admin</option>
+          <option value="EMPLOYEE">Employee</option>
+        </select>
+      </div>
+
+      <button 
+        type="submit" 
+        style="
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          background: var(--french-violet);
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-top: 1rem;
+        "
+      >
+        Edit Employee
+      </button>
+    </form>
+  </div>
+</div>

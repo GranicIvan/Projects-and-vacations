@@ -28,7 +28,7 @@ export class NewEmployee {
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
-    router = inject(Router);
+  router = inject(Router);
 
   readonly newEmployeeForm: NewEmployeeForm = this.fb.group({
     id: this.fb.control(null),
@@ -45,7 +45,7 @@ export class NewEmployee {
   async createEmployee() {
     if (this.newEmployeeForm.invalid) return;
 
-    console.log(this.newEmployeeForm.getRawValue());
+    // console.log(this.newEmployeeForm.getRawValue());
 
     try {
       const formValue = this.newEmployeeForm.getRawValue();
