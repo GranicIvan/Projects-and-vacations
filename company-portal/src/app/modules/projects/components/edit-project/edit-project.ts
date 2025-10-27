@@ -28,32 +28,29 @@ export class EditProject {
     description: this.fb.control(''),
   });
 
-
   async updateProject() {
-    
     if (this.editProjectForm.invalid) return;
 
     try {
       const formValue = this.editProjectForm.getRawValue();
-     
+
       const id = this.router.url.split('/').pop();
-      console.log('ID je:', id);
-      
+
       const projectData = {
         id: id ? parseInt(id, 10) : 0,
         projectName: formValue.projectName,
         description: formValue.description,
       };
-      
+
       const response = await this.projectsService.updateProject(projectData);
+
       this.editProjectForm.reset();
       this.router.navigate(['/projects']);
       this.snackBar.open('Project updated successfully', 'Close', { duration: 3000 });
-      
     } catch (error) {
       this.editProjectForm.reset();
       this.snackBar.open('Failed to update project', 'Close', { duration: 3000 });
     }
-
   }
+
 }

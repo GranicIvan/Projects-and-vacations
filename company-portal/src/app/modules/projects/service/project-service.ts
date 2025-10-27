@@ -26,7 +26,10 @@ export class ProjectService {
   updateProject(project:  ProjectShowDto ) {
     return this.http.patch<ProjectShowDto>(`${this.baseUrl}/${project.id}`, project, {
       withCredentials: true,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    }).toPromise();
+  }
+
+  deleteProject(projectId: number) { 
+    return this.http.delete<void>(`${this.baseUrl}/${projectId  }`, { withCredentials: true });
   }
 }

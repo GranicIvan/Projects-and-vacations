@@ -37,12 +37,13 @@ export class Projects {
 
   editProject(projectId: number) {
     this.router.navigate([`/projects/edit/${projectId}`]);
-    //TODO implement edit functionality
     this.snackBar.open(`Edit Project ${projectId} clicked`, 'Close', { duration: 5000 });
   }
 
   deleteProject(projectId: number) {
-    //TODO implement delete functionality
-    this.snackBar.open(`Delete Project ${projectId} clicked`, 'Close', { duration: 5000 });
+    this.projectService.deleteProject(projectId).subscribe(() => {
+      this.loadProjects();
+      this.snackBar.open(`Project ${projectId} deleted successfully`, 'Close', { duration: 5000 });
+    });
   }
 }
