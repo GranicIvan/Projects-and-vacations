@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EmployeeService } from '../../../employees/service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -23,8 +23,10 @@ export class AddProject {
   router = inject(Router);
   
   readonly addProjectForm = this.fb.group<AddProjectForm>({
-    projectName: this.fb.control(''),
-    description: this.fb.control(''),
+    projectName: this.fb.control('',{
+      validators: [Validators.required, Validators.minLength(4)],
+    }),
+    description: this.fb.control('')
   });
 
   createProject() {

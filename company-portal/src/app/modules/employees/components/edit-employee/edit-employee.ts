@@ -4,6 +4,7 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
@@ -29,7 +30,6 @@ type EditEmployeeForm = FormGroup<{
   styleUrl: './edit-employee.scss',
 })
 export class EditEmployee {
-
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
@@ -37,16 +37,25 @@ export class EditEmployee {
 
   @Input() id!: number;
 
-
   readonly newEmployeeForm: EditEmployeeForm = this.fb.group({
     id: this.fb.control(null),
-    firstName: this.fb.control(null),
-    lastName: this.fb.control(null),
+    firstName: this.fb.control(null, {
+      validators: [Validators.minLength(2)],
+    }),
+    lastName: this.fb.control(null, {
+      validators: [Validators.minLength(2)],
+    }),
     dateOfBirth: this.fb.control(null),
-    email: this.fb.control(null),
-    password: this.fb.control(null),
+    email: this.fb.control(null, {
+      validators: [Validators.email],
+    }),
+    password: this.fb.control(null, {
+      validators: [Validators.minLength(4)],
+    }),
     address: this.fb.control(null),
-    vacationDaysLeft: this.fb.control(null),
+    vacationDaysLeft: this.fb.control(null, {
+      validators: [Validators.min(0)],
+    }),
     userRole: this.fb.control('Select role...'),
   }) as EditEmployeeForm;
 
@@ -58,7 +67,6 @@ export class EditEmployee {
       const employeeData = Object.fromEntries(
         Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
       );
-
 
       // const id = this.router.url.split('/').pop();
 

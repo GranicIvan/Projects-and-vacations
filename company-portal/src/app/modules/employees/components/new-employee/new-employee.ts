@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import {
-  Form,
   FormControl,
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 import { CreateUserDto } from '../../employee-dto/CreateUserDto';
 
 type NewEmployeeForm = FormGroup<{
-  id: FormControl<number | null>;
   firstName: FormControl<string | null>;
   lastName: FormControl<string | null>;
   dateOfBirth: FormControl<Date | null>;
@@ -38,14 +37,23 @@ export class NewEmployee {
   router = inject(Router);
 
   readonly newEmployeeForm: NewEmployeeForm = this.fb.group({
-    id: this.fb.control(null),
-    firstName: this.fb.control(null),
-    lastName: this.fb.control(null),
+    firstName: this.fb.control(null, {
+      validators: [Validators.required, Validators.minLength(2)],
+    }),
+    lastName: this.fb.control(null, {
+      validators: [Validators.required, Validators.minLength(2)],
+    }),
     dateOfBirth: this.fb.control(null),
-    email: this.fb.control(null),
-    password: this.fb.control(null),
+    email: this.fb.control(null, {
+      validators: [Validators.required, Validators.email],
+    }),
+    password: this.fb.control(null, {
+      validators: [Validators.required, Validators.minLength(4)],
+    }),
     address: this.fb.control(null),
-    vacationDaysLeft: this.fb.control(null),
+    vacationDaysLeft: this.fb.control(null, {
+      validators: [Validators.min(0)],
+    }),
     userRole: this.fb.control('EMPLOYEE'),
   }) as NewEmployeeForm;
 
@@ -53,12 +61,15 @@ export class NewEmployee {
     if (this.newEmployeeForm.invalid) return;
 
     const formValue = this.newEmployeeForm.getRawValue();
-    const employee: Partial<CreateUserDto> = Object.entries(formValue).reduce((acc, [key, value]) => {
-      if (value !== null) {
-        acc[key as keyof CreateUserDto] = value as any;
-      }
-      return acc;
-    }, {} as Partial<CreateUserDto>);
+    const employee: Partial<CreateUserDto> = Object.entries(formValue).reduce(
+      (acc, [key, value]) => {
+        if (value !== null) {
+          acc[key as keyof CreateUserDto] = value as any;
+        }
+        return acc;
+      },
+      {} as Partial<CreateUserDto>,
+    );
 
     this.employeeService.createEmployee(employee).subscribe({
       next: (response) => {
@@ -69,7 +80,7 @@ export class NewEmployee {
       error: (error) => {
         this.snackBar.open('Failed to create employee', 'Close', { duration: 5000 });
         console.error(error);
-      }
+      },
     });
   }
 }
