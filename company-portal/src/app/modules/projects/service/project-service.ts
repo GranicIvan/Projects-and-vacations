@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { ProjectShowDto } from '../project-dto/ProjectShowDto';
+import { CreateProjectDto } from '../project-dto/CreateProjectDto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class ProjectService {
     });
   }
 
-  updateProject(project:  ProjectShowDto ) {
+  updateProject(project:  CreateProjectDto & { id: number }) {
     return this.http.patch<ProjectShowDto>(`${this.baseUrl}/${project.id}`, project, {
       withCredentials: true,
     });
