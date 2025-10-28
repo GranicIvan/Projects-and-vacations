@@ -28,8 +28,7 @@ export class Vacations {
 
       for (let v of this.vacationShowDtoList) {
         v.startDate = new Date(v.startDate);
-        v.endDate = new Date(v.endDate);
-        console.log('user: ', v.user);
+        v.endDate = new Date(v.endDate);        
       }
     });
   }
