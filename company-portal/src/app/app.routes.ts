@@ -27,6 +27,13 @@ export const routes: Routes = [
       import('./modules/projects/projects-module').then((m) => m.ProjectsModule),
     canActivate: [authGuard],
   },
+  { 
+    path: 'monthly-log',
+    runGuardsAndResolvers: 'always',
+    loadChildren: () =>
+      import('./modules/monthly-log/monthly-log-module').then((m) => m.MonthlyLogModule),
+    canActivate: [authGuard],
+  },
   {
     path: 'dashboard',
     runGuardsAndResolvers: 'always',

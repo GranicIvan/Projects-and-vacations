@@ -24,7 +24,9 @@ const routes: Routes = [
     path: 'add-employee-to-project',
     component: AddEmployeeToProject,
     canActivate: [adminGuard]
-  }
+  },
+  
+
 ];
 
 @NgModule({

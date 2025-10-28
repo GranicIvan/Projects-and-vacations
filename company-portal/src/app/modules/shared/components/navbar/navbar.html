@@ -107,6 +107,26 @@
               </div>
             </div>
           </div>
+
+          <!-- Monthly log dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Monthly Log
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                  <a ngbDropdownItem routerLink="/monthly-log/log-work-hours">Log Work Hours</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
         }
 
         <div class="flex items-center gap-3" style="display: flex; gap: 1rem; align-items: center">
