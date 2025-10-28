@@ -13,7 +13,7 @@ export class VacationService {
   constructor(private http: HttpClient) {}
 
   getAwaitingResponse() {
-    return this.http.get<VacationShowDto[]>(this.baseUrl + 'getAwaitingVacationRequests', {
+    return this.http.get<VacationShowDto[]>(this.baseUrl + '/getAwaitingVacationRequests', {
       withCredentials: true,
     });
   }
@@ -26,7 +26,7 @@ export class VacationService {
 
   async requestVacation(arg0: { startDate: string; endDate: string }): Promise<VacationShowDto> {
     const response = await lastValueFrom(
-      this.http.post<VacationShowDto>(this.baseUrl + 'requestVacation', arg0, {
+      this.http.post<VacationShowDto>(this.baseUrl + '/requestVacation', arg0, {
         withCredentials: true,
       }),
     );
@@ -35,7 +35,7 @@ export class VacationService {
 
   async getMyVacations(): Promise<VacationShowDto[]> {
     const response = await lastValueFrom(
-      this.http.get<VacationShowDto[]>(this.baseUrl + 'myVacations', {
+      this.http.get<VacationShowDto[]>(this.baseUrl + '/myVacations', {
         withCredentials: true,
       }),
     );
@@ -45,7 +45,7 @@ export class VacationService {
   async approveVacationRequest(vacationId: number): Promise<void> {
     await lastValueFrom(
       this.http.post<void>(
-        this.baseUrl + 'setVacationRequestStatus',
+        this.baseUrl + '/setVacationRequestStatus',
         {
           id: vacationId,
           vacationRequestStatus: 'APPROVED',
@@ -61,7 +61,7 @@ export class VacationService {
   async denyVacationRequest(vacationId: number): Promise<void> {
     await lastValueFrom(
       this.http.post<void>(
-        this.baseUrl + 'setVacationRequestStatus',
+        this.baseUrl + '/setVacationRequestStatus',
         {
           id: vacationId,
           vacationRequestStatus: 'DENIED',
