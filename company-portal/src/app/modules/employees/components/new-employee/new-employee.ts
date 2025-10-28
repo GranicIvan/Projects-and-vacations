@@ -11,6 +11,7 @@ import { EmployeeService } from '../../service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { CreateUserDto } from '../../employee-dto/CreateUserDto';
 
 type NewEmployeeForm = FormGroup<{
   id: FormControl<number | null>;
@@ -51,18 +52,24 @@ export class NewEmployee {
   async createEmployee() {
     if (this.newEmployeeForm.invalid) return;
 
-    try {
-      const formValue = this.newEmployeeForm.getRawValue();
-      const employeeData = Object.fromEntries(
-        Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
-      );
-      const response = await this.employeeService.createEmployee(employeeData);
-      this.newEmployeeForm.reset();
-      this.router.navigate(['/employees']);
-      this.snackBar.open('User created successfully', 'Close', { duration: 5000 });
-    } catch (error) {
-      this.snackBar.open('Failed to create user', 'Close', { duration: 5000 });
-      console.error(error);
-    }
+    const formValue = this.newEmployeeForm.getRawValue();
+    const employee: Partial<CreateUserDto> = Object.entries(formValue).reduce((acc, [key, value]) => {
+      if (value !== null) {
+        acc[key as keyof CreateUserDto] = value as any;
+      }
+      return acc;
+    }, {} as Partial<CreateUserDto>);
+
+    this.employeeService.createEmployee(employee).subscribe({
+      next: (response) => {
+        this.newEmployeeForm.reset();
+        this.router.navigate(['/employees']);
+        this.snackBar.open('Employee created successfully', 'Close', { duration: 5000 });
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to create employee', 'Close', { duration: 5000 });
+        console.error(error);
+      }
+    });
   }
 }

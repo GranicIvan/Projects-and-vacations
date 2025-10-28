@@ -24,43 +24,35 @@ export class VacationService {
     });
   }
 
-  async requestVacation(arg0: { startDate: string; endDate: string }): Promise<VacationShowDto> {
-    const response = await lastValueFrom(
-      this.http.post<VacationShowDto>(this.baseUrl + '/requestVacation', arg0, {
+  requestVacation(arg0: { startDate: string; endDate: string }) {
+    return this.http.post<VacationShowDto>(this.baseUrl + '/requestVacation', arg0, {
+      withCredentials: true,
+    });
+  }
+
+  getMyVacations() {
+    return this.http.get<VacationShowDto[]>(this.baseUrl + '/myVacations', {
+      withCredentials: true,
+    });
+  }
+
+  approveVacationRequest(vacationId: number) {
+    return this.http.post<void>(
+      this.baseUrl + '/setVacationRequestStatus',
+      {
+        id: vacationId,
+        vacationRequestStatus: 'APPROVED',
+      },
+      {
         withCredentials: true,
-      }),
-    );
-    return response;
-  }
-
-  async getMyVacations(): Promise<VacationShowDto[]> {
-    const response = await lastValueFrom(
-      this.http.get<VacationShowDto[]>(this.baseUrl + '/myVacations', {
-        withCredentials: true,
-      }),
-    );
-    return response;
-  }
-
-  async approveVacationRequest(vacationId: number): Promise<void> {
-    await lastValueFrom(
-      this.http.post<void>(
-        this.baseUrl + '/setVacationRequestStatus',
-        {
-          id: vacationId,
-          vacationRequestStatus: 'APPROVED',
-        },
-        {
-          withCredentials: true,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      ),
+        headers: { 'Content-Type': 'application/json' },
+      },
     );
   }
 
-  async denyVacationRequest(vacationId: number): Promise<void> {
-    await lastValueFrom(
-      this.http.post<void>(
+  denyVacationRequest(vacationId: number) {
+
+      return this.http.post<void>(
         this.baseUrl + '/setVacationRequestStatus',
         {
           id: vacationId,
@@ -69,7 +61,8 @@ export class VacationService {
         {
           withCredentials: true,
         },
-      ),
-    );
+      );
   }
+  
+  
 }

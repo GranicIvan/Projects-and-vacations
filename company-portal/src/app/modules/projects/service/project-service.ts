@@ -26,7 +26,7 @@ export class ProjectService {
   updateProject(project:  ProjectShowDto ) {
     return this.http.patch<ProjectShowDto>(`${this.baseUrl}/${project.id}`, project, {
       withCredentials: true,
-    }).toPromise();
+    });
   }
 
   deleteProject(projectId: number) { 

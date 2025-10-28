@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { VacationService } from '../../service/vacation-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 type RequestVacationForm = FormGroup<{
   startDate: FormControl<string>;
@@ -19,6 +20,7 @@ export class RequestVacation {
   private fb = inject(NonNullableFormBuilder);
 
   private snackBar = inject(MatSnackBar);
+    router = inject(Router);
 
   readonly requestVacationForm: RequestVacationForm = this.fb.group({
     startDate: this.fb.control('', {
@@ -37,6 +39,7 @@ export class RequestVacation {
     try {
       const response = await this.vacationService.requestVacation(this.requestVacationForm.getRawValue());
       this.requestVacationForm.reset();
+      this.router.navigate(['vacations/my-vacations']);
       this.snackBar.open('Vacation requested successfully', 'Close', { duration: 5000 });
     } catch (error) {
       this.snackBar.open('Failed to request vacation', 'Close', { duration: 5000 });

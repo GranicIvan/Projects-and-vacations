@@ -19,7 +19,7 @@ export class EmployeeService {
   }
 
   createEmployee(employee: Partial<CreateUserDto>) {
-    return this.http.post<CreateUserDto>(`${this.baseUrl}`, employee, { withCredentials: true }).toPromise();
+    return this.http.post<CreateUserDto>(`${this.baseUrl}`, employee, { withCredentials: true });
   }
 
   deleteUser(userId: number) {
@@ -27,10 +27,10 @@ export class EmployeeService {
   }
 
   updateEmployee(employee: Partial<UserDto>) {
-    return this.http.patch<UserDto>(`${this.baseUrl}/${employee.id}`, employee, { withCredentials: true }).toPromise();
+    return this.http.patch<UserDto>(`${this.baseUrl}/${employee.id}`, employee, { withCredentials: true });
   }
 
   getById(userId: number) {
-    return this.http.get<UserDto>(`${this.baseUrl}/${userId}`, { withCredentials: true }).toPromise();
+    return this.http.get<UserDto>(`${this.baseUrl}/${userId}`, { withCredentials: true });
   }
 }
