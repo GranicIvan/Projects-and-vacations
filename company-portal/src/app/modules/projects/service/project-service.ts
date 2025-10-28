@@ -9,6 +9,7 @@ import { CreateProjectDto } from '../project-dto/CreateProjectDto';
 })
 export class ProjectService {
     private baseUrl = environment.apiUrl + 'projects';
+    private projectAssignmentUrl = environment.apiUrl + 'projectAssignments';
 
   constructor(private http: HttpClient) {}
 
@@ -32,5 +33,13 @@ export class ProjectService {
 
   deleteProject(projectId: number) { 
     return this.http.delete<void>(`${this.baseUrl}/${projectId  }`, { withCredentials: true });
+  }
+  addEmployeeToProject(userId: number, projectId: number, hourlyRate: number) {
+    const url = `${this.projectAssignmentUrl}/addEmployeeToProject`;
+    const body = { userId, projectId, hourlyRate };
+    return this.http.post(url, body, { 
+      withCredentials: true,
+      responseType: 'text' 
+    });
   }
 }

@@ -34,7 +34,7 @@ export class NewEmployee {
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
-  router = inject(Router);
+  private router = inject(Router);
 
   readonly newEmployeeForm: NewEmployeeForm = this.fb.group({
     firstName: this.fb.control(null, {
@@ -57,7 +57,7 @@ export class NewEmployee {
     userRole: this.fb.control('EMPLOYEE'),
   }) as NewEmployeeForm;
 
-  async createEmployee() {
+  createEmployee() {
     this.newEmployeeForm.markAllAsTouched();
     if (this.newEmployeeForm.invalid) return;
 
