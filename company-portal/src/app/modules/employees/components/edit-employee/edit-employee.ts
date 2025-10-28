@@ -20,7 +20,6 @@ type EditEmployeeForm = FormGroup<{
   password: FormControl<string | null>;
   address: FormControl<string | null>;
   vacationDaysLeft: FormControl<number | null>;
-  userRole: FormControl<UserRole | null>;
 }>;
 
 @Component({
@@ -55,8 +54,7 @@ export class EditEmployee {
     address: this.fb.control(null),
     vacationDaysLeft: this.fb.control(null, {
       validators: [Validators.min(0)],
-    }),
-    userRole: this.fb.control('Select role...'),
+    })
   }) as EditEmployeeForm;
 
   async updateEmployee() {

@@ -58,7 +58,9 @@ export class NewEmployee {
   }) as NewEmployeeForm;
 
   async createEmployee() {
+    this.newEmployeeForm.markAllAsTouched();
     if (this.newEmployeeForm.invalid) return;
+    
 
     const formValue = this.newEmployeeForm.getRawValue();
     const employee: Partial<CreateUserDto> = Object.entries(formValue).reduce(
