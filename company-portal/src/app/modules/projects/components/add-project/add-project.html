@@ -13,6 +13,11 @@
           placeholder="Enter project name"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
+        @if (isFieldInvalid('projectName')) {
+          <span style="color: #dc3545; font-size: 0.875rem">
+            {{ getErrorMessage('projectName') }}
+          </span>
+        }
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 0.5rem">
