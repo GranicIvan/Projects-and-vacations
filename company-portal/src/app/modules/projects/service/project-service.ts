@@ -34,6 +34,7 @@ export class ProjectService {
   deleteProject(projectId: number) { 
     return this.http.delete<void>(`${this.baseUrl}/${projectId  }`, { withCredentials: true });
   }
+
   addEmployeeToProject(userId: number, projectId: number, hourlyRate: number) {
     const url = `${this.projectAssignmentUrl}/addEmployeeToProject`;
     const body = { userId, projectId, hourlyRate };
@@ -42,4 +43,10 @@ export class ProjectService {
       responseType: 'text' 
     });
   }
+
+  getProjectsForEmployee(userId: number) {
+    const url = `${this.projectAssignmentUrl}/getProjectsForEmployee/${userId}`;
+    return this.http.get<ProjectShowDto[]>(url, { withCredentials: true });
+  }
+  
 }

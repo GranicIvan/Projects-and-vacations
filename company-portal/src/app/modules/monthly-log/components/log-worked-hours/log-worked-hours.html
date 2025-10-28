@@ -1,1 +1,80 @@
-<p>log-worked-hours works!</p>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
+  <h2 style="color: white; margin: 0 0 1rem 0">Log Worked Hours</h2>
+
+  <div style="background: white; border-radius: 8px; padding: 2rem">
+    <form
+      [formGroup]="logWorkedHoursForm"
+      (ngSubmit)="logHours()"
+      style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px"
+    >
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Project *</label>
+        <select
+          formControlName="projectId"
+          required
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        >
+          <option value="0" disabled>Select a project</option>
+          @for (project of projectShowDtoList; track project.id) {
+            <option [value]="project.id">{{ project.projectName }}</option>
+          }
+        </select>
+        @if (isFieldInvalid('projectId')) {
+          <span style="color: #dc3545; font-size: 0.875rem">
+            {{ getErrorMessage('projectId') }}
+          </span>
+        }
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Hours Worked *</label>
+        <input
+          type="number"
+          formControlName="hoursWorked"
+          required
+          min="1"
+          max="744"
+          placeholder="Enter hours worked"
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+        @if (isFieldInvalid('hoursWorked')) {
+          <span style="color: #dc3545; font-size: 0.875rem">
+            {{ getErrorMessage('hoursWorked') }}
+          </span>
+        }
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <label style="color: #333; font-weight: 500">Year-Month *</label>
+        <input
+          type="month"
+          formControlName="yearMonth"
+          required
+          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
+        />
+        @if (isFieldInvalid('yearMonth')) {
+          <span style="color: #dc3545; font-size: 0.875rem">
+            {{ getErrorMessage('yearMonth') }}
+          </span>
+        }
+      </div>
+
+      <button
+        type="submit"
+        style="
+          color: white;
+          padding: 0.75rem 1.5rem;
+          border-radius: 4px;
+          background: var(--french-violet);
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 500;
+          margin-top: 1rem;
+        "
+      >
+        Log Hours
+      </button>
+    </form>
+  </div>
+</div>
