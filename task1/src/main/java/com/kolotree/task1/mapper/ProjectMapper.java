@@ -4,7 +4,11 @@ import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.dto.project.ProjectResponseDto;
 import com.kolotree.task1.dto.project.ProjectShowDto;
+import com.kolotree.task1.dto.vacation.VacationShowWithUserDto;
 import com.kolotree.task1.model.Project;
+import com.kolotree.task1.model.VacationRequest;
+
+import java.util.List;
 
 public class ProjectMapper {
 
@@ -49,5 +53,12 @@ public class ProjectMapper {
                 project.getDescription(),
                 project.isActiveStatus()
         );
+    }
+
+
+    public static List<ProjectShowDto> toShowDtoList(List<Project> projects){
+        return projects.stream()
+                .map(ProjectMapper::toShowDto)
+                .toList();
     }
 }

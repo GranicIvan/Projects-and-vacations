@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
     @Modifying
     @Query("UPDATE User u SET u.activeStatus = :active WHERE u.id = :id")
     void updateActiveStatus(Integer id, boolean b);
+    List<Project> findAllByUsers_Id(int userId);
 }

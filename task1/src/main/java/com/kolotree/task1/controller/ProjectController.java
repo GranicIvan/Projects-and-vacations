@@ -2,6 +2,8 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
+import com.kolotree.task1.dto.project.ProjectShowDto;
+import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.service.interfaces.ProjectService;
 import jakarta.persistence.EntityNotFoundException;
@@ -10,6 +12,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -23,6 +27,14 @@ public class ProjectController {
     public Iterable<Project> getAll() {
 
         return ResponseEntity.ok(projectService.findAll()).getBody();
+    }
+
+
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @GetMapping("/forUser/{id}")
+    public ResponseEntity<List<ProjectShowDto>> forEmployee(@PathVariable Integer id){
+
+        return ResponseEntity.ok(projectService.getAllWithUser(id));
     }
 
     @GetMapping("/{id}")
@@ -75,4 +87,7 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+
+
 }

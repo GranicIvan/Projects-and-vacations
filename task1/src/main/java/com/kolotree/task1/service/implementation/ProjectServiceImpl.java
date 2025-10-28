@@ -2,6 +2,7 @@ package com.kolotree.task1.service.implementation;
 
 import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
+import com.kolotree.task1.dto.project.ProjectShowDto;
 import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.repository.ProjectRepository;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -79,6 +81,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         ProjectMapper.applyPatch(existing, dto);
         return projectRepository.save(existing);
+    }
+
+    @Override
+    public List<ProjectShowDto> getAllWithUser(Integer id) {
+        return ProjectMapper.toShowDtoList( projectRepository.findAllByUsers_Id(id));
+
     }
 
 
