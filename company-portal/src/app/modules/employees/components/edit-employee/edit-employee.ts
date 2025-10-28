@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -29,10 +29,14 @@ type EditEmployeeForm = FormGroup<{
   styleUrl: './edit-employee.scss',
 })
 export class EditEmployee {
+
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
   router = inject(Router);
+
+  @Input() id!: number;
+
 
   readonly newEmployeeForm: EditEmployeeForm = this.fb.group({
     id: this.fb.control(null),
@@ -54,9 +58,12 @@ export class EditEmployee {
       const employeeData = Object.fromEntries(
         Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
       );
-      const id = this.router.url.split('/').pop();
-      console.log('ID je:', id);
-      employeeData['id'] = id ? parseInt(id, 10) : undefined;
+
+
+      // const id = this.router.url.split('/').pop();
+
+      console.log('ID je:', this.id);
+      employeeData['id'] = this.id;
 
       for (const [key, value] of Object.entries(employeeData)) {
         if (value !== undefined && value.toString().trim() === '') {

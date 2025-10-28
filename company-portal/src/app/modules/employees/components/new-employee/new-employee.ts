@@ -45,7 +45,7 @@ export class NewEmployee {
     password: this.fb.control(null),
     address: this.fb.control(null),
     vacationDaysLeft: this.fb.control(null),
-    userRole: this.fb.control('Select role...'),
+    userRole: this.fb.control('EMPLOYEE'),
   }) as NewEmployeeForm;
 
   async createEmployee() {

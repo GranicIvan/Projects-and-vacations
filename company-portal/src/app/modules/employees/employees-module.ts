@@ -8,7 +8,7 @@ import { EmployeesRoutingModule } from './employees-routing-module';
   declarations: [],
   imports: [
     CommonModule,
-    EmployeesRoutingModule
+    EmployeesRoutingModule,
   ]
 })
 export class EmployeesModule { }

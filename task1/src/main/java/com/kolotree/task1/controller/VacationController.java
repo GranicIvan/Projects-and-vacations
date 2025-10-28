@@ -22,7 +22,7 @@ public class VacationController {
     private final VacationService vacationService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<VacationShowDto>> getById(@PathVariable Integer id) {
+    public ResponseEntity<VacationShowDto> getById(@PathVariable Integer id) {
         VacationShowDto vacationShowDto = vacationService.getOne(id);
 
         if (vacationShowDto == null) {
