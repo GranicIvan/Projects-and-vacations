@@ -33,18 +33,21 @@ export class RequestVacation {
 
   protected vacationService = inject(VacationService);
 
-  async requestVacation() {
+  requestVacation() {
     if (this.requestVacationForm.invalid) return;
 
-    try {
-      const response = await this.vacationService.requestVacation(this.requestVacationForm.getRawValue());
-      this.requestVacationForm.reset();
-      this.router.navigate(['vacations/my-vacations']);
-      this.snackBar.open('Vacation requested successfully', 'Close', { duration: 5000 });
-    } catch (error) {
-      this.snackBar.open('Failed to request vacation', 'Close', { duration: 5000 });
-      console.error(error);
-    }
+    this.vacationService.requestVacation(this.requestVacationForm.getRawValue())
+      .subscribe({
+        next: (response) => {
+          this.requestVacationForm.reset();
+          this.router.navigate(['vacations/my-vacations']);
+          this.snackBar.open('Vacation requested successfully', 'Close', { duration: 5000 });
+        },
+        error: (error) => {
+          this.snackBar.open('Failed to request vacation', 'Close', { duration: 5000 });
+          console.error(error);
+        }
+      });
   }
 
 }
