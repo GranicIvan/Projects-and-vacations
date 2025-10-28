@@ -58,8 +58,8 @@ public class VacationServiceImpl implements VacationService {
     }
 
     @Override
-    public List<VacationShowDto> getAll() {
-        return VacationMapper.toShowDtoList(vacationRepository.findAll());
+    public List<VacationShowWithUserDto> getAll() {
+        return VacationMapper.toShowWithUserList(vacationRepository.findAll());
     }
 
     @Override

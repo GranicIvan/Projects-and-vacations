@@ -47,8 +47,8 @@ public class VacationController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
-    public ResponseEntity<List<VacationShowDto>> getAll() {
-        List<VacationShowDto> vacationRequestList = vacationService.getAll();
+    public ResponseEntity<List<VacationShowWithUserDto>> getAll() {
+        List<VacationShowWithUserDto> vacationRequestList = vacationService.getAll();
         return ResponseEntity.ok(vacationRequestList);
     }
 
