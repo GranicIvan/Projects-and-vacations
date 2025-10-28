@@ -89,4 +89,34 @@ export class EditEmployee {
       console.error(error);
     }
   }
+
+
+  protected isFieldInvalid(fieldName: keyof EditEmployeeForm['controls']): boolean {
+    const field = this.newEmployeeForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
+  }
+
+  protected hasError(fieldName: keyof EditEmployeeForm['controls'], errorType: string): boolean {
+    return !!this.newEmployeeForm.get(fieldName)?.hasError(errorType);
+  }
+
+  protected getErrorMessage(fieldName: keyof EditEmployeeForm['controls']): string {
+    const field = this.newEmployeeForm.get(fieldName);
+    if (!field?.errors || !field?.touched) return '';
+
+
+    if (field.errors['minlength']) {
+      const requiredLength = field.errors['minlength'].requiredLength;
+      return `Minimum length is ${requiredLength} characters`;
+    }
+    if (field.errors['email']) {
+      return 'Please enter a valid email address';
+    }
+    if (field.errors['min']) {
+      const min = field.errors['min'].min;
+      return `Value must be at least ${min}`;
+    }
+
+    return 'Invalid field';
+  }
 }

@@ -60,7 +60,6 @@ export class NewEmployee {
   async createEmployee() {
     this.newEmployeeForm.markAllAsTouched();
     if (this.newEmployeeForm.invalid) return;
-    
 
     const formValue = this.newEmployeeForm.getRawValue();
     const employee: Partial<CreateUserDto> = Object.entries(formValue).reduce(
@@ -84,5 +83,46 @@ export class NewEmployee {
         console.error(error);
       },
     });
+  }
+
+  protected isFieldInvalid(fieldName: keyof NewEmployeeForm['controls']): boolean {
+    const field = this.newEmployeeForm.get(fieldName);
+    return !!(field && field.invalid && (field.dirty || field.touched));
+  }
+
+  protected hasError(fieldName: keyof NewEmployeeForm['controls'], errorType: string): boolean {
+    return !!this.newEmployeeForm.get(fieldName)?.hasError(errorType);
+  }
+
+  protected getErrorMessage(fieldName: keyof NewEmployeeForm['controls']): string {
+    const field = this.newEmployeeForm.get(fieldName);
+    if (!field?.errors || !field?.touched) return '';
+
+    const errors: Record<string, Record<string, string>> = {
+      firstName: {
+        required: 'First Name is required',
+        minlength: 'Please enter a valid name (at least 2 characters)',
+      },
+      lastName: {
+        required: 'Last Name is required',
+        minlength: 'Please enter a valid Last name (at least 2 characters)',
+      },
+      email: {
+        required: 'Email is required',
+        email: 'Please enter a valid email',
+      },
+      password: {
+        required: 'Password is required',
+        minlength: 'Please enter a valid password (at least 4 characters)',
+      },
+      vacationDaysLeft: {
+        required: 'Vacation Days Left is required',
+        min: 'Vacation Days Left cannot be negative',
+      },
+    };
+
+    const fieldErrors = errors[fieldName as string];
+    const errorKey = Object.keys(field.errors)[0];
+    return fieldErrors?.[errorKey] || '';
   }
 }

@@ -16,14 +16,9 @@
           placeholder="Enter first name"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
-        @if (newEmployeeForm.get('firstName')?.invalid && newEmployeeForm.get('firstName')?.touched) {
+        @if (isFieldInvalid('firstName')) {
           <span style="color: #dc3545; font-size: 0.875rem">
-            @if (newEmployeeForm.get('firstName')?.errors?.['required']) {
-              First Name is required
-            }
-            @if (newEmployeeForm.get('firstName')?.errors?.['minlength']) {
-              Please enter a valid name (at least 2 characters)
-            }
+            {{ getErrorMessage('firstName') }}
           </span>
         }
       </div>
@@ -37,14 +32,9 @@
           placeholder="Enter last name"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
-        @if (newEmployeeForm.get('lastName')?.invalid && newEmployeeForm.get('lastName')?.touched) {
+        @if (isFieldInvalid('lastName')) {
           <span style="color: #dc3545; font-size: 0.875rem">
-            @if (newEmployeeForm.get('lastName')?.errors?.['required']) {
-              Last Name is required
-            }
-            @if (newEmployeeForm.get('lastName')?.errors?.['minlength']) {
-              Please enter a valid Last name (at least 2 characters)
-            }
+            {{ getErrorMessage('lastName') }}
           </span>
         }
       </div>
@@ -67,14 +57,9 @@
           placeholder="employee@company.com"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
-        @if (newEmployeeForm.get('email')?.invalid && newEmployeeForm.get('email')?.touched) {
+        @if (isFieldInvalid('email')) {
           <span style="color: #dc3545; font-size: 0.875rem">
-            @if (newEmployeeForm.get('email')?.errors?.['required']) {
-              Email is required
-            }
-            @if (newEmployeeForm.get('email')?.errors?.['email']) {
-              Please enter a valid email
-            }
+            {{ getErrorMessage('email') }}
           </span>
         }
       </div>
@@ -88,14 +73,9 @@
           placeholder="Enter password"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
-        @if (newEmployeeForm.get('password')?.invalid && newEmployeeForm.get('password')?.touched) {
+        @if (isFieldInvalid('password')) {
           <span style="color: #dc3545; font-size: 0.875rem">
-            @if (newEmployeeForm.get('password')?.errors?.['required']) {
-              Password is required
-            }
-            @if (newEmployeeForm.get('password')?.errors?.['minlength']) {
-              Please enter a valid password (at least 4 characters)
-            }
+            {{ getErrorMessage('password') }}
           </span>
         }
       </div>
@@ -126,14 +106,9 @@
           placeholder="0"
           style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
         />
-        @if (newEmployeeForm.get('vacationDaysLeft')?.invalid && newEmployeeForm.get('vacationDaysLeft')?.touched) {
+        @if (isFieldInvalid('vacationDaysLeft')) {
           <span style="color: #dc3545; font-size: 0.875rem">
-            @if (newEmployeeForm.get('vacationDaysLeft')?.errors?.['required']) {
-              Vacation Days Left is required
-            }
-            @if (newEmployeeForm.get('vacationDaysLeft')?.errors?.['min']) {
-              Vacation Days Left cannot be negative
-            }
+            {{ getErrorMessage('vacationDaysLeft') }}
           </span>
         }
       </div>
