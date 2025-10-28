@@ -4,7 +4,7 @@
     <div style="display: flex; gap: 1rem; margin-left: auto">
       @if (isLoggedIn()) {
         @if (isAdmin()) {
-					<!-- Admin menu -->
+                    <!-- Admin menu -->
           <!-- Vacations dropdown -->
           <div class="row">
             <div class="col">
@@ -68,7 +68,7 @@
             </div>
           </div>
         } @else {
-					<!-- Employee menu -->
+                    <!-- Employee menu -->
           <!-- Vacations dropdown -->
           <div class="row">
             <div class="col">
@@ -109,8 +109,8 @@
           </div>
         }
 
-        <div class="flex items-center gap-3" style="display: flex; gap: 1rem">
-          <span style="color: white"
+        <div class="flex items-center gap-3" style="display: flex; gap: 1rem; align-items: center">
+          <span style="color: white; font-size: 1rem"
             >Welcome, {{ accountService.currentUser()?.firstName }}
             {{ accountService.currentUser()?.lastName }}</span
           >
@@ -122,6 +122,9 @@
               padding: 0.5rem 1rem;
               border-radius: 4px;
               background: #e74c3c;
+              border: none;
+              cursor: pointer;
+              font-size: 1rem;
             "
           >
             Logout
@@ -144,21 +147,31 @@
           [formGroup]="loginForm"
           (ngSubmit)="login()"
           class="flex items-center gap-3"
-          style="display: flex; gap: 1rem"
+          style="display: flex; gap: 0.75rem; align-items: center"
         >
           <input
             type="email"
             class="input"
             placeholder="Email"
             formControlName="email"
-            style="border-radius: 4px"
+            style="
+              border-radius: 4px;
+              padding: 0.5rem 0.75rem;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
           />
           <input
             type="password"
             class="input"
             placeholder="Password"
             formControlName="password"
-            style="border-radius: 4px"
+            style="
+              border-radius: 4px;
+              padding: 0.5rem 0.75rem;
+              border: 1px solid #ccc;
+              font-size: 1rem;
+            "
           />
           <button
             type="submit"
@@ -169,7 +182,10 @@
               text-decoration: none;
               border-radius: 4px;
               background: var(--french-violet);
-              border-width: 0;
+              border: none;
+              padding: 0.5rem 1rem;
+              cursor: pointer;
+              font-size: 1rem;
             "
           >
             Login
