@@ -34,4 +34,14 @@ public class MonthlyLogController {
 
         return ResponseEntity.ok(monthlyLogList);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/monthlyLogsForProject/{id}")
+    public ResponseEntity<List<MonthlyLogShowDto>> monthlyLogsForProject(@PathVariable Integer id){
+
+        List<MonthlyLogShowDto> monthlyLogShowDtoList = monthlyLogService.forProject(id);
+
+        return ResponseEntity.ok(monthlyLogShowDtoList);
+    }
+
 }

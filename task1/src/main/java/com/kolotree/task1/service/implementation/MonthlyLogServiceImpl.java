@@ -52,4 +52,13 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         List<MonthlyLogShowDto> monthlyLogShowDtos = MonthlyLogMapper.toShowDtoList(monthlyLogList);
         return monthlyLogShowDtos;
     }
+
+    @Override
+    public List<MonthlyLogShowDto> forProject(Integer projectId) {
+
+        List<MonthlyLog> monthlyLogList = monthlyLogRepository.findByProjectAssignment_Project_Id(projectId);
+
+        List<MonthlyLogShowDto> monthlyLogShowDtos = MonthlyLogMapper.toShowDtoList(monthlyLogList);
+        return monthlyLogShowDtos;
+    }
 }

@@ -11,4 +11,6 @@ public interface MonthlyLogService {
     MonthlyLogShowDto addHoursToProjectForMonth(AddMonthlyLogDto requestBody);
 
     List<MonthlyLogShowDto> myMonthlyLogs();
+
+    List<MonthlyLogShowDto> forProject(Integer projectId);
 }
