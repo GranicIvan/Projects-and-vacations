@@ -95,8 +95,8 @@
                 }"
             >
                 <td style="padding: 0.75rem; color: #333">{{ earning.yearMonth }}</td>
-                <td style="padding: 0.75rem; color: #333">{{ earning.totalHours ?? 0 }}</td>
-                <td style="padding: 0.75rem; color: #333">${{ (earning.totalEarnings ?? 0).toFixed(2) }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ earning.hoursWorked  }}</td>
+                <td style="padding: 0.75rem; color: #333">${{earning.monthlyEarnings  }}</td>
             </tr>
         }
         <tr style="background: var(--french-violet); font-weight: bold;">

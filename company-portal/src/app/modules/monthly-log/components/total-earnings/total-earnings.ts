@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MonthlyLogService } from '../../service/monthly-log-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { YearlyEarnings } from '../../monthly-log-dto/yearly-earnings';
 
-interface YearlyEarnings {
-  yearMonth: string;
-  totalHours: number;
-  totalEarnings: number;
-}
 
 @Component({
   selector: 'app-total-earnings',
@@ -21,8 +17,8 @@ export class TotalEarnings implements OnInit {
   private snackBar = inject(MatSnackBar);
 
   yearlyEarnings: YearlyEarnings[] = [];
-  startYear: number = 2020;
-  endYear: number = 2025;
+  startYear: number | undefined ;
+  endYear: number | undefined;
 
   ngOnInit() {
     const currentYear = new Date().getFullYear();
@@ -44,7 +40,10 @@ export class TotalEarnings implements OnInit {
     this.monthlyLogService.getTotalEarningsByYearRange(this.startYear, this.endYear).subscribe({
       next: (earnings) => {
         this.yearlyEarnings = earnings;
+
         console.log("Yearly Earnings:", this.yearlyEarnings);
+        
+        this.snackBar.open('Yearly earnings loaded successfully', 'Close', { duration: 3000 });
       },
       error: (err) => {
         this.snackBar.open(`Error loading yearly earnings: ${err.message}`, 'Close', {
@@ -55,10 +54,10 @@ export class TotalEarnings implements OnInit {
   }
 
   getGrandTotalHours(): number {
-    return this.yearlyEarnings.reduce((sum, earning) => sum + earning.totalHours, 0);
+    return this.yearlyEarnings.reduce((sum, earning) => sum + earning.hoursWorked, 0);
   }
 
   getGrandTotalEarnings(): number {
-    return this.yearlyEarnings.reduce((sum, earning) => sum + earning.totalEarnings, 0);
+    return this.yearlyEarnings.reduce((sum, earning) => sum + earning.monthlyEarnings, 0);
   }
 }

@@ -82,7 +82,7 @@ export class MonthlyLogService {
   }
 
   getTotalEarningsByYearRange(startYear: number, endYear: number) {
-    return this.http.get<{yearMonth: string, totalHours: number, totalEarnings: number}[]>(
+    return this.http.get<{yearMonth: string, hoursWorked: number, monthlyEarnings: number}[]>(
       `${this.baseUrl}/totalYearlyEarnings/${startYear}/${endYear}`,
       {
         withCredentials: true,
