@@ -1,0 +1,150 @@
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
+    <h2 style="color: white; margin: 0 0 1rem 0;">Earnings </h2>
+
+    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+        <select 
+            [(ngModel)]="selectedProjectId"
+            style="
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                border: 1px solid var(--french-violet);
+                background: white;
+                color: #333;
+                font-size: 1rem;
+                min-width: 200px;
+            "
+        >
+            <option [value]="0">All Projects</option>
+            @for (project of projects; track project.id) {
+                <option [value]="project.id">{{ project.projectName }}</option>
+            }
+        </select>
+        
+        <button 
+            (click)="filterByProject()"
+            style="
+                padding: 0.5rem 1.5rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+            "
+        >
+            Filter by Project
+        </button>
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; background: white">
+      <thead>
+        <tr style="background: var(--gray-900)">          
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Employee Name
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Project Name
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Year-Month
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Hours Worked
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Hourly Rate
+          </th>
+          <th
+            style="
+              color: white;
+              padding: 0.75rem;
+              text-align: left;
+              border-bottom: 2px solid var(--french-violet);
+            "
+          >
+            Total Earnings
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @if (filteredLogs.length) {
+        @for (log of filteredLogs; track $index) {
+            <tr
+                [ngStyle]="{
+                    background: $index % 2 === 0 ? '#f8f9fa' : 'white',
+                    'border-bottom': '1px solid #e9ecef',
+                }"
+            >
+                <td style="padding: 0.75rem; color: #333">
+                  {{ log.projectAssignment.user.firstName }} {{ log.projectAssignment.user.lastName }}
+                </td>
+                <td style="padding: 0.75rem; color: #333">{{ log.projectAssignment.project.projectName }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ log.yearMonth | date: 'yyyy-MM' }}</td>
+                <td style="padding: 0.75rem; color: #333">{{ log.hoursWorked }}</td>
+                <td style="padding: 0.75rem; color: #333">${{ log.projectAssignment.hourlyPay }}</td>
+                <td style="padding: 0.75rem; color: #333">
+                  ${{ (log.hoursWorked * log.projectAssignment.hourlyPay).toFixed(2) }}
+                </td>
+            </tr>
+        }
+        <tr style="background: var(--french-violet); font-weight: bold;">
+          <td colspan="3" style="padding: 0.75rem; color: white; text-align: right;">
+            TOTALS:
+          </td>
+          <td style="padding: 0.75rem; color: white">
+            {{ getTotalHours() }} hours
+          </td>
+          <td style="padding: 0.75rem; color: white">
+            -
+          </td>
+          <td style="padding: 0.75rem; color: white">
+            ${{ getTotalEarnings().toFixed(2) }}
+          </td>
+        </tr>
+        } @else {
+          <tr>
+            <td colspan="6" style="padding: 1rem; text-align: center; color: #666">
+              No logged hours to show. Please select a project and click "Filter by Project".
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+</div>
