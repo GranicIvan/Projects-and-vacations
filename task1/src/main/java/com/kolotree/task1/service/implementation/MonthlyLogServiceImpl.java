@@ -3,6 +3,7 @@ package com.kolotree.task1.service.implementation;
 import com.kolotree.task1.converter.YearMonthAttributeConverter;
 import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
+import com.kolotree.task1.dto.earnings.TotalYearlyEarning;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 import com.kolotree.task1.mapper.MonthlyLogMapper;
@@ -106,6 +107,16 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         List<EarningsByEmployee> earningsByEmployees = monthlyLogRepository.yearlyLogsForMonthByEmployee(yearMonthStart, yearMonthEnd);
 
         return earningsByEmployees;
+    }
+
+    @Override
+    public List<TotalYearlyEarning> totalYearlyEarnings(int startYear, int endYear) {
+        YearMonth yearMonthStart = YearMonth.of(startYear, Month.JANUARY);
+        YearMonth yearMonthEnd = YearMonth.of(endYear, Month.DECEMBER);
+
+        List<TotalYearlyEarning> totalYearlyEarnings = monthlyLogRepository.totalYearlyEarnings(yearMonthStart, yearMonthEnd);
+
+        return totalYearlyEarnings;
     }
 
 

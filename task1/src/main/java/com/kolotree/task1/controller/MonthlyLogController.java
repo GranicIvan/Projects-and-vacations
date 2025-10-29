@@ -2,6 +2,7 @@ package com.kolotree.task1.controller;
 
 import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
+import com.kolotree.task1.dto.earnings.TotalYearlyEarning;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 import com.kolotree.task1.service.interfaces.MonthlyLogService;
@@ -93,4 +94,14 @@ public class MonthlyLogController {
 
         return ResponseEntity.ok(yearByProjects);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/totalYearlyEarnings/{startYear}/{endYear}")
+    public ResponseEntity<List<TotalYearlyEarning>> totalYearlyEarnings(@PathVariable int startYear, @PathVariable int endYear){
+
+        List<TotalYearlyEarning> totalYearlyEarnings = monthlyLogService.totalYearlyEarnings(startYear, endYear);
+
+        return ResponseEntity.ok( totalYearlyEarnings);
+    }
+
 }

@@ -3,6 +3,7 @@ package com.kolotree.task1.service.interfaces;
 
 import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
+import com.kolotree.task1.dto.earnings.TotalYearlyEarning;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 
@@ -26,4 +27,6 @@ public interface MonthlyLogService {
     List<EarningsByEmployee> yearlyLogsForMonthByProjects(YearMonth yearMonth);
 
     List<EarningsByEmployee> yearlyLogsForYearByEmployee(int year);
+
+    List<TotalYearlyEarning> totalYearlyEarnings(int startYear, int endYear);
 }
