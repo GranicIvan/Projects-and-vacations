@@ -1,5 +1,6 @@
 package com.kolotree.task1.repository;
 
+import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.model.MonthlyLog;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -51,4 +52,40 @@ public interface MonthlyLogRepository extends JpaRepository<MonthlyLog, Integer>
         @Param("startMonth") YearMonth startMonth,
         @Param("endMonth") YearMonth endMonth
     );
+
+    @Query("""
+                SELECT new com.kolotree.task1.dto.earnings.EarningsByEmployee(
+                    u.id,
+                    u.firstName,
+                    u.lastName,
+                    u.email,
+                    CAST(SUM(ml.hoursWorked) AS int),
+                    SUM(ml.hoursWorked * pa.hourlyPay)
+                )
+                FROM MonthlyLog ml
+                JOIN ml.projectAssignment pa
+                JOIN pa.user u
+                WHERE ml.yearMonth = :yearMonth
+                GROUP BY u.id, u.firstName, u.lastName, u.email
+            """)
+    List<EarningsByEmployee> yearlyLogsForMonthByEmployee(@Param("yearMonth") YearMonth yearMonth);
+
+
+    @Query("""
+                SELECT new com.kolotree.task1.dto.earnings.EarningsByEmployee(
+                    u.id,
+                    u.firstName,
+                    u.lastName,
+                    u.email,
+                    CAST(SUM(ml.hoursWorked) AS int),
+                    SUM(ml.hoursWorked * pa.hourlyPay)
+                )
+                FROM MonthlyLog ml
+                JOIN ml.projectAssignment pa
+                JOIN pa.user u
+                WHERE ml.yearMonth BETWEEN :startMonth AND :endMonth
+                GROUP BY u.id, u.firstName, u.lastName, u.email
+            """)
+    List<EarningsByEmployee> yearlyLogsForMonthByEmployee(        @Param("startMonth") YearMonth startMonth,
+                                                                  @Param("endMonth") YearMonth endMonth);
 }

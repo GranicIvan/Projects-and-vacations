@@ -1,11 +1,11 @@
 package com.kolotree.task1.service.interfaces;
 
 
+import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -21,5 +21,9 @@ public interface MonthlyLogService {
 
     List<MonthlyEarningByProject> monthlyLogsForMonthByProjects(YearMonth yearMonth);
 
-    List<MonthlyEarningByProject> monthlyLogsForYearByProjects(int year);
+    List<MonthlyEarningByProject> yearlyLogsForYearByProjects(int year);
+
+    List<EarningsByEmployee> yearlyLogsForMonthByProjects(YearMonth yearMonth);
+
+    List<EarningsByEmployee> yearlyLogsForYearByEmployee(int year);
 }

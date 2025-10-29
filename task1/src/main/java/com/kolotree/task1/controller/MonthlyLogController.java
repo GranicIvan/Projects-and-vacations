@@ -1,5 +1,6 @@
 package com.kolotree.task1.controller;
 
+import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -65,13 +65,32 @@ public class MonthlyLogController {
         return ResponseEntity.ok(monthlyEarningByProjects);
     }
 
+
+
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/monthlyLogsForYearByProjects/{year}")
+    @GetMapping("/monthlyLogsForMonthByEmployee/{yearMonth:\\d{4}-\\d{2}}")
+    public ResponseEntity<List<EarningsByEmployee>> monthlyLogsForMonthByEmployee(@PathVariable YearMonth yearMonth){
+
+        List<EarningsByEmployee> earningsByEmployee = monthlyLogService.yearlyLogsForMonthByProjects(yearMonth);
+
+        return ResponseEntity.ok(earningsByEmployee);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/yearlyLogsForYearByProjects/{year}")
     public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForYearByProjects(@PathVariable int year){
 
-        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.monthlyLogsForYearByProjects(year);
+        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.yearlyLogsForYearByProjects(year);
 
         return ResponseEntity.ok(monthlyEarningByProjects);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/yearlyLogsForYearByEmployee/{year}")
+    public ResponseEntity<List<EarningsByEmployee>> yearlyLogsForYearByEmployee(@PathVariable int year){
+
+        List<EarningsByEmployee> yearByProjects = monthlyLogService.yearlyLogsForYearByEmployee(year);
+
+        return ResponseEntity.ok(yearByProjects);
+    }
 }
