@@ -84,8 +84,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectShowDto> getAllWithUser(Integer id) {
-        return ProjectMapper.toShowDtoList( projectRepository.findAllByUsers_Id(id));
+    public List<ProjectShowDto> getAllWithUser(Integer userId) {
+        return ProjectMapper.toShowDtoList(projectRepository.findAllByProjectAssignment_User_Id(userId));
 
     }
 

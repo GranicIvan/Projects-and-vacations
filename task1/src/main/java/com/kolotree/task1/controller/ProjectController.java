@@ -3,7 +3,6 @@ package com.kolotree.task1.controller;
 import com.kolotree.task1.dto.project.ProjectCreateDto;
 import com.kolotree.task1.dto.project.ProjectPatchDto;
 import com.kolotree.task1.dto.project.ProjectShowDto;
-import com.kolotree.task1.mapper.ProjectMapper;
 import com.kolotree.task1.model.Project;
 import com.kolotree.task1.service.interfaces.ProjectService;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,8 +31,7 @@ public class ProjectController {
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @GetMapping("/forUser/{id}")
-    public ResponseEntity<List<ProjectShowDto>> forEmployee(@PathVariable Integer id){
-
+    public ResponseEntity<List<ProjectShowDto>> forEmployee(@PathVariable Integer id) {
         return ResponseEntity.ok(projectService.getAllWithUser(id));
     }
 
@@ -87,7 +85,6 @@ public class ProjectController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
 
 
 }
