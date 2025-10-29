@@ -120,8 +120,9 @@
                 >
                   Monthly Log
                 </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                  <a ngbDropdownItem routerLink="/monthly-log/log-work-hours">Log Work Hours</a>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">                  
+                  <a ngbDropdownItem button (click)="goToLogWorkHours()">Log Work Hours</a>
+                  <a ngbDropdownItem button (click)="goToMyLoggedHours()">My Logged Hours</a>
                 </div>
               </div>
             </div>

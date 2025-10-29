@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -26,6 +26,8 @@ export class LogWorkedHours implements OnInit {
 
   projectShowDtoList: any[] = [];
 
+  @Input() id!: number;
+
   readonly logWorkedHoursForm: LogWorkedHoursForm = this.fb.group({
     projectId: this.fb.control(0, {
       validators: [Validators.required, Validators.min(1)],
@@ -45,7 +47,7 @@ export class LogWorkedHours implements OnInit {
     this.logWorkedHoursForm.patchValue({ yearMonth: currentMonth });
 
     // Load projects
-    this.projectsService.getAllProjects().subscribe({
+    this.projectsService.getWithUser(this.id).subscribe({
       next: (projects) => {
         this.projectShowDtoList = projects;
       },
@@ -60,6 +62,10 @@ export class LogWorkedHours implements OnInit {
   logHours() {
     this.logWorkedHoursForm.markAllAsTouched();
     if (this.logWorkedHoursForm.invalid) return;
+
+
+    
+  const assignmentId = 0;
 
     const { projectId, hoursWorked, yearMonth } = this.logWorkedHoursForm.getRawValue();
 

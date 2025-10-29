@@ -17,6 +17,10 @@ export class ProjectService {
     return this.http.get<ProjectShowDto[]>(this.baseUrl, { withCredentials: true });
   }
 
+  getWithUser(id: number) {
+    return this.http.get<ProjectShowDto[]>(`${this.baseUrl}/forUser/${id}`, { withCredentials: true });
+  }
+
 
   addProject(projectData: { projectName: string; description: string }) {
     return this.http.post<ProjectShowDto>(this.baseUrl , projectData, {

@@ -71,4 +71,12 @@ export class Navbar {
   isAdmin() {
     return this.accountService.isAdmin();
   }
+
+  goToLogWorkHours() {
+    this.router.navigate(['/monthly-log/log-work-hours/' + this.accountService.currentUser()?.id]);
+  }
+
+  goToMyLoggedHours() {
+    this.router.navigate(['/monthly-log/my-logged-hours/' + this.accountService.currentUser()?.id]);
+  }
 }
