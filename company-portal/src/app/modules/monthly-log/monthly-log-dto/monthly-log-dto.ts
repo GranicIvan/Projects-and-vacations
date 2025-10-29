@@ -1,14 +1,9 @@
-import { ProjectAssignmentDto } from "../../project-assignment/project-assingment-dto/project-assingment-dto";
+import { ProjectAssignmentDto } from '../../project-assignment/project-assingment-dto/project-assingment-dto';
 
 export interface MonthlyLogDto {
-  id: number;
-  projectName: string;
-  description: string;
-
   projectAssignment: ProjectAssignmentDto;
 
-    yearMonth: Date;
+  yearMonth: Date;
 
-    hoursWorked: number;
-
+  hoursWorked: number;
 }

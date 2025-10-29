@@ -74,7 +74,7 @@ export class LogWorkedHours implements OnInit {
         this.snackBar.open('Hours logged successfully', 'Close', {
           duration: 3000,
         });
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/monthly-log/my-logged-hours/', this.id]);
       },
       error: (err) => {
         this.snackBar.open(`Error: ${err.message}`, 'Close', {
