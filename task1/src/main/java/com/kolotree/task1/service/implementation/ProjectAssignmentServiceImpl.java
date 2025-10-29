@@ -22,7 +22,7 @@ public class ProjectAssignmentServiceImpl implements ProjectAssignmentService {
         ProjectAssignment projectAssignment = ProjectAssignment.builder()
                 .user(User.builder().id(userId).build())
                 .project(Project.builder().id(projectId).build())
-                .hourly_pay(hourlyRate)
+                .hourlyPay(hourlyRate)
                 .build();
 
         projectAssignmentRepository.save(projectAssignment);

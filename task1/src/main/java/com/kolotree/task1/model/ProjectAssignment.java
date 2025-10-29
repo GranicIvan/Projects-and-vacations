@@ -30,5 +30,5 @@ public class ProjectAssignment {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    private Double hourly_pay;
+    private Double hourlyPay;
 }

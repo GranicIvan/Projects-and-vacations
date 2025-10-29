@@ -15,5 +15,5 @@ public class ProjectAssignmentSlimShowDto {
 
     private ProjectShowDto project;
 
-    private Double hourly_pay;
+    private Double hourlyPay;
 }

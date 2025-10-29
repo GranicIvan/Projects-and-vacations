@@ -10,7 +10,7 @@ public class ProjectAssignmentMapper {
                 projectAssignment.getId(),
                 UserMapper.toShowSlimDto(projectAssignment.getUser()),
                 ProjectMapper.toShowDto(projectAssignment.getProject()),
-                projectAssignment.getHourly_pay()
+                projectAssignment.getHourlyPay()
         );
     }
 }

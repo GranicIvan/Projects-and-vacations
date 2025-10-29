@@ -11,4 +11,6 @@ public interface MonthlyLogRepository extends JpaRepository<MonthlyLog, Integer>
 
     List<MonthlyLog> findByProjectAssignment_User_Id(Long userId);
 
+
+
 }
