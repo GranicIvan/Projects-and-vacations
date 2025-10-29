@@ -1,5 +1,6 @@
 package com.kolotree.task1.service.implementation;
 
+import com.kolotree.task1.converter.YearMonthAttributeConverter;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
@@ -15,6 +16,8 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Month;
+import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -74,6 +77,15 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
     public List<MonthlyEarningByProject> monthlyLogsForMonthByProjects(YearMonth yearMonth) {
 
         List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogRepository.monthlyEarningGroupedByProjects(yearMonth);
+
+        return monthlyEarningByProjects;
+    }
+
+    @Override
+    public List<MonthlyEarningByProject> monthlyLogsForYearByProjects(int year) {
+        YearMonth yearMonthStart = YearMonth.of(year, Month.JANUARY);
+        YearMonth yearMonthEnd = YearMonth.of(year, Month.DECEMBER);
+        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogRepository.yearlyEarningGroupedByProjects(yearMonthStart, yearMonthEnd);
 
         return monthlyEarningByProjects;
     }

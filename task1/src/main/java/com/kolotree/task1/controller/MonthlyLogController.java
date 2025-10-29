@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -56,12 +57,19 @@ public class MonthlyLogController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-//    @GetMapping("/monthlyLogsForMonthByProjects/{yearMonth}")
     @GetMapping("/monthlyLogsForMonthByProjects/{yearMonth:\\d{4}-\\d{2}}")
-
     public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForMonthByProjects(@PathVariable YearMonth yearMonth){
 
         List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.monthlyLogsForMonthByProjects(yearMonth);
+
+        return ResponseEntity.ok(monthlyEarningByProjects);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/monthlyLogsForYearByProjects/{year}")
+    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForYearByProjects(@PathVariable int year){
+
+        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.monthlyLogsForYearByProjects(year);
 
         return ResponseEntity.ok(monthlyEarningByProjects);
     }

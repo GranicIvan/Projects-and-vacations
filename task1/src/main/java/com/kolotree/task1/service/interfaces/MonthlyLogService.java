@@ -5,6 +5,7 @@ import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 
+import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface MonthlyLogService {
     List<MonthlyLogShowDto> getAll();
 
     List<MonthlyEarningByProject> monthlyLogsForMonthByProjects(YearMonth yearMonth);
+
+    List<MonthlyEarningByProject> monthlyLogsForYearByProjects(int year);
 }
