@@ -13,4 +13,6 @@ public interface MonthlyLogService {
     List<MonthlyLogShowDto> myMonthlyLogs();
 
     List<MonthlyLogShowDto> forProject(Integer projectId);
+
+    List<MonthlyLogShowDto> getAll();
 }

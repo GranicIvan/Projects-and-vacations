@@ -61,4 +61,11 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         List<MonthlyLogShowDto> monthlyLogShowDtos = MonthlyLogMapper.toShowDtoList(monthlyLogList);
         return monthlyLogShowDtos;
     }
+
+    @Override
+    public List<MonthlyLogShowDto> getAll() {
+        List<MonthlyLog> monthlyLogList = monthlyLogRepository.findAll();
+
+        return MonthlyLogMapper.toShowDtoList(monthlyLogList);
+    }
 }
