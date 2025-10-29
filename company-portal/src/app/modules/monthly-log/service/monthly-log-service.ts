@@ -50,7 +50,7 @@ export class MonthlyLogService {
 
   getLogsByYearGroupedByProject(year: number) {
     return this.http.get<MonthlyEarningsByProject[]>(
-      `${this.baseUrl}/monthlyLogsForYearByProjects/${year}`,
+      `${this.baseUrl}/yearlyLogsForYearByProjects/${year}`,
       {
         withCredentials: true,
       },
@@ -79,5 +79,14 @@ export class MonthlyLogService {
     return this.http.delete<void>(`${this.baseUrl}/${logId}`, {
       withCredentials: true,
     });
+  }
+
+  getTotalEarningsByYearRange(startYear: number, endYear: number) {
+    return this.http.get<{yearMonth: string, totalHours: number, totalEarnings: number}[]>(
+      `${this.baseUrl}/totalYearlyEarnings/${startYear}/${endYear}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 }

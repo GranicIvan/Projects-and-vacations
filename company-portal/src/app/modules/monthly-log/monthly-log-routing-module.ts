@@ -8,6 +8,7 @@ import { adminGuard } from '../shared/guards/admin-guard';
 import { EarningsPerEmployee } from './components/earnings-per-employee/earnings-per-employee';
 import { EarningsReview } from './components/earnings-review/earnings-review';
 import { EarningsPerProject } from './components/earnings-per-project/earnings-per-project';
+import { TotalEarnings } from './components/total-earnings/total-earnings';
 
 
 const routes: Routes = [
@@ -35,6 +36,11 @@ const routes: Routes = [
   {
     path: 'earnings-per-employee',
     component: EarningsPerEmployee,
+    canActivate: [adminGuard]
+  },
+  {
+    path: 'total-earning',
+    component: TotalEarnings,
     canActivate: [adminGuard]
   }
   
