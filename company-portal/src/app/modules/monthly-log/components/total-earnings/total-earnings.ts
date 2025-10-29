@@ -12,19 +12,21 @@ import { YearlyEarnings } from '../../monthly-log-dto/yearly-earnings';
   templateUrl: './total-earnings.html',
   styleUrl: './total-earnings.scss'
 })
-export class TotalEarnings implements OnInit {
+export class TotalEarnings  {
   protected monthlyLogService = inject(MonthlyLogService);
   private snackBar = inject(MatSnackBar);
 
   yearlyEarnings: YearlyEarnings[] = [];
-  startYear: number | undefined ;
-  endYear: number | undefined;
+  startYear: number;
+  endYear: number;
 
-  ngOnInit() {
+  constructor() {
     const currentYear = new Date().getFullYear();
     this.startYear = currentYear - 5;
     this.endYear = currentYear;
   }
+
+
 
   loadYearlyEarnings() {
     if (!this.startYear || !this.endYear) {
