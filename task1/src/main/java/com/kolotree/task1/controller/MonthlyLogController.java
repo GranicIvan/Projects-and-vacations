@@ -1,5 +1,6 @@
 package com.kolotree.task1.controller;
 
+import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 import com.kolotree.task1.service.interfaces.MonthlyLogService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.YearMonth;
 import java.util.List;
 
 @AllArgsConstructor
@@ -51,6 +53,17 @@ public class MonthlyLogController {
         List<MonthlyLogShowDto> monthlyLogShowDtoList = monthlyLogService.forProject(id);
 
         return ResponseEntity.ok(monthlyLogShowDtoList);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+//    @GetMapping("/monthlyLogsForMonthByProjects/{yearMonth}")
+    @GetMapping("/monthlyLogsForMonthByProjects/{yearMonth:\\d{4}-\\d{2}}")
+
+    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForMonthByProjects(@PathVariable YearMonth yearMonth){
+
+        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.monthlyLogsForMonthByProjects(yearMonth);
+
+        return ResponseEntity.ok(monthlyEarningByProjects);
     }
 
 }

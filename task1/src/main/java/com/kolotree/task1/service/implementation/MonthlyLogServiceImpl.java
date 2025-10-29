@@ -1,5 +1,6 @@
 package com.kolotree.task1.service.implementation;
 
+import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.monthlyLog.AddMonthlyLogDto;
 import com.kolotree.task1.dto.monthlyLog.MonthlyLogShowDto;
 import com.kolotree.task1.mapper.MonthlyLogMapper;
@@ -67,5 +68,13 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         List<MonthlyLog> monthlyLogList = monthlyLogRepository.findAll();
 
         return MonthlyLogMapper.toShowDtoList(monthlyLogList);
+    }
+
+    @Override
+    public List<MonthlyEarningByProject> monthlyLogsForMonthByProjects(YearMonth yearMonth) {
+
+        List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogRepository.monthlyEarningGroupedByProjects(yearMonth);
+
+        return monthlyEarningByProjects;
     }
 }
