@@ -67,6 +67,26 @@
               </div>
             </div>
           </div>
+
+                    <!-- Monthly log dropdown -->
+          <div class="row">
+            <div class="col">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                >
+                  Earnings
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">        
+                  <a ngbDropdownItem routerLink="/monthly-log/per-project">Per Project</a>         
+                  <a ngbDropdownItem routerLink="/monthly-log/per-employee">Per Employee</a>
+                </div>
+              </div>
+            </div>
+          </div>
         } @else {
                     <!-- Employee menu -->
           <!-- Vacations dropdown -->
