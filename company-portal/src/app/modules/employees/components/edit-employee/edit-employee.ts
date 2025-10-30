@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -28,7 +28,7 @@ type EditEmployeeForm = FormGroup<{
   templateUrl: './edit-employee.html',
   styleUrl: './edit-employee.scss',
 })
-export class EditEmployee {
+export class EditEmployee implements OnInit {
   private fb = inject(NonNullableFormBuilder);
   protected employeeService = inject(EmployeeService);
   private snackBar = inject(MatSnackBar);
@@ -57,30 +57,47 @@ export class EditEmployee {
     })
   }) as EditEmployeeForm;
 
+  ngOnInit() {
+    // Load the employee data when component initializes
+    this.employeeService.getById(this.id).subscribe({
+      next: (employee) => {
+        this.newEmployeeForm.patchValue({
+          id: employee.id,
+          firstName: employee.firstName,
+          lastName: employee.lastName,
+          dateOfBirth: employee.dateOfBirth ? new Date(employee.dateOfBirth) : undefined,
+          email: employee.email,
+          address: employee.address,
+          vacationDaysLeft: employee.vacationDaysLeft,
+          password: undefined // Don't pre-fill password
+        });
+      },
+      error: (err) => {
+        this.snackBar.open(`Error loading employee: ${err.message}`, 'Close', {
+          duration: 5000,
+        });
+      }
+    });
+  }
+
   async updateEmployee() {
     if (this.newEmployeeForm.invalid) return;
 
     try {
       const formValue = this.newEmployeeForm.getRawValue();
       console.log('Form value is:', formValue);
-      const employeeData = Object.fromEntries(
-        Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
-      );
-
-      console.log('ID je:', this.id);
-      employeeData['id'] = this.id;
-
-      for (const [key, value] of Object.entries(employeeData)) {
-        if (value !== undefined && value.toString().trim() === '') {
-          delete employeeData[key];
-        }
-        if (value === undefined) {
-          delete employeeData[key];
+      
+      // Clean up the data
+      const employeeData: any = {};
+      for (const [key, value] of Object.entries(formValue)) {
+        if (value !== undefined && value !== null && value !== '') {
+          employeeData[key] = value;
         }
       }
 
-      const response = await this.employeeService.updateEmployee(employeeData);
-      this.newEmployeeForm.reset();
+      employeeData['id'] = this.id;
+
+      const response = await this.employeeService.updateEmployee(employeeData).toPromise();
       this.router.navigate(['/employees']);
       this.snackBar.open('User updated successfully', 'Close', { duration: 5000 });
     } catch (error) {
