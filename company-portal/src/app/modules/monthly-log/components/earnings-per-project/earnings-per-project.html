@@ -1,7 +1,7 @@
 <div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
     <h2 style="color: white; margin: 0 0 1rem 0;">Monthly earnings Per Project</h2>
 
-    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
         <input
             type="month"
             [(ngModel)]="selectedYearMonth"
@@ -31,13 +31,10 @@
         >
             Filter by Year-Month
         </button>
-    </div>
 
-    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
         <input
             type="number"
             placeholder="YYYY"            
-            
             [(ngModel)]="yearOption"
             style="
                 padding: 0.5rem 1rem;
