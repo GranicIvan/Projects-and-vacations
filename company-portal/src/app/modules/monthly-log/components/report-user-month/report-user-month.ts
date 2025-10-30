@@ -1,23 +1,20 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, NonNullableFormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, NonNullableFormBuilder } from '@angular/forms';
 import { MonthlyLogService } from '../../service/monthly-log-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MonthlyLogDto } from '../../monthly-log-dto/monthly-log-dto';
-import { UserDto } from '../../../employees/employee-dto/UserDto';
 import { EmployeeService } from '../../../employees/service/employee-service';
-import { Console } from 'console';
 import { CreateUserDto } from '../../../employees/employee-dto/CreateUserDto';
 
-
-type ReportUserMonthParams = {
-  userId: FormControl<number| null>;
-  yearMonth: FormControl<string | null>;
-};
+type ReportUserMonthForm = FormGroup<{
+  userId: FormControl<number>;
+  yearMonth: FormControl<string>;
+}>;
 
 @Component({
   selector: 'app-report-user-month',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './report-user-month.html',
   styleUrl: './report-user-month.scss'
 })
@@ -27,32 +24,31 @@ export class ReportUserMonth implements OnInit {
   private snackBar = inject(MatSnackBar);
   protected employeeService = inject(EmployeeService);
 
-  userId: number | null = null;
-  selectedYearMonth: string = '';
   reportData: MonthlyLogDto[] | null = null;
   loading: boolean = false;
   userShowDtoList: CreateUserDto[] = [];
 
-  readonly reportForm: FormGroup<ReportUserMonthParams> = this.fb.group({
-    userId: new FormControl<number | null>(null),
-    yearMonth: new FormControl<string | null>(null),
-  });
+  readonly reportForm: ReportUserMonthForm = this.fb.group({
+    userId: this.fb.control(0),
+    yearMonth: this.fb.control(''),
+  }) as ReportUserMonthForm;
 
   ngOnInit() {
     this.loadUserList();
-    // Don't log here - the data isn't loaded yet
   }
 
   loadReport() {
-    if (!this.userId || !this.selectedYearMonth || this.userId <= 0) {
-      this.snackBar.open('Please enter both User ID and Year-Month', 'Close', { duration: 3000 });
+    const { userId, yearMonth } = this.reportForm.getRawValue();
+
+    if (!userId || !yearMonth || userId <= 0) {
+      this.snackBar.open('Please select both User and Year-Month', 'Close', { duration: 3000 });
       return;
     }
 
     this.loading = true;
     this.reportData = null;
 
-    this.monthlyLogService.getReportForUserMonth(this.userId, this.selectedYearMonth).subscribe({
+    this.monthlyLogService.getReportForUserMonth(userId, yearMonth).subscribe({
       next: (data) => {
         this.reportData = data;
         this.loading = false;
@@ -81,12 +77,11 @@ export class ReportUserMonth implements OnInit {
     return this.reportData[0].projectAssignment.user;
   }
 
-
   loadUserList() {
     this.employeeService.getUsers().subscribe({
       next: (users) => {
         this.userShowDtoList = users;
-        console.log("Loaded user list:", this.userShowDtoList);  // Log here instead
+        console.log("Loaded user list:", this.userShowDtoList);
       },
       error: (err) => {
         this.snackBar.open(`Error: ${err.message}`, 'Close', {

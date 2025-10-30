@@ -2,10 +2,8 @@
     <h2 style="color: white; margin: 0 0 1rem 0;">Monthly Report for User</h2>
 
     <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
-        <input
-            type="number"
-            placeholder="User ID"
-            [(ngModel)]="userId"
+        <select
+            [formControl]="reportForm.controls.userId"
             style="
                 padding: 0.5rem 1rem;
                 border-radius: 4px;
@@ -13,13 +11,20 @@
                 background: white;
                 color: #333;
                 font-size: 1rem;
-                min-width: 150px;
+                min-width: 250px;
             "
-        />
+        >
+            <option value="0" disabled>Select an employee</option>
+            @for (employee of userShowDtoList; track employee.id) {
+                <option [value]="employee.id">
+                    {{ employee.firstName }} {{ employee.lastName }} ({{ employee.email }})
+                </option>
+            }
+        </select>
 
         <input
             type="month"
-            [(ngModel)]="selectedYearMonth"
+            [formControl]="reportForm.controls.yearMonth"
             style="
                 padding: 0.5rem 1rem;
                 border-radius: 4px;
@@ -33,7 +38,7 @@
         
         <button 
             (click)="loadReport()"
-            [disabled]="!userId || !selectedYearMonth"
+            [disabled]="!reportForm.value.userId || !reportForm.value.yearMonth || reportForm.value.userId === 0"
             style="
                 padding: 0.5rem 1.5rem;
                 background: var(--french-violet);
@@ -44,8 +49,8 @@
                 font-size: 1rem;
                 font-weight: 500;
             "
-            [style.opacity]="!userId || !selectedYearMonth ? '0.5' : '1'"
-            [style.cursor]="!userId || !selectedYearMonth ? 'not-allowed' : 'pointer'"
+            [style.opacity]="!reportForm.value.userId || !reportForm.value.yearMonth || reportForm.value.userId === 0 ? '0.5' : '1'"
+            [style.cursor]="!reportForm.value.userId || !reportForm.value.yearMonth || reportForm.value.userId === 0 ? 'not-allowed' : 'pointer'"
         >
             Load Report
         </button>
@@ -65,7 +70,7 @@
                 </div>
                 <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
                     <span style="color: #666; font-weight: 500;">Period:</span>
-                    <span style="color: #333;">{{ selectedYearMonth }}</span>
+                    <span style="color: #333;">{{ reportForm.value.yearMonth }}</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
                     <span style="color: #666; font-weight: 500;">Total Hours:</span>
@@ -126,7 +131,7 @@
         </div>
     } @else {
         <div style="background: white; border-radius: 8px; padding: 2rem; text-align: center;">
-            <p style="color: #666;">Please select a user ID and year-month, then click "Load Report".</p>
+            <p style="color: #666;">Please select a user and year-month, then click "Load Report".</p>
         </div>
     }
 </div>
