@@ -13,7 +13,6 @@ import com.kolotree.task1.service.interfaces.UserService;
 import com.kolotree.task1.service.interfaces.VacationService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -39,9 +38,6 @@ public class VacationServiceImpl implements VacationService {
 
     @Override
     public void setVacationRequestStatus(VacationRequestStatus vacationRequestStatus, Long vacationRequestId) {
-
-        //TODO
-        logger.log(Level.forName("DIAG", 350), "Vacation status: " + vacationRequestStatus + " vacation id: "+  vacationRequestId);
 
         vacationRepository.updateRequestStatus(vacationRequestStatus, vacationRequestId);
 
