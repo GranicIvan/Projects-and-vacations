@@ -1,8 +1,180 @@
-<p>user-dashboard works!</p>
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
+  @if (accountService.isLoggedIn()) {
+    <h1 style="color: white; margin: 0 0 2rem 0">
+      Welcome, {{ accountService.currentUser()?.firstName }} {{ accountService.currentUser()?.lastName }}!
+    </h1>
 
-@if (accountService.isLoggedIn()) {
-    <H1>Welcome, {{ accountService.currentUser()?.firstName }}
-            {{ accountService.currentUser()?.lastName }}</H1>
-} @else {
-    <H1>Log in to your account</H1>
-}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem">
+      <!-- Quick Stats Card -->
+      <div style="background: white; border-radius: 8px; padding: 1.5rem">
+        <h3 style="color: #333; margin: 0 0 1rem 0; font-size: 1.25rem">Quick Stats</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem">
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef">
+            <span style="color: #666">Email:</span>
+            <span style="color: #333; font-weight: 500">{{ accountService.currentUser()?.email }}</span>
+          </div>
+
+          @if(accountService.isEmployee()) {
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef">
+            <span style="color: #666">Vacation Days Left:</span>
+            <span style="color: var(--french-violet); font-weight: 600; font-size: 1.1rem">
+              {{ accountService.currentUser()?.vacationDaysLeft }}
+            </span>
+          </div>
+        }
+
+        </div>
+      </div>
+
+      @if (accountService.isAdmin()) {
+        <!-- Admin Actions Card -->
+        <div style="background: white; border-radius: 8px; padding: 1.5rem">
+          <h3 style="color: #333; margin: 0 0 1rem 0; font-size: 1.25rem">Admin Quick Actions</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem">
+            <button
+              routerLink="/employees/new"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+              "
+            >
+              Add New Employee
+            </button>
+            <button
+              routerLink="/projects/new"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+              "
+            >
+              Add New Project
+            </button>
+            <button
+              routerLink="/vacations/awaiting-response"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+              "
+            >
+              Review Vacation Requests
+            </button>
+          </div>
+        </div>
+      } @else {
+        <!-- Employee Actions Card -->
+        <div style="background: white; border-radius: 8px; padding: 1.5rem">
+          <h3 style="color: #333; margin: 0 0 1rem 0; font-size: 1.25rem">Quick Actions</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem">
+            <button
+              routerLink="/vacations/request-a-vacation"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+              "
+            >
+              Request Vacation
+            </button>
+            <a
+              [href]="'/monthly-log/log-work-hours/' + (accountService.currentUser()?.id || '')"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+                text-decoration: none;
+                display: block;
+              "
+            >
+            Log Work Hours
+            </a>
+            <button
+              routerLink="/vacations/my-vacations"
+              style="
+                padding: 0.75rem 1rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 0.95rem;
+                font-weight: 500;
+                text-align: left;
+              "
+            >
+            View My Vacations
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Welcome Message -->
+    <div style="background: white; border-radius: 8px; padding: 2rem; margin-top: 1.5rem">
+      <h2 style="color: #333; margin: 0 0 1rem 0; font-size: 1.5rem">
+        @if (accountService.isAdmin()) {
+          Admin Dashboard
+        } @else {
+          Employee Portal
+        }
+      </h2>
+      <p style="color: #666; line-height: 1.6; margin: 0">
+        @if (accountService.isAdmin()) {
+          Manage employees, projects, and vacation requests. View reports and analytics to keep track of company operations.
+        } @else {
+          Track your work hours, manage vacation requests, and view your account information. Use the navigation menu above to access all features.
+        }
+      </p>
+    </div>
+
+  } @else {
+    <!-- Not Logged In State -->
+    <div style="text-align: center">
+      <h1 style="color: white; margin: 0 0 1rem 0; font-size: 2.5rem">Welcome to Company Portal</h1>
+      <p style="color: #ccc; font-size: 1.25rem; margin: 0 0 2rem 0">Please log in to access your dashboard</p>
+      
+      <div style="background: white; border-radius: 8px; padding: 3rem; max-width: 500px; margin: 0 auto">
+        <div style="margin-bottom: 2rem">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2" style="margin: 0 auto; display: block">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h2 style="color: #333; margin: 0 0 1rem 0">Account Login Required</h2>
+        <p style="color: #666; margin: 0">Use the login form in the navigation bar above to access your account and start managing your work.</p>
+      </div>
+    </div>
+  }
+</div>
