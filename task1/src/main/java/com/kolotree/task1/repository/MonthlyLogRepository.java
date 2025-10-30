@@ -103,4 +103,7 @@ public interface MonthlyLogRepository extends JpaRepository<MonthlyLog, Integer>
             GROUP BY ml.yearMonth
             """)
     List<TotalYearlyEarning> totalYearlyEarnings(@Param("startYear") YearMonth yearMonthStart, @Param("endYear") YearMonth yearMonthEnd);
+
+
+    List<MonthlyLog> findByProjectAssignment_User_IdAndYearMonth(int userId, YearMonth yearMonth);
 }

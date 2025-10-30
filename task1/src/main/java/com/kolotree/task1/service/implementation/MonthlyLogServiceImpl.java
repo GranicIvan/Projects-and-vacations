@@ -119,5 +119,13 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         return totalYearlyEarnings;
     }
 
+    @Override
+    public List<MonthlyLogShowDto> reportForUserForMonth(int userId, YearMonth yearMonth) {
+        List<MonthlyLog> monthlyLogList = monthlyLogRepository.findByProjectAssignment_User_IdAndYearMonth(userId, yearMonth);
+
+
+        return MonthlyLogMapper.toShowDtoList(monthlyLogList);
+    }
+
 
 }

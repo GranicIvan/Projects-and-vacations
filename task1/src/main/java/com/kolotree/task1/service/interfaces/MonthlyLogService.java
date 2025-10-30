@@ -29,4 +29,6 @@ public interface MonthlyLogService {
     List<EarningsByEmployee> yearlyLogsForYearByEmployee(int year);
 
     List<TotalYearlyEarning> totalYearlyEarnings(int startYear, int endYear);
+
+    List<MonthlyLogShowDto> reportForUserForMonth(int userId, YearMonth yearMonth);
 }

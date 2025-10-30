@@ -104,4 +104,13 @@ public class MonthlyLogController {
         return ResponseEntity.ok( totalYearlyEarnings);
     }
 
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/reportForUser/{userId}/ForMonth/{yearMonth}")
+    public ResponseEntity<List<MonthlyLogShowDto>> reportForUserForMonth(@PathVariable int userId, @PathVariable YearMonth yearMonth){
+        List<MonthlyLogShowDto> monthlyLogShowDtoList = monthlyLogService.reportForUserForMonth(userId, yearMonth);
+        return ResponseEntity.ok(monthlyLogShowDtoList);
+    }
+
+
 }
