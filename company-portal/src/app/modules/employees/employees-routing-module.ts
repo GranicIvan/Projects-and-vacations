@@ -4,6 +4,9 @@ import { Employees } from './components/employees/employees';
 import { EditEmployee } from './components/edit-employee/edit-employee';
 import { NewEmployee } from './components/new-employee/new-employee';
 import { adminGuard } from '../shared/guards/admin-guard';
+import { OneEmployee } from './components/one-employee/one-employee';
+import { userInfo } from 'os';
+import { employeeGuard } from '../shared/guards/employee-guard';
 
 const routes: Routes = [
   {
@@ -25,7 +28,18 @@ const routes: Routes = [
     path: 'add-employee',
     component: NewEmployee,
     canActivate: [adminGuard]
+  },
+  {
+    path: 'me',
+    component: OneEmployee,
+    canActivate: [employeeGuard]
+  },
+  {
+    path: ':id',
+    component: OneEmployee,
+    canActivate: [adminGuard]
   }
+  
 
 ];
 
