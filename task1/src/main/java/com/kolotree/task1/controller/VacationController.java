@@ -57,10 +57,9 @@ public class VacationController {
     @PostMapping("/setVacationRequestStatus")
     public ResponseEntity setVacationRequestStatus(@RequestBody SetVacationStatusDto vacationRequestStatusDto) {
 
-        //VacationRequestStatus vacationRequestStatus, @PathVariable Long vacationRequestId
         vacationService.setVacationRequestStatus(vacationRequestStatusDto.getVacationRequestStatus(), vacationRequestStatusDto.getId());
 
-        return ResponseEntity.ok("Vacation status updated to: " + vacationRequestStatusDto.getVacationRequestStatus());
+        return ResponseEntity.ok().build();
     }
 
 
