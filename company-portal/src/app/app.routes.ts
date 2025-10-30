@@ -2,9 +2,10 @@ import { Routes } from '@angular/router';
 import { Welcome } from './modules/shared/components/welcome/welcome';
 import { adminGuard } from './modules/shared/guards/admin-guard';
 import { authGuard } from './modules/shared/guards/auth-guard';
+import { UserDashboard } from './modules/shared/components/user-dashboard/user-dashboard';
 
 export const routes: Routes = [
-  { path: '', component: Welcome },
+  { path: '', component: UserDashboard },
 
   {
     path: 'vacations',
