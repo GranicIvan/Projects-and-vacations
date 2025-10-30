@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { VacationShowDto } from '../vacation-dto/vacation-show-dto';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,7 @@ export class VacationService {
   }
 
   approveVacationRequest(vacationId: number) {
-    return this.http.post<void>(
+    return this.http.post<string>(
       this.baseUrl + '/setVacationRequestStatus',
       {
         id: vacationId,
@@ -45,7 +46,8 @@ export class VacationService {
       },
       {
         withCredentials: true,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 
+          },
       },
     );
   }

@@ -34,14 +34,18 @@ export class AwaitingResponse {
   }
 
   approveVacationRequest(vacationId: number) {
-    this.vacationService.approveVacationRequest(vacationId);
-    this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
-    this.getAwaitingRequest();
+    this.vacationService.approveVacationRequest(vacationId).subscribe(() => {
+      this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
+      this.getAwaitingRequest();
+    });
+      
+    
   }
 
   denyVacationRequest(vacationId: number) {
-    this.vacationService.denyVacationRequest(vacationId);
-    this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
-    this.getAwaitingRequest();
+    this.vacationService.denyVacationRequest(vacationId).subscribe(() => {
+      this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
+      this.getAwaitingRequest();
+    });
   }
 }

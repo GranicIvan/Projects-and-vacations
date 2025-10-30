@@ -34,6 +34,19 @@ export class OneEmployee implements OnInit {
 
     if (lastSegment === 'me') {
       // Load current user's data
+
+      this.accountService.loadCurrentUserDetailed().subscribe({
+        next: (raw) => {
+          
+          console.log(raw);
+          // console.log(this.employee.projectAssignment);
+        },
+        error: (err) => {
+          this.snackBar.open(`Error loading employee: ${err.message}`, 'Close', { duration: 5000, });
+          this.router.navigate(['/employees']);
+        },
+      });
+
       this.accountService.loadCurrentUserDetailed().subscribe({
         next: (employee) => {
           this.employee = employee;
