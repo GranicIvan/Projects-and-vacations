@@ -1,5 +1,5 @@
 <div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
-  <h2 style="color: white; margin: 0 0 1rem 0">Vacation requests awaiting response</h2>
+  <h2 style="color: white; margin: 0 0 1rem 0">Your vacation requests</h2>
 
   <div style="background: white; border-radius: 8px; padding: 1rem; overflow-x: auto">
     <table style="width: 100%; border-collapse: collapse; background: white">
@@ -13,18 +13,9 @@
               border-bottom: 2px solid var(--french-violet);
             "
           >
-            id
+            Id
           </th>
-          <th
-            style="
-              color: white;
-              padding: 0.75rem;
-              text-align: left;
-              border-bottom: 2px solid var(--french-violet);
-            "
-          >
-            user
-          </th>
+
           <th
             style="
               color: white;
@@ -78,9 +69,6 @@
                 }"
             >
                 <td style="padding: 0.75rem; color: #333">{{ v.id }}</td>
-                <td style="padding: 0.75rem; color: #333">
-                    {{ v.user?.firstName }} {{ v.user?.lastName }}
-                </td>
                 <td style="padding: 0.75rem; color: #333">{{ v.startDate | date: 'yyyy-MM-dd' }}</td>
                 <td style="padding: 0.75rem; color: #333">{{ v.endDate | date: 'yyyy-MM-dd' }}</td>
                 <td style="padding: 0.75rem; color: #333">{{ v.vacationLength }}</td>
