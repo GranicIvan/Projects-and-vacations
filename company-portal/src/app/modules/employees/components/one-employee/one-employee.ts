@@ -1,10 +1,11 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../../service/employee-service';
 import { UserDto } from '../../employee-dto/UserDto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../shared/service/account-service';
+import { DetailedUserDto } from '../../employee-dto/DetailedUserDto';
 
 @Component({
   selector: 'app-one-employee',
@@ -22,18 +23,28 @@ export class OneEmployee implements OnInit {
   id: number = -1;
   @Input() input: string | undefined;
 
-  employee: UserDto | null = null;
+  employee: DetailedUserDto | null = null;
+
 
   ngOnInit() {
     // Method 1: Get the full URL and split it
     const urlSegments = this.router.url.split('/');
     const lastSegment = urlSegments[urlSegments.length - 1];
 
-    console.log('Last URL segment:', lastSegment); // Will be 'me' or a number
 
     if (lastSegment === 'me') {
       // Load current user's data
-      this.employee = this.accountService.currentUser();
+      this.accountService.loadCurrentUserDetailed().subscribe({
+        next: (employee) => {
+          this.employee = employee;
+          console.log(employee);
+          console.log(this.employee.projectAssignment);
+        },
+        error: (err) => {
+          this.snackBar.open(`Error loading employee: ${err.message}`, 'Close', { duration: 5000, });
+          this.router.navigate(['/employees']);
+        },
+      });
     } else {
       // It's a numeric ID
       this.id = Number(lastSegment);
@@ -45,14 +56,13 @@ export class OneEmployee implements OnInit {
         this.router.navigate(['/dashboard']);
       }
     }
-
     
   }
 
   loadEmployee() {
     if (!this.id) return;
 
-    this.employeeService.getById(this.id).subscribe({
+    this.employeeService.getByIdDetailed(this.id).subscribe({
       next: (employee) => {
         this.employee = employee;
       },

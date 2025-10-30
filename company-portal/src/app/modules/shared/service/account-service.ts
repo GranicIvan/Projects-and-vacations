@@ -4,6 +4,7 @@ import { LoginDto } from '../../employees/employee-dto/LoginDto';
 import { UserDto } from '../../employees/employee-dto/UserDto';
 import { environment } from '../../../environments/environment';
 import { Observable, tap } from 'rxjs';
+import { DetailedUserDto } from '../../employees/employee-dto/DetailedUserDto';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +39,10 @@ export class AccountService {
 
   loadCurrentUser() {
     const response = this.http.get<UserDto>(this.baseUserUrl + 'meSlim', { withCredentials: true });
+    return response;
+    
+  }loadCurrentUserDetailed() {
+    const response = this.http.get<DetailedUserDto>(this.baseUserUrl + 'me', { withCredentials: true });
     return response;
   }
 

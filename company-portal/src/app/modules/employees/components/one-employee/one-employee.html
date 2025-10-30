@@ -51,6 +51,44 @@
           </p>
         </div>
 
+        <!-- Projects Section -->
+        <div style="margin-top: 2rem">
+          <h3 style="color: #333; font-size: 1.25rem; margin: 0 0 1rem 0">Assigned Projects</h3>
+
+          @if (employee.projectAssignment && employee.projectAssignment.length > 0) {
+            <div style="display: flex; flex-direction: column; gap: 0.75rem">
+              @for (assignment of employee.projectAssignment; track assignment.id) {
+                <div style="
+                  padding: 1rem;
+                  background: #f8f9fa;
+                  border-radius: 4px;
+                  border-left: 4px solid var(--french-violet);
+                ">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem">
+                    <p style="color: #333; font-weight: 600; margin: 0">
+                      {{ assignment.project.projectName }}
+                    </p>
+                    <span style="
+                      background: var(--french-violet);
+                      color: white;
+                      padding: 0.25rem 0.75rem;
+                      border-radius: 12px;
+                      font-size: 0.875rem;
+                    ">
+                      ${{ assignment.hourlyPay }}/hr
+                    </span>
+                  </div>
+                  <p style="color: #666; font-size: 0.875rem; margin: 0">
+                    {{ assignment.project.description }}
+                  </p>
+                </div>
+              }
+            </div>
+          } @else {
+            <p style="color: #666; font-style: italic">No projects assigned</p>
+          }
+        </div>
+
         @if (employee.userRole === 'ADMIN') {
           <div style="display: flex; gap: 1rem; margin-top: 1rem">
             <button
