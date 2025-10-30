@@ -1,4 +1,4 @@
 export interface CreateProjectDto {
-  projectName: string;
-  description: string;
+  projectName: string | undefined;
+  description: string | undefined;
 }

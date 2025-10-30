@@ -12,14 +12,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 type EditEmployeeForm = FormGroup<{
-  id: FormControl<number | null>;
-  firstName: FormControl<string | null>;
-  lastName: FormControl<string | null>;
-  dateOfBirth: FormControl<Date | null>;
-  email: FormControl<string | null>;
-  password: FormControl<string | null>;
-  address: FormControl<string | null>;
-  vacationDaysLeft: FormControl<number | null>;
+  id: FormControl<number | undefined>;
+  firstName: FormControl<string | undefined>;
+  lastName: FormControl<string | undefined>;
+  dateOfBirth: FormControl<Date | undefined>;
+  email: FormControl<string | undefined>;
+  password: FormControl<string | undefined>;
+  address: FormControl<string | undefined>;
+  vacationDaysLeft: FormControl<number | undefined>;
 }>;
 
 @Component({
@@ -37,22 +37,22 @@ export class EditEmployee {
   @Input() id!: number;
 
   readonly newEmployeeForm: EditEmployeeForm = this.fb.group({
-    id: this.fb.control(null),
-    firstName: this.fb.control(null, {
+    id: this.fb.control<number | undefined>(undefined),
+    firstName: this.fb.control<string | undefined>(undefined, {
       validators: [Validators.minLength(2)],
     }),
-    lastName: this.fb.control(null, {
+    lastName: this.fb.control<string | undefined>(undefined, {
       validators: [Validators.minLength(2)],
     }),
-    dateOfBirth: this.fb.control(null),
-    email: this.fb.control(null, {
+    dateOfBirth: this.fb.control<Date | undefined>(undefined),
+    email: this.fb.control<string | undefined>(undefined, {
       validators: [Validators.email],
     }),
-    password: this.fb.control(null, {
+    password: this.fb.control<string | undefined>(undefined, {
       validators: [Validators.minLength(4)],
     }),
-    address: this.fb.control(null),
-    vacationDaysLeft: this.fb.control(null, {
+    address: this.fb.control<string | undefined>(undefined),
+    vacationDaysLeft: this.fb.control<number | undefined>(undefined, {
       validators: [Validators.min(0)],
     })
   }) as EditEmployeeForm;
@@ -62,11 +62,10 @@ export class EditEmployee {
 
     try {
       const formValue = this.newEmployeeForm.getRawValue();
+      console.log('Form value is:', formValue);
       const employeeData = Object.fromEntries(
         Object.entries(formValue).map(([key, value]) => [key, value === null ? undefined : value]),
       );
-
-      // const id = this.router.url.split('/').pop();
 
       console.log('ID je:', this.id);
       employeeData['id'] = this.id;
@@ -90,7 +89,6 @@ export class EditEmployee {
     }
   }
 
-
   protected isFieldInvalid(fieldName: keyof EditEmployeeForm['controls']): boolean {
     const field = this.newEmployeeForm.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
@@ -103,7 +101,6 @@ export class EditEmployee {
   protected getErrorMessage(fieldName: keyof EditEmployeeForm['controls']): string {
     const field = this.newEmployeeForm.get(fieldName);
     if (!field?.errors || !field?.touched) return '';
-
 
     if (field.errors['minlength']) {
       const requiredLength = field.errors['minlength'].requiredLength;

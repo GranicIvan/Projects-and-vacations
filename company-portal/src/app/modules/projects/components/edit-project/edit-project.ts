@@ -5,8 +5,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 type EditProjectForm = {
-  projectName: FormControl<string>;
-  description: FormControl<string>;
+  projectName: FormControl<string | undefined>;
+  description: FormControl<string | undefined>;
 };
 
 @Component({
@@ -25,8 +25,8 @@ export class EditProject implements OnInit {
   @Input() id!: number;
 
   readonly editProjectForm = this.fb.group<EditProjectForm>({
-    projectName: this.fb.control(''),
-    description: this.fb.control(''),
+    projectName: this.fb.control(undefined),
+    description: this.fb.control(undefined),
   });
 
   ngOnInit() {
