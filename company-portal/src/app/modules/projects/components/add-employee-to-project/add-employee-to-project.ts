@@ -1,5 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ProjectService } from '../../service/project-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -16,10 +21,9 @@ type AddEmployeeToProjectForm = FormGroup<{
   selector: 'app-add-employee-to-project',
   imports: [ReactiveFormsModule],
   templateUrl: './add-employee-to-project.html',
-  styleUrl: './add-employee-to-project.scss'
+  styleUrl: './add-employee-to-project.scss',
 })
 export class AddEmployeeToProject {
-
   private fb = inject(NonNullableFormBuilder);
   protected projectsService = inject(ProjectService);
   private snackBar = inject(MatSnackBar);
@@ -36,10 +40,7 @@ export class AddEmployeeToProject {
     hourlyRate: this.fb.control(0),
   }) as AddEmployeeToProjectForm;
 
-
-
-ngOnInit() {
-    
+  ngOnInit() {
     this.userService.getUsers().subscribe({
       next: (users) => {
         this.userShowDtoList = users;
@@ -51,7 +52,6 @@ ngOnInit() {
       },
     });
 
-
     this.projectsService.getAllProjects().subscribe({
       next: (projects) => {
         this.projectShowDtoList = projects;
@@ -62,17 +62,15 @@ ngOnInit() {
         });
       },
     });
-}
+  }
 
-
-
-  addEmployee(){
+  addEmployee() {
     this.addEmployeeToProjectForm.markAllAsTouched();
     if (this.addEmployeeToProjectForm.invalid) return;
 
     const { userId, projectId, hourlyRate } = this.addEmployeeToProjectForm.getRawValue();
 
-    console.log("userId:", userId, ", projectId:", projectId, ", hourlyRate:", hourlyRate);
+    console.log('userId:', userId, ', projectId:', projectId, ', hourlyRate:', hourlyRate);
 
     this.projectsService.addEmployeeToProject(userId, projectId, hourlyRate).subscribe({
       next: () => {
@@ -93,15 +91,16 @@ ngOnInit() {
     const field = this.addEmployeeToProjectForm.get(fieldName);
     return !!(field && field.invalid && (field.dirty || field.touched));
   }
-  
-  protected hasError(fieldName: keyof AddEmployeeToProjectForm['controls'], errorType: string): boolean {
+
+  protected hasError(
+    fieldName: keyof AddEmployeeToProjectForm['controls'],
+    errorType: string,
+  ): boolean {
     return !!this.addEmployeeToProjectForm.get(fieldName)?.hasError(errorType);
   }
   protected getErrorMessage(fieldName: keyof AddEmployeeToProjectForm['controls']): string {
     const field = this.addEmployeeToProjectForm.get(fieldName);
     if (!field?.errors || !field?.touched) return '';
-
-
 
     if (field.errors['required']) {
       return 'This field is required';
