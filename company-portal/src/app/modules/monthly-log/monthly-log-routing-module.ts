@@ -9,6 +9,7 @@ import { EarningsPerEmployee } from './components/earnings-per-employee/earnings
 import { EarningsReview } from './components/earnings-review/earnings-review';
 import { EarningsPerProject } from './components/earnings-per-project/earnings-per-project';
 import { TotalEarnings } from './components/total-earnings/total-earnings';
+import { ReportUserMonth } from './components/report-user-month/report-user-month';
 
 
 const routes: Routes = [
@@ -42,7 +43,14 @@ const routes: Routes = [
     path: 'total-earning',
     component: TotalEarnings,
     canActivate: [adminGuard]
+  },
+  {
+    path: 'report-user-month',
+    component: ReportUserMonth,
+    canActivate: [adminGuard]
   }
+
+
   
 
 ];

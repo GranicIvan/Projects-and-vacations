@@ -1,0 +1,132 @@
+<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px;">
+    <h2 style="color: white; margin: 0 0 1rem 0;">Monthly Report for User</h2>
+
+    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <input
+            type="number"
+            placeholder="User ID"
+            [(ngModel)]="userId"
+            style="
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                border: 1px solid var(--french-violet);
+                background: white;
+                color: #333;
+                font-size: 1rem;
+                min-width: 150px;
+            "
+        />
+
+        <input
+            type="month"
+            [(ngModel)]="selectedYearMonth"
+            style="
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                border: 1px solid var(--french-violet);
+                background: white;
+                color: #333;
+                font-size: 1rem;
+                min-width: 200px;
+            "
+        />
+        
+        <button 
+            (click)="loadReport()"
+            [disabled]="!userId || !selectedYearMonth"
+            style="
+                padding: 0.5rem 1.5rem;
+                background: var(--french-violet);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+            "
+            [style.opacity]="!userId || !selectedYearMonth ? '0.5' : '1'"
+            [style.cursor]="!userId || !selectedYearMonth ? 'not-allowed' : 'pointer'"
+        >
+            Load Report
+        </button>
+    </div>
+
+    @if (reportData && reportData.length > 0) {
+        <div style="background: white; border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem;">
+            <h3 style="color: #333; margin: 0 0 1rem 0;">User Information</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
+                    <span style="color: #666; font-weight: 500;">Name:</span>
+                    <span style="color: #333;">{{ getUserInfo()?.firstName }} {{ getUserInfo()?.lastName }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
+                    <span style="color: #666; font-weight: 500;">Email:</span>
+                    <span style="color: #333;">{{ getUserInfo()?.email }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
+                    <span style="color: #666; font-weight: 500;">Period:</span>
+                    <span style="color: #333;">{{ selectedYearMonth }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e9ecef;">
+                    <span style="color: #666; font-weight: 500;">Total Hours:</span>
+                    <span style="color: #333;">{{ getTotalHours() }} hours</span>
+                </div>
+            </div>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+                <tr style="background: var(--gray-900);">
+                    <th style="color: white; padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--french-violet);">
+                        Project Name
+                    </th>
+                    <th style="color: white; padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--french-violet);">
+                        Hours Worked
+                    </th>
+                    <th style="color: white; padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--french-violet);">
+                        Hourly Pay
+                    </th>
+                    <th style="color: white; padding: 0.75rem; text-align: left; border-bottom: 2px solid var(--french-violet);">
+                        Total Earnings
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (log of reportData; track $index) {
+                    <tr [ngStyle]="{
+                        background: $index % 2 === 0 ? '#f8f9fa' : 'white',
+                        'border-bottom': '1px solid #e9ecef'
+                    }">
+                        <td style="padding: 0.75rem; color: #333;">{{ log.projectAssignment.project.projectName }}</td>
+                        <td style="padding: 0.75rem; color: #333;">{{ log.hoursWorked }}</td>
+                        <td style="padding: 0.75rem; color: #333;">${{ log.projectAssignment.hourlyPay.toFixed(2) }}</td>
+                        <td style="padding: 0.75rem; color: #333;">${{ (log.projectAssignment.hourlyPay * log.hoursWorked).toFixed(2) }}</td>
+                    </tr>
+                }
+                <tr style="background: var(--french-violet); font-weight: bold;">
+                    <td colspan="2" style="padding: 0.75rem; color: white; text-align: right;">
+                        TOTAL:
+                    </td>
+                    <td style="padding: 0.75rem; color: white;">
+                        {{ getTotalHours() }} hours
+                    </td>
+                    <td style="padding: 0.75rem; color: white;">
+                        ${{ getTotalEarnings().toFixed(2) }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    } @else if (loading) {
+        <div style="background: white; border-radius: 8px; padding: 2rem; text-align: center;">
+            <p style="color: #666;">Loading report...</p>
+        </div>
+    } @else if (reportData && reportData.length === 0) {
+        <div style="background: white; border-radius: 8px; padding: 2rem; text-align: center;">
+            <p style="color: #666;">No project data found for this user and period.</p>
+        </div>
+    } @else {
+        <div style="background: white; border-radius: 8px; padding: 2rem; text-align: center;">
+            <p style="color: #666;">Please select a user ID and year-month, then click "Load Report".</p>
+        </div>
+    }
+</div>

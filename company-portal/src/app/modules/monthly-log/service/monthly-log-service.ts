@@ -89,4 +89,11 @@ export class MonthlyLogService {
       }
     );
   }
+
+  getReportForUserMonth(userId: number, yearMonth: string) {
+    return this.http.get<MonthlyLogDto[]>(
+      `${this.baseUrl}/reportForUser/${userId}/ForMonth/${yearMonth}`,
+      { withCredentials: true }
+    );
+  }
 }
