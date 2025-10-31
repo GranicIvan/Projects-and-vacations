@@ -44,6 +44,7 @@ export class TotalEarnings {
 
         const groupedEarnings = new Map<number, { hoursWorked: number; monthlyEarnings: number }>();
 
+        // Aggregate earnings by year
         earnings.forEach((earning) => {
           const year = parseInt(earning.yearMonth.toString().split('-')[0]);
           const existing = groupedEarnings.get(year) || { hoursWorked: 0, monthlyEarnings: 0 };
