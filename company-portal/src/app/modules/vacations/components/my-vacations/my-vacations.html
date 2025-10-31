@@ -72,7 +72,16 @@
                 <td style="padding: 0.75rem; color: #333">{{ v.startDate | date: 'yyyy-MM-dd' }}</td>
                 <td style="padding: 0.75rem; color: #333">{{ v.endDate | date: 'yyyy-MM-dd' }}</td>
                 <td style="padding: 0.75rem; color: #333">{{ v.vacationLength }}</td>
-                <td style="padding: 0.75rem; color: #333">{{ v.vacationRequestStatus }}</td>
+                <td style="padding: 0.75rem">
+                  <span [ngStyle]="{
+                    color: v.vacationRequestStatus === 'APPROVED' ? '#28a745' : 
+                           v.vacationRequestStatus === 'DENIED' ? '#dc3545' : 
+                           v.vacationRequestStatus === 'WAITING' ? '#ffc107' : '#333',
+                    fontWeight: '500'
+                  }">
+                    {{ v.vacationRequestStatus }}
+                  </span>
+                </td>
             </tr>
         }
         } @else {

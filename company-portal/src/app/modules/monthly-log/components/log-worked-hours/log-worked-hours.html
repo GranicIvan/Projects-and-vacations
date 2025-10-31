@@ -1,80 +1,163 @@
-<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
-  <h2 style="color: white; margin: 0 0 1rem 0">Log Worked Hours</h2>
+<div style="display: flex; justify-content: center; padding: 1rem; margin-bottom: 2rem">
+  <div style="background: var(--gray-900); padding: 3rem; border-radius: 12px; width: 100%; max-width: 700px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)">
+    <div style="text-align: center; margin-bottom: 2rem">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="margin: 0 auto 1rem; display: block">
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
+      </svg>
+      <h2 style="color: white; margin: 0; font-size: 1.75rem">Log Worked Hours</h2>
+    </div>
 
-  <div style="background: white; border-radius: 8px; padding: 2rem">
-    <form
-      [formGroup]="logWorkedHoursForm"
-      (ngSubmit)="logHours()"
-      style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px"
-    >
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Project *</label>
-        <select
-          formControlName="projectId"
-          required
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        >
-          <option value="0" disabled>Select a project</option>
-          @for (project of projectShowDtoList; track project.id) {
-            <option [value]="project.id">{{ project.projectName }}</option>
-          }
-        </select>
-        @if (isFieldInvalid('projectId')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('projectId') }}
-          </span>
-        }
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Hours Worked *</label>
-        <input
-          type="number"
-          formControlName="hoursWorked"
-          required
-          min="1"
-          max="744"
-          placeholder="Enter hours worked"
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        />
-        @if (isFieldInvalid('hoursWorked')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('hoursWorked') }}
-          </span>
-        }
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Year-Month *</label>
-        <input
-          type="month"
-          formControlName="yearMonth"
-          required
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        />
-        @if (isFieldInvalid('yearMonth')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('yearMonth') }}
-          </span>
-        }
-      </div>
-
-      <button
-        type="submit"
-        style="
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border-radius: 4px;
-          background: var(--french-violet);
-          border: none;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: 500;
-          margin-top: 1rem;
-        "
+    <div style="background: white; border-radius: 8px; padding: 2.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+      <form
+        [formGroup]="logWorkedHoursForm"
+        (ngSubmit)="logHours()"
+        style="display: flex; flex-direction: column; gap: 1.75rem"
       >
-        Log Hours
-      </button>
-    </form>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Project *
+          </label>
+          <select
+            formControlName="projectId"
+            required
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+              background: white;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          >
+            <option value="0" disabled>Select a project</option>
+            @for (project of projectShowDtoList; track project.id) {
+              <option [value]="project.id">{{ project.projectName }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('projectId')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('projectId') }}
+            </span>
+          }
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Hours Worked *
+          </label>
+          <input
+            type="number"
+            formControlName="hoursWorked"
+            required
+            min="1"
+            max="744"
+            placeholder="Enter hours worked"
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          />
+          @if (isFieldInvalid('hoursWorked')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('hoursWorked') }}
+            </span>
+          }
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Year-Month *
+          </label>
+          <input
+            type="month"
+            formControlName="yearMonth"
+            required
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          />
+          @if (isFieldInvalid('yearMonth')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('yearMonth') }}
+            </span>
+          }
+        </div>
+
+
+
+        <button
+          type="submit"
+          [disabled]="!logWorkedHoursForm.valid"
+          style="
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            background: var(--french-violet);
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          "
+          onmouseover="if(!this.disabled) { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15)'; }"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';"
+        >
+          Submit Hours
+        </button>
+      </form>
+    </div>
   </div>
 </div>
