@@ -3,6 +3,7 @@ package com.kolotree.task1.service.implementation;
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.dto.user.UserShowSlimDto;
+import com.kolotree.task1.dto.user.UserShowWithProjectsDto;
 import com.kolotree.task1.mapper.UserMapper;
 import com.kolotree.task1.model.User;
 import com.kolotree.task1.repository.UserRepository;
@@ -47,6 +48,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserShowWithProjectsDto getUserByEmailWithProject(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException("Entity user with email " + email + " not found");
+        }
+
+        return UserMapper.toShowDtoWithProject(optionalUser.get());
+    }
+
+    @Override
     public UserShowSlimDto getUserByEmailSlim(String email) {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
@@ -69,6 +80,7 @@ public class UserServiceImpl implements UserService {
     public void useVacation(Long id, int useAmount) {
         userRepository.useVacation(id, useAmount);
     }
+
 
 
     @Override

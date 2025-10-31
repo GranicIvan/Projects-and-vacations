@@ -1,6 +1,7 @@
 package com.kolotree.task1.dto.user;
 
 import com.kolotree.task1.dto.projectAssignment.ProjectAssignmentRequestBodyDto;
+import com.kolotree.task1.dto.projectAssignment.ProjectAssignmentSlimShowDto;
 import com.kolotree.task1.model.ProjectAssignment;
 import com.kolotree.task1.model.UserRole;
 import com.kolotree.task1.model.VacationRequest;
@@ -11,9 +12,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Data
-public class UserShowDto {
+@AllArgsConstructor
+public class UserShowWithProjectsDto {
 
     private Long id;
 
@@ -26,9 +27,6 @@ public class UserShowDto {
 
     private UserRole userRole;
 
-
-    private List<ProjectAssignment> ProjectAssignment = new ArrayList<>();
+    private List<ProjectAssignmentSlimShowDto> ProjectAssignment = new ArrayList<>();
     private List<VacationRequest> vacationRequests = new ArrayList<>();
-
-
 }

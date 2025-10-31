@@ -1,9 +1,6 @@
 package com.kolotree.task1.mapper;
 
-import com.kolotree.task1.dto.user.UserPatchDto;
-import com.kolotree.task1.dto.user.UserShowDto;
-import com.kolotree.task1.dto.user.UserShowSlimDto;
-import com.kolotree.task1.dto.user.UserUpdateDto;
+import com.kolotree.task1.dto.user.*;
 import com.kolotree.task1.model.User;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,6 +48,21 @@ public class UserMapper {
         );
     }
 
+    public static UserShowWithProjectsDto toShowDtoWithProject(User user) {
+        return new UserShowWithProjectsDto(
+                user.getId(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getDateOfBirth(),
+                user.getEmail(),
+                user.getAddress(),
+                user.getVacationDaysLeft(),
+                user.getUserRole(),
+                ProjectAssignmentMapper.toShowDtoList( user.getProjectAssignment() ) ,
+                user.getVacationRequests()
+        );
+    }
+
     public static UserShowSlimDto toShowSlimDto(User user) {
         return new UserShowSlimDto(
                 user.getId(),
@@ -75,4 +87,6 @@ public class UserMapper {
         user.setEmail(userDetails.getUsername());
         return user;
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.kolotree.task1.service.interfaces;
 import com.kolotree.task1.dto.user.UserPatchDto;
 import com.kolotree.task1.dto.user.UserShowDto;
 import com.kolotree.task1.dto.user.UserShowSlimDto;
+import com.kolotree.task1.dto.user.UserShowWithProjectsDto;
 import com.kolotree.task1.model.User;
 
 public interface UserService {
@@ -25,4 +26,6 @@ public interface UserService {
     User getCurrentUser();
 
     void useVacation(Long id, int useAmount);
+
+    UserShowWithProjectsDto getUserByEmailWithProject(String email);
 }
