@@ -1,47 +1,104 @@
-<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
-  <h2 style="color: white; margin: 0 0 1rem 0">Request a Vacation</h2>
+<div style="display: flex; justify-content: center; padding: 2rem; margin-bottom: 2rem">
+  <div style="background: var(--gray-900); padding: 3rem; border-radius: 12px; width: 100%; max-width: 700px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)">
+    <div style="text-align: center; margin-bottom: 2rem">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="margin: 0 auto 1rem; display: block">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <h2 style="color: white; margin: 0; font-size: 1.75rem">Request a Vacation</h2>      
+    </div>
 
-  <div style="background: white; border-radius: 8px; padding: 2rem">
-    <form [formGroup]="requestVacationForm" (ngSubmit)="requestVacation()" style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px">
-      
+    <div style="background: white; border-radius: 8px; padding: 2.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+      <form [formGroup]="requestVacationForm" (ngSubmit)="requestVacation()" style="display: flex; flex-direction: column; gap: 1.75rem">
+        
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            Start Date
+          </label>
+          <input
+            type="date"
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+            "
+            formControlName="startDate"
+            required
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          />
+        </div>
 
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 0.5rem">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--french-violet)" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            End Date
+          </label>
+          <input
+            type="date"
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+            "
+            formControlName="endDate"
+            required
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          />
+        </div>
 
-        <label style="color: #333; font-weight: 500">Start Date</label>
-        <input
-          type="date"
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-          formControlName="startDate"
-          required
-        />
-      </div>
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; border-left: 4px solid var(--french-violet)">
+          <p style="color: #666; margin: 0; font-size: 0.875rem; line-height: 1.5">
+            <strong style="color: #333">Note:</strong> Your vacation request will be reviewed by an administrator before being approved or declined.
+          </p>
+        </div>
 
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">End Date</label>
-        <input
-          type="date"
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-          formControlName="endDate"
-          required
-        />
-      </div>
-
-      <button
-        type="submit"
-        style="
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border-radius: 4px;
-          background: var(--french-violet);
-          border: none;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: 500;
-          margin-top: 1rem;
-        "
-      >
-        Request Vacation
-      </button>
-    </form>
+        <button
+          type="submit"
+          [disabled]="!requestVacationForm.valid"
+          style="
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            background: var(--french-violet);
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          "
+          onmouseover="if(!this.disabled) { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15)'; }"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';"
+        >
+          Submit Vacation Request
+        </button>
+      </form>
+    </div>
   </div>
 </div>
