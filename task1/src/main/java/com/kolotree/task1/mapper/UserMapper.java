@@ -58,7 +58,7 @@ public class UserMapper {
                 user.getAddress(),
                 user.getVacationDaysLeft(),
                 user.getUserRole(),
-                ProjectAssignmentMapper.toShowDtoList( user.getProjectAssignment() ) ,
+                ProjectAssignmentMapper.toShowDtoList(user.getProjectAssignment()),
                 user.getVacationRequests()
         );
     }

@@ -59,7 +59,7 @@ public class MonthlyLogController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/monthlyLogsForMonthByProjects/{yearMonth:\\d{4}-\\d{2}}")
-    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForMonthByProjects(@PathVariable YearMonth yearMonth){
+    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForMonthByProjects(@PathVariable YearMonth yearMonth) {
 
         List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.monthlyLogsForMonthByProjects(yearMonth);
 
@@ -67,10 +67,9 @@ public class MonthlyLogController {
     }
 
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/monthlyLogsForMonthByEmployee/{yearMonth:\\d{4}-\\d{2}}")
-    public ResponseEntity<List<EarningsByEmployee>> monthlyLogsForMonthByEmployee(@PathVariable YearMonth yearMonth){
+    public ResponseEntity<List<EarningsByEmployee>> monthlyLogsForMonthByEmployee(@PathVariable YearMonth yearMonth) {
 
         List<EarningsByEmployee> earningsByEmployee = monthlyLogService.yearlyLogsForMonthByProjects(yearMonth);
 
@@ -79,7 +78,7 @@ public class MonthlyLogController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/yearlyLogsForYearByProjects/{year}")
-    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForYearByProjects(@PathVariable int year){
+    public ResponseEntity<List<MonthlyEarningByProject>> monthlyLogsForYearByProjects(@PathVariable int year) {
 
         List<MonthlyEarningByProject> monthlyEarningByProjects = monthlyLogService.yearlyLogsForYearByProjects(year);
 
@@ -88,7 +87,7 @@ public class MonthlyLogController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/yearlyLogsForYearByEmployee/{year}")
-    public ResponseEntity<List<EarningsByEmployee>> yearlyLogsForYearByEmployee(@PathVariable int year){
+    public ResponseEntity<List<EarningsByEmployee>> yearlyLogsForYearByEmployee(@PathVariable int year) {
 
         List<EarningsByEmployee> yearByProjects = monthlyLogService.yearlyLogsForYearByEmployee(year);
 
@@ -97,17 +96,17 @@ public class MonthlyLogController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/totalYearlyEarnings/{startYear}/{endYear}")
-    public ResponseEntity<List<TotalYearlyEarning>> totalYearlyEarnings(@PathVariable int startYear, @PathVariable int endYear){
+    public ResponseEntity<List<TotalYearlyEarning>> totalYearlyEarnings(@PathVariable int startYear, @PathVariable int endYear) {
 
         List<TotalYearlyEarning> totalYearlyEarnings = monthlyLogService.totalYearlyEarnings(startYear, endYear);
 
-        return ResponseEntity.ok( totalYearlyEarnings);
+        return ResponseEntity.ok(totalYearlyEarnings);
     }
 
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/reportForUser/{userId}/ForMonth/{yearMonth}")
-    public ResponseEntity<List<MonthlyLogShowDto>> reportForUserForMonth(@PathVariable int userId, @PathVariable YearMonth yearMonth){
+    public ResponseEntity<List<MonthlyLogShowDto>> reportForUserForMonth(@PathVariable int userId, @PathVariable YearMonth yearMonth) {
         List<MonthlyLogShowDto> monthlyLogShowDtoList = monthlyLogService.reportForUserForMonth(userId, yearMonth);
         return ResponseEntity.ok(monthlyLogShowDtoList);
     }

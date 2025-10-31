@@ -107,7 +107,6 @@ public class UserController {
     }
 
 
-
     @GetMapping("/meSlim")
     public ResponseEntity<UserShowSlimDto> authenticatedUserSlim() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

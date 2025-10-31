@@ -1,8 +1,6 @@
 package com.kolotree.task1.dto.user;
 
-import com.kolotree.task1.dto.projectAssignment.ProjectAssignmentRequestBodyDto;
 import com.kolotree.task1.dto.projectAssignment.ProjectAssignmentSlimShowDto;
-import com.kolotree.task1.model.ProjectAssignment;
 import com.kolotree.task1.model.UserRole;
 import com.kolotree.task1.model.VacationRequest;
 import lombok.AllArgsConstructor;

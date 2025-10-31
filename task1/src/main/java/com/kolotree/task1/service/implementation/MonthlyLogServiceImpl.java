@@ -1,6 +1,5 @@
 package com.kolotree.task1.service.implementation;
 
-import com.kolotree.task1.converter.YearMonthAttributeConverter;
 import com.kolotree.task1.dto.earnings.EarningsByEmployee;
 import com.kolotree.task1.dto.earnings.MonthlyEarningByProject;
 import com.kolotree.task1.dto.earnings.TotalYearlyEarning;
@@ -19,7 +18,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
@@ -88,7 +86,6 @@ public class MonthlyLogServiceImpl implements MonthlyLogService {
         List<EarningsByEmployee> earningsByEmployees = monthlyLogRepository.yearlyLogsForMonthByEmployee(yearMonth);
         return earningsByEmployees;
     }
-
 
 
     @Override

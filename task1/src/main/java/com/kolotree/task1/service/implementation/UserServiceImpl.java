@@ -82,7 +82,6 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public UserShowDto addUser(User user) {
         user.setActiveStatus(true);
