@@ -34,14 +34,17 @@ export class Vacations implements OnInit {
   }
 
   approveVacationRequest(vacationId: number) {
-    this.vacationService.approveVacationRequest(vacationId);
-    this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
-    this.getAllRequest();
+    this.vacationService.approveVacationRequest(vacationId).subscribe(() => {
+      this.snackBar.open('Vacation request approved', 'Close', { duration: 5000 });
+      this.getAllRequest();
+    });
   }
+  
 
   denyVacationRequest(vacationId: number) {
-    this.vacationService.denyVacationRequest(vacationId);
-    this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
-    this.getAllRequest();
+    this.vacationService.denyVacationRequest(vacationId).subscribe(() => {
+      this.snackBar.open('Vacation request denied', 'Close', { duration: 5000 });
+      this.getAllRequest();
+    });
   }
 }
