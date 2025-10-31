@@ -1,86 +1,157 @@
-<div style="background: var(--gray-900); padding: 2rem; margin-bottom: 2rem; border-radius: 8px">
-  <h2 style="color: white; margin: 0 0 1rem 0">Add Employee to Project</h2>
+<div style="display: flex; justify-content: center; padding: 2rem; margin-bottom: 2rem">
+  <div style="background: var(--gray-900); padding: 3rem; border-radius: 12px; width: 100%; max-width: 700px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1)">
+    <div style="text-align: center; margin-bottom: 2rem">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="margin: 0 auto 1rem; display: block">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <h2 style="color: white; margin: 0; font-size: 1.75rem">Assign an Employee to Project</h2>
+    </div>
 
-  <div style="background: white; border-radius: 8px; padding: 2rem">
-    <form
-      [formGroup]="addEmployeeToProjectForm"
-      (ngSubmit)="addEmployee()"
-      style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 500px"
-    >
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Employee *</label>
-        <select
-          formControlName="userId"
-          required
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        >
-          <option value="" disabled>Select an employee</option>
-          @for (employee of userShowDtoList; track employee.id) {
-            <option [value]="employee.id">
-              {{ employee.firstName }} {{ employee.lastName }}
-            </option>
-          }
-        </select>
-        @if (isFieldInvalid('userId')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('userId') }}
-          </span>
-        }
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Project *</label>
-        <select
-          formControlName="projectId"
-          required
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        >
-          <option value="" disabled>Select a project</option>
-          @for (project of projectShowDtoList; track project.id) {
-            <option [value]="project.id">{{ project.projectName }}</option>
-          }
-        </select>
-        @if (isFieldInvalid('projectId')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('projectId') }}
-          </span>
-        }
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 0.5rem">
-        <label style="color: #333; font-weight: 500">Hourly Rate *</label>
-        <input
-          type="number"
-          formControlName="hourlyRate"
-          required
-          min="0"
-          step="0.01"
-          placeholder="Enter hourly rate"
-          style="padding: 0.75rem; border: 1px solid #e9ecef; border-radius: 4px; font-size: 1rem"
-        />
-        @if (isFieldInvalid('hourlyRate')) {
-          <span style="color: #dc3545; font-size: 0.875rem">
-            {{ getErrorMessage('hourlyRate') }}
-          </span>
-        }
-      </div>
-
-      <button
-        type="submit"
-        style="
-          color: white;
-          padding: 0.75rem 1.5rem;
-          border-radius: 4px;
-          background: var(--french-violet);
-          border: none;
-          cursor: pointer;
-          font-size: 1rem;
-          font-weight: 500;
-          margin-top: 1rem;
-        "
+    <div style="background: white; border-radius: 8px; padding: 2.5rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05)">
+      <form
+        [formGroup]="addEmployeeToProjectForm"
+        (ngSubmit)="addEmployee()"
+        style="display: flex; flex-direction: column; gap: 1.75rem"
       >
-        Add Employee to Project
-      </button>
-    </form>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem">Employee *</label>
+          <select
+            formControlName="userId"
+            required
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+              background: white;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          >
+            <option value="" disabled>Select an employee</option>
+            @for (employee of userShowDtoList; track employee.id) {
+              <option [value]="employee.id">
+                {{ employee.firstName }} {{ employee.lastName }}
+              </option>
+            }
+          </select>
+          @if (isFieldInvalid('userId')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('userId') }}
+            </span>
+          }
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem">Project *</label>
+          <select
+            formControlName="projectId"
+            required
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+              background: white;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          >
+            <option value="" disabled>Select a project</option>
+            @for (project of projectShowDtoList; track project.id) {
+              <option [value]="project.id">{{ project.projectName }}</option>
+            }
+          </select>
+          @if (isFieldInvalid('projectId')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('projectId') }}
+            </span>
+          }
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+          <label style="color: #333; font-weight: 600; font-size: 0.95rem">Hourly Rate *</label>
+          <input
+            type="number"
+            formControlName="hourlyRate"
+            required
+            min="0"
+            step="0.01"
+            placeholder="Enter hourly rate"
+            style="
+              padding: 0.875rem;
+              border: 2px solid #e9ecef;
+              border-radius: 6px;
+              font-size: 1rem;
+              transition: border-color 0.2s;
+              outline: none;
+            "
+            onmouseover="this.style.borderColor='var(--french-violet)'"
+            onmouseout="if(this !== document.activeElement) this.style.borderColor='#e9ecef'"
+            onfocus="this.style.borderColor='var(--french-violet)'"
+            onblur="this.style.borderColor='#e9ecef'"
+          />
+          @if (isFieldInvalid('hourlyRate')) {
+            <span style="color: #dc3545; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              {{ getErrorMessage('hourlyRate') }}
+            </span>
+          }
+        </div>
+
+        <div style="background: #f8f9fa; padding: 1rem; border-radius: 6px; border-left: 4px solid var(--french-violet)">
+          <p style="color: #666; margin: 0; font-size: 0.875rem; line-height: 1.5">
+            <strong style="color: #333">Note:</strong> All fields marked with * are required.
+          </p>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="!addEmployeeToProjectForm.valid"
+          style="
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            background: var(--french-violet);
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          "
+          onmouseover="if(!this.disabled) { this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.15)'; }"
+          onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(0, 0, 0, 0.1)';"
+        >
+          Add Employee to Project
+        </button>
+      </form>
+    </div>
   </div>
 </div>
