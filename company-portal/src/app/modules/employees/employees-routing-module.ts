@@ -5,7 +5,6 @@ import { EditEmployee } from './components/edit-employee/edit-employee';
 import { NewEmployee } from './components/new-employee/new-employee';
 import { adminGuard } from '../shared/guards/admin-guard';
 import { OneEmployee } from './components/one-employee/one-employee';
-import { userInfo } from 'os';
 import { employeeGuard } from '../shared/guards/employee-guard';
 
 const routes: Routes = [

@@ -1,6 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { VacationShowDto } from '../../vacation-dto/vacation-show-dto';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { VacationService } from '../../service/vacation-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './awaiting-response.html',
   styleUrl: './awaiting-response.scss',
 })
-export class AwaitingResponse {
+export class AwaitingResponse implements OnInit {
   vacationShowDtoList: VacationShowDto[] = [];
   private snackBar = inject(MatSnackBar);
 
@@ -26,7 +25,7 @@ export class AwaitingResponse {
     this.vacationService.getAwaitingResponse().subscribe((response) => {
       this.vacationShowDtoList = response;
 
-      for (let v of this.vacationShowDtoList) {
+      for (const v of this.vacationShowDtoList) {
         v.startDate = new Date(v.startDate);
         v.endDate = new Date(v.endDate);
       }

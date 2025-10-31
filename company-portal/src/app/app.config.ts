@@ -8,8 +8,7 @@ import {
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { credentialsInterceptor } from './modules/shared/interceptors/credentials-interceptor';
 import { AccountService } from './modules/shared/service/account-service';
 import { lastValueFrom } from 'rxjs';

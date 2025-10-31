@@ -13,7 +13,7 @@ import { ProjectService } from '../../../projects/service/project-service';
   templateUrl: './earnings-review.html',
   styleUrl: './earnings-review.scss'
 })
-export class EarningsReview {
+export class EarningsReview implements OnInit {
  protected monthlyLogService = inject(MonthlyLogService);
   protected projectService = inject(ProjectService);
   private snackBar = inject(MatSnackBar);

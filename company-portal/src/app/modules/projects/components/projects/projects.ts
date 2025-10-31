@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProjectService } from '../../service/project-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProjectShowDto } from '../../project-dto/ProjectShowDto';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './projects.html',
   styleUrls: ['./projects.scss'],
 })
-export class Projects {
+export class Projects implements OnInit {
   projectShowDtoList: ProjectShowDto[] = [];
 
   protected projectService = inject(ProjectService);

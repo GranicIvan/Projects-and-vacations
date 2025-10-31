@@ -4,10 +4,10 @@ import { ProjectService } from '../../service/project-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
-type EditProjectForm = {
+interface EditProjectForm {
   projectName: FormControl<string | undefined>;
   description: FormControl<string | undefined>;
-};
+}
 
 @Component({
   selector: 'app-edit-project',

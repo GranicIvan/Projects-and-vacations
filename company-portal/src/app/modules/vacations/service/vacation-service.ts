@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { VacationShowDto } from '../vacation-dto/vacation-show-dto';
 import { HttpClient } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
-import { response } from 'express';
 
 @Injectable({
   providedIn: 'root',

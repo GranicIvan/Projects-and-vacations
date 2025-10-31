@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { VacationShowDto } from '../../vacation-dto/vacation-show-dto';
 import { VacationService } from '../../service/vacation-service';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './vacations.html',
   styleUrl: './vacations.scss',
 })
-export class Vacations {
+export class Vacations implements OnInit {
   vacationShowDtoList: VacationShowDto[] = [];
 
   protected vacationService = inject(VacationService);
@@ -26,7 +26,7 @@ export class Vacations {
     this.vacationService.getAllVacations().subscribe((response) => {
       this.vacationShowDtoList = response;
 
-      for (let v of this.vacationShowDtoList) {
+      for (const v of this.vacationShowDtoList) {
         v.startDate = new Date(v.startDate);
         v.endDate = new Date(v.endDate);        
       }

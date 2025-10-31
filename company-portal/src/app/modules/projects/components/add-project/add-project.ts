@@ -5,15 +5,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { EmployeeService } from '../../../employees/service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ProjectService } from '../../service/project-service';
 
-type AddProjectForm = {
+interface AddProjectForm {
   projectName: FormControl<string>;
   description: FormControl<string>;
-};
+}
 
 @Component({
   selector: 'app-add-project',

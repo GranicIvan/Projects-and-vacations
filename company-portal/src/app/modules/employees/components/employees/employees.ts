@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { EmployeeService } from '../../service/employee-service';
 import { UserDto } from '../../employee-dto/UserDto';
 import { Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './employees.html',
   styleUrl: './employees.scss',
 })
-export class Employees {
+export class Employees implements OnInit {
   protected userService = inject(EmployeeService);
   router = inject(Router);
   private snackBar = inject(MatSnackBar);

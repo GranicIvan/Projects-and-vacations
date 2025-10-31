@@ -6,7 +6,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';

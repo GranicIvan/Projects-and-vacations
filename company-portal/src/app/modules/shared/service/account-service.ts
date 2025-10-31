@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { LoginDto } from '../../employees/employee-dto/LoginDto';
 import { UserDto } from '../../employees/employee-dto/UserDto';
 import { environment } from '../../../environments/environment';
@@ -20,7 +20,7 @@ export class AccountService {
   currentUser = signal<UserDto | null>(null);
 
   login(loginCreds: LoginDto) {
-    let response = this.http
+    const response = this.http
       .post<UserDto>(this.baseAuthUrl + 'login', loginCreds, { withCredentials: true })
       .pipe(
         tap(() => {

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -23,7 +23,7 @@ type AddEmployeeToProjectForm = FormGroup<{
   templateUrl: './add-employee-to-project.html',
   styleUrl: './add-employee-to-project.scss',
 })
-export class AddEmployeeToProject {
+export class AddEmployeeToProject implements OnInit {
   private fb = inject(NonNullableFormBuilder);
   protected projectsService = inject(ProjectService);
   private snackBar = inject(MatSnackBar);

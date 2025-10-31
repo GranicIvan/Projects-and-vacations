@@ -9,7 +9,6 @@ import {
 import { UserRole } from '../../../shared/shared-dto/UserRole';
 import { EmployeeService } from '../../service/employee-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CreateUserDto } from '../../employee-dto/CreateUserDto';
 

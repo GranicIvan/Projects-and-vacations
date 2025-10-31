@@ -1,7 +1,6 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../../service/employee-service';
-import { UserDto } from '../../employee-dto/UserDto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../../shared/service/account-service';
@@ -20,7 +19,7 @@ export class OneEmployee implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
-  id: number = -1;
+  id = -1;
   @Input() input: string | undefined;
 
   employee: DetailedUserDto | null = null;
