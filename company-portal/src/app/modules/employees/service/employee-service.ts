@@ -25,7 +25,10 @@ export class EmployeeService {
   }
 
   deleteUser(userId: number) {
-    return this.http.delete<void>(`${this.baseUrl}/${userId}`, { withCredentials: true });
+    return this.http.delete(`${this.baseUrl}/${userId}`, { 
+      withCredentials: true,
+      responseType: 'text'
+    });
   }
 
   updateEmployee(employee: Partial<UserDto>) {

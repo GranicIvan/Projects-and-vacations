@@ -57,7 +57,9 @@ export class NewEmployee {
   }) as NewEmployeeForm;
 
   createEmployee() {
+    
     this.newEmployeeForm.markAllAsTouched();
+
     if (this.newEmployeeForm.invalid) return;
 
     const formValue = this.newEmployeeForm.getRawValue();

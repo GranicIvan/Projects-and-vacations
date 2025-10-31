@@ -37,9 +37,17 @@ export class Employees implements OnInit {
   }
 
   deleteUser(userId: number) {
-    this.userService.deleteUser(userId).subscribe(() => {
-      this.getUsers();
+    this.userService.deleteUser(userId).subscribe({
+      next: () => {
+        this.getUsers();
+        this.snackBar.open('Employee deleted', 'Close', { duration: 5000 });      
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to delete employee', 'Close', { duration: 5000 });
+        this.getUsers();
+        console.error('Delete error:', error);
+      }
     });
-    this.snackBar.open('Employee deleted', 'Close', { duration: 5000 });
+    
   }
 }
