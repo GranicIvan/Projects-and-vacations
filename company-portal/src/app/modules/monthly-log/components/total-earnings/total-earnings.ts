@@ -43,7 +43,22 @@ export class TotalEarnings  {
       next: (earnings) => {
         this.yearlyEarnings = earnings;
 
-        console.log("Yearly Earnings:", this.yearlyEarnings);
+        const groupedEarnings = new Map<number, { hoursWorked: number, monthlyEarnings: number }>();
+
+        earnings.forEach(earning => {
+          const year = parseInt(earning.yearMonth.toString().split('-')[0]);
+          const existing = groupedEarnings.get(year) || { hoursWorked: 0, monthlyEarnings: 0 };
+          groupedEarnings.set(year, {
+            hoursWorked: existing.hoursWorked + earning.hoursWorked,
+            monthlyEarnings: existing.monthlyEarnings + earning.monthlyEarnings
+          });
+        });
+
+        this.yearlyEarnings = Array.from(groupedEarnings.entries()).map(([year, totals]) => ({
+          yearMonth: year.toString(),
+          hoursWorked: totals.hoursWorked,
+          monthlyEarnings: totals.monthlyEarnings
+        }));    
         
         this.snackBar.open('Yearly earnings loaded successfully', 'Close', { duration: 3000 });
       },
