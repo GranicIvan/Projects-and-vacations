@@ -141,23 +141,7 @@
       }
     </div>
 
-    <!-- Welcome Message -->
-    <div style="background: white; border-radius: 8px; padding: 2rem; margin-top: 1.5rem">
-      <h2 style="color: #333; margin: 0 0 1rem 0; font-size: 1.5rem">
-        @if (accountService.isAdmin()) {
-          Admin Dashboard
-        } @else {
-          Employee Portal
-        }
-      </h2>
-      <p style="color: #666; line-height: 1.6; margin: 0">
-        @if (accountService.isAdmin()) {
-          Manage employees, projects, and vacation requests. View reports and analytics to keep track of company operations.
-        } @else {
-          Track your work hours, manage vacation requests, and view your account information. Use the navigation menu above to access all features.
-        }
-      </p>
-    </div>
+
 
   } @else {
     <!-- Not Logged In State -->
@@ -173,7 +157,7 @@
           </svg>
         </div>
         <h2 style="color: #333; margin: 0 0 1rem 0">Account Login Required</h2>
-        <p style="color: #666; margin: 0">Use the login form in the navigation bar above to access your account and start managing your work.</p>
+        <p style="color: #666; margin: 0">Use the login form in the navigation bar above.</p>
       </div>
     </div>
   }
