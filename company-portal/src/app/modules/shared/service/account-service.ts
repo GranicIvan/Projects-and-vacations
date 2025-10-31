@@ -42,7 +42,7 @@ export class AccountService {
     return response;
     
   }loadCurrentUserDetailed() {
-    const response = this.http.get<DetailedUserDto>(this.baseUserUrl + 'me', { withCredentials: true });
+    const response = this.http.get<DetailedUserDto>(this.baseUserUrl + 'meWithProjects', { withCredentials: true });
     return response;
   }
 
