@@ -5,14 +5,13 @@ import { MonthlyLogService } from '../../service/monthly-log-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { YearlyEarnings } from '../../monthly-log-dto/yearly-earnings';
 
-
 @Component({
   selector: 'app-total-earnings',
   imports: [CommonModule, FormsModule],
   templateUrl: './total-earnings.html',
-  styleUrl: './total-earnings.scss'
+  styleUrl: './total-earnings.scss',
 })
-export class TotalEarnings  {
+export class TotalEarnings {
   protected monthlyLogService = inject(MonthlyLogService);
   private snackBar = inject(MatSnackBar);
 
@@ -26,8 +25,6 @@ export class TotalEarnings  {
     this.endYear = currentYear;
   }
 
-
-
   loadYearlyEarnings() {
     if (!this.startYear || !this.endYear) {
       this.snackBar.open('Please enter both start and end year', 'Close', { duration: 3000 });
@@ -35,7 +32,9 @@ export class TotalEarnings  {
     }
 
     if (this.startYear > this.endYear) {
-      this.snackBar.open('Start year must be before or equal to end year', 'Close', { duration: 3000 });
+      this.snackBar.open('Start year must be before or equal to end year', 'Close', {
+        duration: 3000,
+      });
       return;
     }
 
@@ -43,30 +42,30 @@ export class TotalEarnings  {
       next: (earnings) => {
         this.yearlyEarnings = earnings;
 
-        const groupedEarnings = new Map<number, { hoursWorked: number, monthlyEarnings: number }>();
+        const groupedEarnings = new Map<number, { hoursWorked: number; monthlyEarnings: number }>();
 
-        earnings.forEach(earning => {
+        earnings.forEach((earning) => {
           const year = parseInt(earning.yearMonth.toString().split('-')[0]);
           const existing = groupedEarnings.get(year) || { hoursWorked: 0, monthlyEarnings: 0 };
           groupedEarnings.set(year, {
             hoursWorked: existing.hoursWorked + earning.hoursWorked,
-            monthlyEarnings: existing.monthlyEarnings + earning.monthlyEarnings
+            monthlyEarnings: existing.monthlyEarnings + earning.monthlyEarnings,
           });
         });
 
         this.yearlyEarnings = Array.from(groupedEarnings.entries()).map(([year, totals]) => ({
           yearMonth: year.toString(),
           hoursWorked: totals.hoursWorked,
-          monthlyEarnings: totals.monthlyEarnings
-        }));    
-        
+          monthlyEarnings: totals.monthlyEarnings,
+        }));
+
         this.snackBar.open('Yearly earnings loaded successfully', 'Close', { duration: 3000 });
       },
       error: (err) => {
         this.snackBar.open(`Error loading yearly earnings: ${err.message}`, 'Close', {
           duration: 5000,
         });
-      }
+      },
     });
   }
 
